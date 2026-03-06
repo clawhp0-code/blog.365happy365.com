@@ -39,7 +39,7 @@ export function getAllCategories(): { name: string; count: number; slug: string 
     categoryMap.set(post.category, count + 1);
   });
   return Array.from(categoryMap.entries())
-    .map(([name, count]) => ({ name, count, slug: encodeURIComponent(name) }))
+    .map(([name, count]) => ({ name, count, slug: name }))
     .sort((a, b) => b.count - a.count);
 }
 
@@ -52,7 +52,7 @@ export function getAllTags(): { name: string; count: number; slug: string }[] {
     });
   });
   return Array.from(tagMap.entries())
-    .map(([name, count]) => ({ name, count, slug: encodeURIComponent(name) }))
+    .map(([name, count]) => ({ name, count, slug: name }))
     .sort((a, b) => b.count - a.count);
 }
 
