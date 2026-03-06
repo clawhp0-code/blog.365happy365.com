@@ -10,6 +10,7 @@
     "new-post": "node scripts/new-post.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "@emotion/is-prop-valid": "^1.4.0",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
