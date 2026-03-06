@@ -5,6 +5,9 @@ on:
     - cron: '0 15 * * 1-5'  # 평일 자정 KST (= 15:00 UTC), 주말 제외
   workflow_dispatch:          # 수동 실행 가능
 
+permissions:
+  contents: write
+
 jobs:
   generate-post:
     runs-on: ubuntu-latest
