@@ -9,9 +9,40 @@
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    if (window.CMS) {
-      window.CMS.init({ config: { load_config_file: true, config_url: "/admin/config.yml" } });
-    }
+    CMS.init({
+      config: {
+        load_config_file: false,
+        backend: {
+          name: "github",
+          repo: "clawhp0-code/blog.365happy365.com",
+          branch: "main"
+        },
+        media_folder: "public/images/posts",
+        public_folder: "/images/posts",
+        collections: [
+          {
+            name: "posts",
+            label: "Blog Posts",
+            folder: "content/posts",
+            create: true,
+            slug: "{{slug}}",
+            extension: "mdx",
+            format: "frontmatter",
+            fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+              { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" },
+              { label: "Category", name: "category", widget: "string" },
+              { label: "Tags", name: "tags", widget: "list", default: [] },
+              { label: "Featured", name: "featured", widget: "boolean", default: false },
+              { label: "Draft", name: "draft", widget: "boolean", default: false },
+              { label: "Cover Image", name: "coverImage", widget: "image", required: false },
+              { label: "Body", name: "body", widget: "markdown" }
+            ]
+          }
+        ]
+      }
+    });
   </script>
 </body>
 </html>
