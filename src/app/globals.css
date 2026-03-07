@@ -1,10 +1,12 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquareRound/master/nanumsquareround.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #fefdfb;
-  --foreground: #1a1a1a;
+  --background: #F8F5EE;
+  --foreground: #333333;
 }
 
 body {

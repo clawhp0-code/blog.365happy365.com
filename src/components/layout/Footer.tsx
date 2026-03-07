@@ -1,57 +1,29 @@
 import Link from "next/link";
-import { Sun, Rss, Github } from "lucide-react";
+import { Rss } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-cream-200 bg-cream-100 mt-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2 font-serif font-bold text-lg text-ink-800">
-            <Sun className="w-5 h-5 text-sunny-500" />
-            365happy365
-          </div>
-
-          <p className="text-sm text-ink-500 text-center">
+    <footer className="border-t border-[#E8E2D9] mt-16">
+      <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="font-heading font-bold text-base text-[#4A3728]">
+            365 Happy 365
+          </span>
+          <p className="text-sm text-[#888888] text-center">
             세상의 모든 궁금한 것들을 탐구합니다
           </p>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/feed.xml"
-              className="text-ink-400 hover:text-sunny-500 transition-colors"
-              aria-label="RSS 피드"
-            >
-              <Rss className="w-5 h-5" />
-            </Link>
-            <Link
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-ink-400 hover:text-ink-700 transition-colors"
-              aria-label="GitHub"
-            >
-              <Github className="w-5 h-5" />
-            </Link>
-          </div>
+          <Link
+            href="/feed.xml"
+            className="text-[#AAAAAA] hover:text-[#607D8B] transition-colors"
+            aria-label="RSS 피드"
+          >
+            <Rss className="w-5 h-5" />
+          </Link>
         </div>
-
-        <div className="mt-6 pt-6 border-t border-cream-200">
-          <div className="flex flex-wrap justify-center gap-4 mb-4 text-xs">
-            <Link href="/about" className="text-ink-500 hover:text-sunny-500 transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="text-ink-500 hover:text-sunny-500 transition-colors">
-              Contact
-            </Link>
-            <Link href="/privacy" className="text-ink-500 hover:text-sunny-500 transition-colors">
-              Privacy Policy
-            </Link>
-          </div>
-          <div className="text-center text-xs text-ink-400">
-            © {currentYear} 365happy365. All rights reserved.
-          </div>
+        <div className="mt-6 pt-4 border-t border-[#E8E2D9] text-center text-xs text-[#AAAAAA]">
+          &copy; {currentYear} 365 Happy 365. All rights reserved.
         </div>
       </div>
     </footer>

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Lora, Fira_Code } from "next/font/google";
+import { Noto_Sans_KR, Lora, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
-const inter = Inter({
+const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-noto-sans-kr",
   display: "swap",
 });
 
@@ -66,8 +66,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${inter.variable} ${lora.variable} ${firaCode.variable}`}>
-      <body className="antialiased bg-cream-50 text-ink-900 font-sans min-h-screen flex flex-col">
+    <html lang="ko" className={`${notoSansKR.variable} ${lora.variable} ${firaCode.variable}`}>
+      <body className="antialiased bg-[#F8F5EE] text-[#333333] font-sans min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

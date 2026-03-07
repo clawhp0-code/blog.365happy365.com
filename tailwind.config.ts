@@ -56,7 +56,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-noto-sans-kr)", "'Noto Sans KR'", "system-ui", "sans-serif"],
+        heading: ["'NanumSquareRound'", "var(--font-noto-sans-kr)", "sans-serif"],
         serif: ["var(--font-lora)", "Georgia", "serif"],
         mono: ["var(--font-fira-code)", "Menlo", "monospace"],
       },

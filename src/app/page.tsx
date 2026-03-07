@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <Container className="py-4">
+      <Container className="py-6 max-w-[960px]">
         <FeaturedPosts posts={featuredPosts} />
         <RecentPosts posts={recentPosts} />
       </Container>
