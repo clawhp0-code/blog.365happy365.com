@@ -1,15 +1,11 @@
-import { Redis } from "@upstash/redis";
+import Redis from "ioredis";
 import { NextResponse } from "next/server";
 
 function getRedis() {
-  const url = process.env.KV_REDIS_URL || "";
-  // Parse rediss://default:TOKEN@HOST:PORT
-  const match = url.match(/rediss?:\/\/[^:]+:([^@]+)@([^:]+)/);
-  if (!match) throw new Error("Invalid KV_REDIS_URL");
-  const [, token, host] = match;
-  return new Redis({
-    url: `https://${host}`,
-    token,
+  return new Redis(process.env.KV_REDIS_URL || "", {
+    maxRetriesPerRequest: 1,
+    connectTimeout: 5000,
+    commandTimeout: 5000,
   });
 }
 
@@ -24,8 +20,9 @@ function getYesterday(): Date {
 }
 
 export async function GET() {
+  let redis: Redis | null = null;
   try {
-    const redis = getRedis();
+    redis = getRedis();
     const today = getDateKey(new Date());
     const yesterday = getDateKey(getYesterday());
 
@@ -36,7 +33,8 @@ export async function GET() {
 
     await redis.expire(`visitors:${today}`, 60 * 60 * 48);
 
-    const yesterdayCount = (await redis.get<number>(`visitors:${yesterday}`)) || 0;
+    const yesterdayRaw = await redis.get(`visitors:${yesterday}`);
+    const yesterdayCount = yesterdayRaw ? parseInt(yesterdayRaw, 10) : 0;
 
     return NextResponse.json({
       total,
@@ -48,5 +46,7 @@ export async function GET() {
       { total: 0, today: 0, yesterday: 0 },
       { status: 500 }
     );
+  } finally {
+    if (redis) redis.disconnect();
   }
 }
