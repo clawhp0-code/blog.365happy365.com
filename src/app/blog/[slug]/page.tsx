@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { TOC } from "@/components/blog/TOC";
 import { ScrollProgress } from "@/components/blog/ScrollProgress";
+import { PostActions } from "@/components/blog/PostActions";
 import { NewsletterForm } from "@/components/blog/NewsletterForm";
 import { mdxComponents } from "@/components/mdx/MDXComponents";
 import { formatDate } from "@/lib/utils";
@@ -159,6 +160,12 @@ function PostContent({ slug }: { slug: string }) {
             <div className="prose prose-warm max-w-none font-serif">
               <MDXContent components={mdxComponents} />
             </div>
+
+            <PostActions
+              slug={slug}
+              title={post.title}
+              url={`${siteUrl}${post.url}`}
+            />
 
             <NewsletterForm />
           </article>
