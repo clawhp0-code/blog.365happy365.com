@@ -22,30 +22,41 @@ export async function GET(req: NextRequest) {
 
   const data = await tokenRes.json();
 
-  const message = data.error
-    ? JSON.stringify({
-        provider: "github",
-        status: "error",
-        error: data.error_description || data.error,
-      })
-    : JSON.stringify({
-        provider: "github",
-        status: "success",
-        token: data.access_token,
-      });
+  const token = data.access_token || "";
+  const error = data.error_description || data.error || "";
 
-  const html = `<!doctype html><html><body><script>
+  const html = `<!doctype html>
+<html><head><title>Auth</title></head><body>
+<p id="msg">Completing authentication...</p>
+<script>
 (function() {
-  var msg = ${message};
-  var status = msg.status;
-  delete msg.status;
-  window.opener.postMessage(
-    "authorization:github:" + status + ":" + JSON.stringify(msg),
-    "*"
-  );
-  window.close();
+  var token = "${token}";
+  var error = "${error}";
+
+  function sendMessage() {
+    var opener = window.opener;
+    if (!opener) {
+      document.getElementById("msg").innerText = "Auth popup lost connection. Please close this window and try again.";
+      return;
+    }
+    if (token) {
+      opener.postMessage(
+        "authorization:github:success:" + JSON.stringify({token: token, provider: "github"}),
+        "*"
+      );
+    } else {
+      opener.postMessage(
+        "authorization:github:error:" + JSON.stringify({error: error}),
+        "*"
+      );
+    }
+    setTimeout(function() { window.close(); }, 500);
+  }
+
+  sendMessage();
 })();
-</script></body></html>`;
+</script>
+</body></html>`;
 
   return new NextResponse(html, {
     headers: { "Content-Type": "text/html" },
