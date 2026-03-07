@@ -19,10 +19,10 @@ export default function ContactPage() {
             <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
               <p className="text-gray-600 mb-2">이메일:</p>
               <a
-                href="mailto:contact@blog.365happy365.com"
+                href="mailto:blog@365happy365.com"
                 className="text-amber-600 hover:text-amber-700 font-medium text-lg break-all"
               >
-                contact@blog.365happy365.com
+                blog@365happy365.com
               </a>
             </div>
           </section>
