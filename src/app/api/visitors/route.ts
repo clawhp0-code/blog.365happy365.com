@@ -1,8 +1,20 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 
+function getRedis() {
+  const url = process.env.KV_REDIS_URL || "";
+  // Parse rediss://default:TOKEN@HOST:PORT
+  const match = url.match(/rediss?:\/\/[^:]+:([^@]+)@([^:]+)/);
+  if (!match) throw new Error("Invalid KV_REDIS_URL");
+  const [, token, host] = match;
+  return new Redis({
+    url: `https://${host}`,
+    token,
+  });
+}
+
 function getDateKey(date: Date): string {
-  return date.toISOString().split("T")[0]; // YYYY-MM-DD
+  return date.toISOString().split("T")[0];
 }
 
 function getYesterday(): Date {
@@ -13,20 +25,18 @@ function getYesterday(): Date {
 
 export async function GET() {
   try {
+    const redis = getRedis();
     const today = getDateKey(new Date());
     const yesterday = getDateKey(getYesterday());
 
-    // Increment total and today's count
     const [total, todayCount] = await Promise.all([
-      kv.incr("visitors:total"),
-      kv.incr(`visitors:${today}`),
+      redis.incr("visitors:total"),
+      redis.incr(`visitors:${today}`),
     ]);
 
-    // Set expiry for daily keys (48 hours to keep yesterday available)
-    await kv.expire(`visitors:${today}`, 60 * 60 * 48);
+    await redis.expire(`visitors:${today}`, 60 * 60 * 48);
 
-    // Get yesterday's count
-    const yesterdayCount = (await kv.get<number>(`visitors:${yesterday}`)) || 0;
+    const yesterdayCount = (await redis.get<number>(`visitors:${yesterday}`)) || 0;
 
     return NextResponse.json({
       total,
