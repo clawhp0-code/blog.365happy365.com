@@ -4,9 +4,9 @@ export async function GET(req: NextRequest) {
   const scope = req.nextUrl.searchParams.get("scope") || "repo,user";
 
   const params = new URLSearchParams({
-    client_id: process.env.GITHUB_OAUTH_CLIENT_ID!,
+    client_id: (process.env.GITHUB_OAUTH_CLIENT_ID || "").trim(),
     scope,
-    redirect_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/callback`,
+    redirect_uri: `${(process.env.NEXT_PUBLIC_SITE_URL || "").trim()}/api/callback`,
   });
 
   return NextResponse.redirect(
