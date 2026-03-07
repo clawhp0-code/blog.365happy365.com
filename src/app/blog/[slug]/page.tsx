@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { TOC } from "@/components/blog/TOC";
 import { ScrollProgress } from "@/components/blog/ScrollProgress";
+import { NewsletterForm } from "@/components/blog/NewsletterForm";
 import { mdxComponents } from "@/components/mdx/MDXComponents";
 import { formatDate } from "@/lib/utils";
 import { getPostBySlug, getAllPosts } from "@/lib/posts";
@@ -69,9 +70,35 @@ function PostContent({ slug }: { slug: string }) {
 
   const MDXContent = useMDXComponent(post.body.code);
   const headings = extractHeadings(post.body.raw);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: "365happy365",
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "365happy365",
+      url: siteUrl,
+    },
+    url: `${siteUrl}${post.url}`,
+    ...(post.coverImage && { image: post.coverImage }),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ScrollProgress />
       <Container className="py-12">
         <Link
@@ -132,6 +159,8 @@ function PostContent({ slug }: { slug: string }) {
             <div className="prose prose-warm max-w-none font-serif">
               <MDXContent components={mdxComponents} />
             </div>
+
+            <NewsletterForm />
           </article>
 
           <TOC headings={headings} />
