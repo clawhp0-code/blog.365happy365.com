@@ -33,27 +33,25 @@ export async function GET(req: NextRequest) {
   var token = "${token}";
   var error = "${error}";
 
-  function sendMessage() {
-    var opener = window.opener;
-    if (!opener) {
-      document.getElementById("msg").innerText = "Auth popup lost connection. Please close this window and try again.";
-      return;
-    }
+  function receiveMessage(e) {
+    console.log("receiveMessage", e);
+    if (!window.opener) return;
+
     if (token) {
-      opener.postMessage(
+      window.opener.postMessage(
         "authorization:github:success:" + JSON.stringify({token: token, provider: "github"}),
-        "*"
+        e.origin
       );
     } else {
-      opener.postMessage(
+      window.opener.postMessage(
         "authorization:github:error:" + JSON.stringify({error: error}),
-        "*"
+        e.origin
       );
     }
-    setTimeout(function() { window.close(); }, 500);
   }
 
-  sendMessage();
+  window.addEventListener("message", receiveMessage, false);
+  window.opener.postMessage("authorizing:github", "*");
 })();
 </script>
 </body></html>`;
