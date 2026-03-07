@@ -56,6 +56,25 @@ export function getAllTags(): { name: string; count: number; slug: string }[] {
     .sort((a, b) => b.count - a.count);
 }
 
+export function getArchives(): { label: string; count: number; year: number; month: number }[] {
+  const archiveMap = new Map<string, { count: number; year: number; month: number }>();
+  getAllPosts().forEach((post) => {
+    const d = new Date(post.date);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const key = `${year}/${String(month).padStart(2, "0")}`;
+    const existing = archiveMap.get(key);
+    if (existing) {
+      existing.count++;
+    } else {
+      archiveMap.set(key, { count: 1, year, month });
+    }
+  });
+  return Array.from(archiveMap.entries())
+    .map(([label, data]) => ({ label, ...data }))
+    .sort((a, b) => (b.year - a.year) || (b.month - a.month));
+}
+
 export function getPaginatedPosts(page: number, perPage = 10) {
   const posts = getAllPosts();
   const total = posts.length;

@@ -2,11 +2,18 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturedPosts } from "@/components/home/FeaturedPosts";
 import { RecentPosts } from "@/components/home/RecentPosts";
 import { VisitorCounter } from "@/components/ui/VisitorCounter";
-import { getFeaturedPosts, getRecentPosts } from "@/lib/posts";
+import { RecentPostsWidget } from "@/components/sidebar/RecentPostsWidget";
+import { TagCloudWidget } from "@/components/sidebar/TagCloudWidget";
+import { CalendarWidget } from "@/components/sidebar/CalendarWidget";
+import { ArchiveWidget } from "@/components/sidebar/ArchiveWidget";
+import { getFeaturedPosts, getRecentPosts, getAllTags, getArchives } from "@/lib/posts";
 
 export default function HomePage() {
   const featuredPosts = getFeaturedPosts(3);
   const recentPosts = getRecentPosts(6);
+  const sidebarRecentPosts = getRecentPosts(5);
+  const tags = getAllTags();
+  const archives = getArchives();
 
   return (
     <>
@@ -21,8 +28,12 @@ export default function HomePage() {
 
           {/* Sidebar */}
           <aside className="w-full lg:w-56 shrink-0">
-            <div className="lg:sticky lg:top-20">
+            <div className="lg:sticky lg:top-20 space-y-4">
               <VisitorCounter />
+              <RecentPostsWidget posts={sidebarRecentPosts} />
+              <TagCloudWidget tags={tags} />
+              <CalendarWidget />
+              <ArchiveWidget archives={archives} />
             </div>
           </aside>
         </div>
