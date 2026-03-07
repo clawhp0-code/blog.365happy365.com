@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { TOC } from "@/components/blog/TOC";
 import { ScrollProgress } from "@/components/blog/ScrollProgress";
 import { PostActions } from "@/components/blog/PostActions";
+import { CommentsSection } from "@/components/blog/CommentsSection";
 import { NewsletterForm } from "@/components/blog/NewsletterForm";
 import { mdxComponents } from "@/components/mdx/MDXComponents";
 import { formatDate } from "@/lib/utils";
@@ -166,6 +167,8 @@ function PostContent({ slug }: { slug: string }) {
               title={post.title}
               url={`${siteUrl}${post.url}`}
             />
+
+            <CommentsSection slug={slug} />
 
             <NewsletterForm />
           </article>
