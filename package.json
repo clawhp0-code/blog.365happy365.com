@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "new-post": "node scripts/new-post.mjs",
-    "bitcoin-daily": "node scripts/bitcoin-daily.mjs"
+    "bitcoin-daily": "node scripts/bitcoin-daily.mjs",
+    "ai-news-daily": "node scripts/ai-news-daily.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

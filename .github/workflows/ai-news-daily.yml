@@ -1,0 +1,49 @@
+name: Daily AI News Post
+
+on:
+  schedule:
+    # 매일 오전 7시 5분 (UTC+9 한국 시간 기준, UTC 22:05)
+    - cron: "5 22 * * *"
+  workflow_dispatch: # 수동 트리거 옵션
+
+jobs:
+  generate-ai-news-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate AI news post
+        run: node scripts/ai-news-daily.mjs
+        env:
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+
+      - name: Check for changes
+        id: git-status
+        run: |
+          if git diff --quiet; then
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.git-status.outputs.has-changes == 'true'
+        run: |
+          git config user.name "ai-news-bot"
+          git config user.email "ai-news-bot@blog.365happy365.com"
+          git add content/posts/ai-news-*.mdx public/ai-news-icon.svg
+          git commit -m "📰 publish: daily AI news post"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

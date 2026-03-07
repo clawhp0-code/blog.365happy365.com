@@ -1,0 +1,30 @@
+<svg width="300" height="150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="300" height="150" fill="#f0f9ff"/>
+
+  <!-- Brain icon (stylized) -->
+  <circle cx="80" cy="75" r="35" fill="url(#aiGradient)"/>
+  <circle cx="60" cy="55" r="8" fill="#ffffff"/>
+  <circle cx="100" cy="55" r="8" fill="#ffffff"/>
+  <circle cx="70" cy="85" r="6" fill="#ffffff"/>
+  <circle cx="90" cy="85" r="6" fill="#ffffff"/>
+  <circle cx="80" cy="100" r="5" fill="#ffffff"/>
+
+  <!-- Text -->
+  <text x="150" y="60" font-size="24" font-weight="bold" fill="#1e293b">
+    AI NEWS
+  </text>
+  <text x="150" y="90" font-size="14" fill="#64748b">
+    Daily Update
+  </text>
+
+  <!-- Accent line -->
+  <line x1="150" y1="100" x2="290" y2="100" stroke="#3b82f6" stroke-width="2"/>
+</svg>
