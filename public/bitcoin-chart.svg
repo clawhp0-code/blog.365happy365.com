@@ -1,14 +1,14 @@
 <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
   <rect width="400" height="200" fill="#f9fafb"/>
   <text x="20" y="40" font-size="32" font-weight="bold" fill="#1f2937">
-    📉 $67,917
+    📉 $67,280
   </text>
   <text x="20" y="80" font-size="20" fill="#ef4444" font-weight="bold">
-    -0.01%
+    -0.00%
   </text>
   <text x="20" y="120" font-size="14" fill="#6b7280">
     24시간 변동률
   </text>
   <rect x="20" y="140" width="360" height="4" fill="#e5e7eb" rx="2"/>
-  <rect x="20" y="140" width="0.07200000000000001" height="4" fill="#ef4444" rx="2"/>
+  <rect x="20" y="140" width="0" height="4" fill="#ef4444" rx="2"/>
 </svg>
