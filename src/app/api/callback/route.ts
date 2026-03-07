@@ -14,24 +14,34 @@ export async function GET(req: NextRequest) {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      client_id: process.env.GITHUB_OAUTH_CLIENT_ID,
-      client_secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
+      client_id: (process.env.GITHUB_OAUTH_CLIENT_ID || "").trim(),
+      client_secret: (process.env.GITHUB_OAUTH_CLIENT_SECRET || "").trim(),
       code,
     }),
   });
 
   const data = await tokenRes.json();
 
-  const status = data.error ? "error" : "success";
-  const content = data.error
-    ? JSON.stringify({ error: data.error_description })
-    : JSON.stringify({ provider: "github", token: data.access_token });
+  const message = data.error
+    ? JSON.stringify({
+        provider: "github",
+        status: "error",
+        error: data.error_description || data.error,
+      })
+    : JSON.stringify({
+        provider: "github",
+        status: "success",
+        token: data.access_token,
+      });
 
   const html = `<!doctype html><html><body><script>
 (function() {
+  var msg = ${message};
+  var status = msg.status;
+  delete msg.status;
   window.opener.postMessage(
-    "authorization:github:${status}:${content}",
-    window.location.origin
+    "authorization:github:" + status + ":" + JSON.stringify(msg),
+    "*"
   );
   window.close();
 })();
