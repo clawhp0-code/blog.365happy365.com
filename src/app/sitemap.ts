@@ -48,6 +48,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${siteUrl}/privacy`,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${siteUrl}/contact`,
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
     ...postEntries,
     ...categoryEntries,
     ...tagEntries,

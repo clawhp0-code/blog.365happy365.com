@@ -37,8 +37,21 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 pt-6 border-t border-cream-200 text-center text-xs text-ink-400">
-          © {currentYear} 365happy365. All rights reserved.
+        <div className="mt-6 pt-6 border-t border-cream-200">
+          <div className="flex flex-wrap justify-center gap-4 mb-4 text-xs">
+            <Link href="/about" className="text-ink-500 hover:text-sunny-500 transition-colors">
+              About
+            </Link>
+            <Link href="/contact" className="text-ink-500 hover:text-sunny-500 transition-colors">
+              Contact
+            </Link>
+            <Link href="/privacy" className="text-ink-500 hover:text-sunny-500 transition-colors">
+              Privacy Policy
+            </Link>
+          </div>
+          <div className="text-center text-xs text-ink-400">
+            © {currentYear} 365happy365. All rights reserved.
+          </div>
         </div>
       </div>
     </footer>
