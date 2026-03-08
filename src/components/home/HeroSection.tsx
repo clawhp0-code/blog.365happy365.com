@@ -12,7 +12,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <h1 className="font-heading font-extrabold text-3xl md:text-4xl text-[#4A3728] mb-3">
-            365 Happy 365
+            blog.365happy365.com
           </h1>
           <p className="text-base md:text-lg text-[#888888]">
             세상의 모든 궁금한 것들을 탐구하는 블로그
