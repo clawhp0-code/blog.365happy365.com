@@ -4,17 +4,17 @@ import { cn } from "@/lib/utils";
 import { Callout } from "./Callout";
 
 export const mdxComponents = {
-  h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className={cn("font-serif font-bold text-3xl mt-8 mb-4 text-ink-900", className)} {...props} />
+  h1: ({ className, id, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h1 id={id} className={cn("font-serif font-bold text-3xl mt-8 mb-4 text-ink-900", className)} {...props} />
   ),
-  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className={cn("font-serif font-bold text-2xl mt-8 mb-3 text-ink-900 border-b border-cream-200 pb-2", className)} {...props} />
+  h2: ({ className, id, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h2 id={id} className={cn("font-serif font-bold text-2xl mt-8 mb-3 text-ink-900 border-b border-cream-200 pb-2", className)} {...props} />
   ),
-  h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className={cn("font-serif font-semibold text-xl mt-6 mb-2 text-ink-800", className)} {...props} />
+  h3: ({ className, id, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h3 id={id} className={cn("font-serif font-semibold text-xl mt-6 mb-2 text-ink-800", className)} {...props} />
   ),
-  h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h4 className={cn("font-serif font-semibold text-lg mt-4 mb-2 text-ink-800", className)} {...props} />
+  h4: ({ className, id, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h4 id={id} className={cn("font-serif font-semibold text-lg mt-4 mb-2 text-ink-800", className)} {...props} />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p className={cn("leading-7 mb-4 text-ink-700", className)} {...props} />

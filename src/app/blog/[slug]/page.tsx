@@ -57,10 +57,11 @@ function extractHeadings(raw: string) {
   let match;
   while ((match = headingRegex.exec(raw)) !== null) {
     const text = match[2].trim();
+    // Generate slug ID similar to rehype-slug: keep alphanumeric (including Korean/CJK), replace spaces with hyphens
     const id = text
       .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-");
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-\u4E00-\u9FFF\u3040-\u309F\uAC00-\uD7AF]/gu, "");
     headings.push({ id, text, level: match[1].length });
   }
   return headings;
