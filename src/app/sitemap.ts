@@ -16,13 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const categoryEntries: MetadataRoute.Sitemap = categories.map((cat) => ({
-    url: `${siteUrl}/categories/${cat.slug}`,
+    url: `${siteUrl}/categories/${encodeURIComponent(cat.slug)}`,
     changeFrequency: "weekly",
     priority: 0.5,
   }));
 
   const tagEntries: MetadataRoute.Sitemap = tags.map((tag) => ({
-    url: `${siteUrl}/tags/${tag.slug}`,
+    url: `${siteUrl}/tags/${encodeURIComponent(tag.slug)}`,
     changeFrequency: "weekly",
     priority: 0.4,
   }));
