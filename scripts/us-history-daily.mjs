@@ -78,6 +78,10 @@ async function generatePost() {
   "description": "한국어 요약 1~2문장",
   "tags": ["태그1", "태그2", "태그3"],
   "imageQueries": ["English Wikipedia search query 1", "English Wikipedia search query 2"],
+  "relatedWorks": [
+    { "title": "링컨 (Lincoln)", "year": 2012, "type": "영화" },
+    { "title": "Roots", "year": 1977, "type": "드라마" }
+  ],
   "content": "마크다운 형식 본문"
 }
 \`\`\`
@@ -90,13 +94,13 @@ async function generatePost() {
 - description: 한국어 1~2문장 요약
 - tags: 관련 주제 3개 태그 (한국어 가능)
 - imageQueries: 영문 Wikipedia 검색어 2개
+- relatedWorks: 이 사건/인물과 관련된 영화, 드라마, 다큐멘터리 2~3편의 배열. 각 항목은 { "title": "한국제목 (원제)", "year": 개봉연도, "type": "영화|드라마|다큐" } 형식
 - content: 마크다운 형식으로 작성
   - ## 소제목으로 구조화
-  - 흐름: 훅(흥미로운 오프닝) → 역사 배경 → 사건 전개 → 의미·영향 → 문화 영향 → 여운 있는 마무리
-  - [IMAGE_1]: 역사 배경 섹션 직후 삽입
-  - [IMAGE_2]: 의미·영향 섹션 근처 삽입
+  - 흐름: 훅(흥미로운 오프닝) → 역사 배경 [IMAGE_1] → 사건 전개 → 의미·영향 [IMAGE_2] → 🎬 영화·드라마 속 이 역사 → 여운 있는 마무리
+  - "🎬 영화·드라마 속 이 역사" 섹션에서 relatedWorks의 작품들을 언급하고, 어떤 장면이나 스토리가 이 역사와 연결되는지 설명. 작품이 실제 역사와 다른 점(픽션 요소)이 있다면 간략히 언급
   - 친근하고 매력적인 문체
-  - 마크다운만 작성, 1000~1500자`;
+  - 마크다운만 작성, 1200~1800자`;
 
   const message = await client.messages.create({
     model: 'claude-sonnet-4-6',
@@ -183,6 +187,17 @@ async function main() {
     .map((t) => `"${t}"`)
     .join(', ');
 
+  // Generate relatedWorks YAML
+  let relatedWorksStr = '';
+  if (postData.relatedWorks && Array.isArray(postData.relatedWorks) && postData.relatedWorks.length > 0) {
+    relatedWorksStr = 'relatedWorks:\n';
+    postData.relatedWorks.forEach((work) => {
+      relatedWorksStr += `  - title: "${work.title}"\n`;
+      relatedWorksStr += `    year: ${work.year}\n`;
+      relatedWorksStr += `    type: "${work.type}"\n`;
+    });
+  }
+
   const frontmatter = `---
 title: "${postData.title}"
 description: "${postData.description}"
@@ -191,7 +206,7 @@ category: "미국역사"
 tags: [${tagsStr}]
 featured: false
 ${img1 ? `coverImage: "${img1}"` : 'coverImage: ""'}
----
+${relatedWorksStr}---
 
 `;
 
