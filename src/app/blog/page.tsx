@@ -21,7 +21,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <Container className="py-12">
       <div className="mb-10">
-        <h1 className="font-serif font-bold text-4xl text-ink-900 mb-3">블로그</h1>
+        <h1 className="font-serif font-bold text-4xl text-ink-900 mb-3">blog.365happy365.com</h1>
         <p className="text-ink-500">세상의 모든 궁금한 것들을 탐구합니다</p>
       </div>
 
