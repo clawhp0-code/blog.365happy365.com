@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SearchModal } from "@/components/search/SearchModal";
 
 const navLinks = [
   { href: "/blog", label: "블로그" },
@@ -15,6 +16,20 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Handle Cmd+K / Ctrl+K to open search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#E8E2D9]">
@@ -39,15 +54,31 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-md text-[#555555] hover:text-[#333333] hover:bg-[#F8F5EE] transition-colors"
+              aria-label="검색 열기"
+            >
+              <Search className="w-5 h-5" />
+            </button>
           </nav>
 
-          <button
-            className="sm:hidden p-2 rounded-md text-[#555555] hover:text-[#333333] hover:bg-[#F8F5EE]"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="메뉴 열기"
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="sm:hidden flex items-center gap-2">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-md text-[#555555] hover:text-[#333333] hover:bg-[#F8F5EE] transition-colors"
+              aria-label="검색 열기"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              className="p-2 rounded-md text-[#555555] hover:text-[#333333] hover:bg-[#F8F5EE]"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="메뉴 열기"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {mobileOpen && (
@@ -70,6 +101,7 @@ export function Navbar() {
           </nav>
         )}
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 }
