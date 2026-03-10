@@ -182,10 +182,13 @@ async function main() {
   );
   body = body.replace('[IMAGE_2]', img2 ? `\n![관련 이미지](${img2})\n` : '');
 
-  // Generate frontmatter
+  // Generate frontmatter with time
   const tagsStr = postData.tags
     .map((t) => `"${t}"`)
     .join(', ');
+
+  // Middle East runs at 12:00 KST (noon)
+  const dateWithTime = `${dateStr}T12:00:00`;
 
   // Generate relatedWorks YAML
   let relatedWorksStr = '';
@@ -201,7 +204,7 @@ async function main() {
   const frontmatter = `---
 title: "${postData.title}"
 description: "${postData.description}"
-date: ${dateStr}
+date: ${dateWithTime}
 category: "중동"
 tags: [${tagsStr}]
 featured: false

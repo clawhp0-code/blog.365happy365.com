@@ -204,15 +204,18 @@ async function main() {
   // Use content as-is (no image replacement needed for financial posts)
   const body = postData.content;
 
-  // Generate frontmatter
+  // Generate frontmatter with time
   const tagsStr = postData.tags
     .map((t) => `"${t}"`)
     .join(', ');
 
+  // Stock market runs at 18:00 KST
+  const dateWithTime = `${dateStr}T18:00:00`;
+
   const frontmatter = `---
 title: "${postData.title}"
 description: "${postData.description}"
-date: ${dateStr}
+date: ${dateWithTime}
 category: "경제분석"
 tags: [${tagsStr}]
 featured: false

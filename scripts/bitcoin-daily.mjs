@@ -162,10 +162,13 @@ ${news
   .join("\n\n")}`
       : "## 뉴스\n최근 주요 뉴스를 불러올 수 없습니다.";
 
+  // Add time to date (17:00 KST)
+  const dateWithTime = `${dateStr}T17:00:00`;
+
   const mdxContent = `---
 title: "비트코인 시세 ${dateStr}"
 description: "비트코인 일일 시세 및 뉴스 리포트"
-date: ${dateStr}
+date: ${dateWithTime}
 category: "크립토"
 tags: ["비트코인", "암호화폐", "시세"]
 featured: false

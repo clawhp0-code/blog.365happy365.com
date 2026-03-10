@@ -192,15 +192,19 @@ async function main() {
   );
   body = body.replace('[IMAGE_2]', img2 ? `\n![상품 이미지](${img2})\n` : '');
 
-  // Generate frontmatter
+  // Generate frontmatter with time
   const tagsStr = postData.tags
     .map((t) => `"${t}"`)
     .join(', ');
 
+  // Set time based on suffix (am=08:00, pm=20:00)
+  const time = suffix === 'am' ? '08:00:00' : '20:00:00';
+  const dateWithTime = `${dateStr}T${time}`;
+
   const frontmatter = `---
 title: "${postData.title}"
 description: "${postData.description}"
-date: ${dateStr}
+date: ${dateWithTime}
 category: "${postData.category}"
 tags: [${tagsStr}]
 featured: false

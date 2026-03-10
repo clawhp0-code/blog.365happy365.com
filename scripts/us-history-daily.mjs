@@ -182,10 +182,13 @@ async function main() {
   );
   body = body.replace('[IMAGE_2]', img2 ? `\n![관련 이미지](${img2})\n` : '');
 
-  // Generate frontmatter
+  // Generate frontmatter with time
   const tagsStr = postData.tags
     .map((t) => `"${t}"`)
     .join(', ');
+
+  // US history runs at 06:00 KST
+  const dateWithTime = `${dateStr}T06:00:00`;
 
   // Generate relatedWorks YAML
   let relatedWorksStr = '';
@@ -201,7 +204,7 @@ async function main() {
   const frontmatter = `---
 title: "${postData.title}"
 description: "${postData.description}"
-date: ${dateStr}
+date: ${dateWithTime}
 category: "미국역사"
 tags: [${tagsStr}]
 featured: false

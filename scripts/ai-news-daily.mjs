@@ -190,10 +190,13 @@ ${summarizeText(desc, 300)}
     }
   }
 
+  // Add time to date (09:00 KST)
+  const dateWithTime = `${dateStr}T09:00:00`;
+
   const mdxContent = `---
 title: "AI 뉴스 ${dateStr}"
 description: "AI 최신 뉴스 및 업데이트"
-date: ${dateStr}
+date: ${dateWithTime}
 category: "AI"
 tags: ["인공지능", "AI", "기술", "뉴스"]
 featured: false
