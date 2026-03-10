@@ -208,6 +208,17 @@ ${newsSection}
   console.log(`✅ Post created: ${filename}`);
   console.log(`💰 Price: $${price}`);
   console.log(`📈 Change: ${change >= 0 ? "+" : ""}${change.toFixed(2)} USD`);
+
+  // Auto commit
+  try {
+    const { execSync } = await import('child_process');
+    const relativeFilePath = path.relative(process.cwd(), filePath);
+    execSync(`git add "${relativeFilePath}"`, { stdio: 'pipe' });
+    execSync(`git commit -m "content: add daily bitcoin post"`, { stdio: 'pipe' });
+    console.log('✅ Git commit successful');
+  } catch (err) {
+    console.warn('⚠️ Git commit failed:', err.message);
+  }
 }
 
 main().catch((error) => {

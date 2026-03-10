@@ -233,6 +233,17 @@ ${newsSection}
   fs.writeFileSync(filePath, mdxContent);
   console.log(`✅ Post created: ${filename}`);
   console.log(`📰 Top news: ${newsItems[0].title}`);
+
+  // Auto commit
+  try {
+    const { execSync } = await import('child_process');
+    const relativeFilePath = path.relative(process.cwd(), filePath);
+    execSync(`git add "${relativeFilePath}"`, { stdio: 'pipe' });
+    execSync(`git commit -m "content: add daily AI news post"`, { stdio: 'pipe' });
+    console.log('✅ Git commit successful');
+  } catch (err) {
+    console.warn('⚠️ Git commit failed:', err.message);
+  }
 }
 
 main().catch((error) => {

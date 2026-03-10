@@ -213,6 +213,17 @@ ${relatedWorksStr}---
   // Write file
   writeFileSync(filePath, frontmatter + body, 'utf-8');
   console.log(`✅ Post created: ${filePath}`);
+
+  // Auto commit
+  try {
+    const { execSync } = await import('child_process');
+    const relativeFilePath = filePath.replace(ROOT_DIR + '/', '');
+    execSync(`git add "${relativeFilePath}"`, { cwd: ROOT_DIR });
+    execSync(`git commit -m "content: add daily Middle East post"`, { cwd: ROOT_DIR });
+    console.log('✅ Git commit successful');
+  } catch (err) {
+    console.warn('⚠️ Git commit failed:', err.message);
+  }
 }
 
 main().catch((err) => {
