@@ -68,7 +68,7 @@ async function generatePost(marketData) {
   });
 
   const message = await client.messages.create({
-    model: 'claude-opus-4-6',
+    model: 'claude-sonnet-4-6',
     max_tokens: 2000,
     messages: [
       {
