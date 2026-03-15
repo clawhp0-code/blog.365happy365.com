@@ -1,0 +1,38 @@
+name: Daily Middle East News Post
+
+on:
+  schedule:
+    - cron: "0 2 * * *"  # 매일 11:00 KST (UTC 02:00)
+  workflow_dispatch:
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Middle East news post
+        run: node scripts/middle-east-daily.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "middle-east-bot"
+          git config user.email "middle-east-bot@blog.365happy365.com"
+          git add content/posts/middle-east-*.mdx
+          git diff --staged --quiet || git commit -m "content: add daily Middle East post"
+          git push origin main

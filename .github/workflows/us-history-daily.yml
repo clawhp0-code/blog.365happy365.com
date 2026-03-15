@@ -1,0 +1,38 @@
+name: Daily US History Post
+
+on:
+  schedule:
+    - cron: "30 0 * * *"  # 매일 09:30 KST (UTC 00:30)
+  workflow_dispatch:
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate US history post
+        run: node scripts/us-history-daily.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "us-history-bot"
+          git config user.email "us-history-bot@blog.365happy365.com"
+          git add content/posts/us-history-*.mdx
+          git diff --staged --quiet || git commit -m "content: add daily US history post"
+          git push origin main
