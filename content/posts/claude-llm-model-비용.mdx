@@ -1,0 +1,90 @@
+---
+title: Claude LLM model 비용
+description: "claude code 사용하다가 요금 폭탄 맞았습니다. 한 번 비교해보시기 바랍니다. 모델 잘 선택해야 합니다. "
+date: 2026-03-15
+category: 테크
+tags:
+  - claude
+  - claudecode
+  - 클로드
+  - LLM
+  - 비용
+featured: false
+draft: true
+---
+claude code 사용하다가 요금 폭탄 맞았습니다. 한 번 비교해보시기 바랍니다. 모델 잘 선택해야 합니다. 
+
+
+
+
+model 을 변경하면서 사용하시기 바랍니다. 
+
+
+
+
+
+
+
+지금 website 준비중인데. Openclaw 에서 Claude Code 를 사용하고 있어요.
+
+아래와 같이 Haiku 모델에게 물어보았습니다.
+
+
+
+
+
+
+
+🎨 웹사이트 디자인 코딩, Haiku로 충분할까요?
+
+
+
+
+결론부터 말씀드리면:
+
+"간단한 디자인 수정이나 기능 추가에는 완벽합니다! 하지만 아주 복잡한 코딩에는 Sonnet이 낫습니다."
+
+
+
+
+✅ Haiku가 아주 잘하는 작업 (지금 하기에 완벽함!)
+
+
+
+
+• Tailwind CSS를 이용한 색상, 폰트, 여백, 레이아웃 변경
+
+• 버튼 위치 이동이나 크기 조절
+
+• 기존 페이지에 새로운 텍스트나 이미지 영역 추가
+
+• 간단한 버그 수정 및 텍스트 문구 교체
+
+*(이런 작업들은 Haiku가 Sonnet과 거의 똑같은 퀄리티로 코드를 짜주면서 비용은 10분의 1입니다!)*
+
+
+
+
+⚠️ Haiku가 어려워할 수 있는 작업 (이때는 Sonnet 추천)
+
+
+
+
+• 완전히 새로운 기능(예: 복잡한 데이터베이스 연동, 결제 시스템)을 밑바닥부터 새로 짤 때
+
+• 원인을 알 수 없는 깊고 복잡한 에러(버그)를 추적해서 고칠 때
+
+
+
+
+혹시라도 Haiku 모드에서 코드를 잘 못 짜서 헤매는 모습이 보인다면, 그때 잠깐 텔레그램 채팅방 설정을 /model sonnet을 입력해서 Sonnet으로 올려서 해결하고 다시 내리시면 됩니다.
+
+
+
+
+
+
+
+모델 등급용도입력(Input 100만 토큰)출력(Output 100만 토큰)상대적 가격 체감👑 Opus최상급 추론, 아주 복잡한 문제$15.00$75.00압도적으로 비쌈 (초고가)🚀 Sonnet가성비와 지능의 완벽한 밸런스$3.00$15.00Opus의 5분의 1 가격⚡ Haiku엄청난 속도, 단순 작업, 코딩 보조$1.00$5.00Sonnet의 3분의 1 가격Claude API 모델 비교표항목claude-3-5-haiku-latestclaude-haiku-4-5claude-sonnet-4-6기본 정보세대Claude 3.5Claude 4Claude 4스냅샷 IDclaude-3-5-haiku-20241022claude-haiku-4-5-20251001claude-sonnet-4-6출시일2024년 10월2025년 10월2026년 2월지식 기준일 (Knowledge Cutoff)2024년 7월2025년 2월2025년 8월상태레거시 (Legacy)현역현역 · 권장가격 (per 1M tokens)입력 (Input)$0.80$1.00$3.00출력 (Output)$4.00$5.00$15.00캐시 쓰기 (Cache Write)$1.00$1.25$3.75캐시 읽기 (Cache Read)$0.08$0.10$0.30Sonnet 4.6 대비 입력 비용21%33%100% (기준)성능 벤치마크SWE-bench (코딩)\~40%대73.3%79.6%OSWorld (Computer Use)미지원미지원72.5%속도 (상대 비교)빠름매우 빠름 (3\~4×)보통스펙컨텍스트 윈도우200K200K200K / 1M (beta)최대 출력 토큰8,19264,00064,000기능 지원Extended Thinking✗✓✓Computer Use✗✓✓Context Awareness✗✓✓Vision (이미지 입력)✓✓✓Batch API✓✓✓추천 사용 시나리오최적 사용처레거시 호환용고속 대량 처리
+멀티에이전트 서브태스크복잡한 추론
+Claude Code 기본값Claude Code 역할미사용보조 모델기본값 (Default)신규 프로젝트 권장 여부비권장 ✗권장 ✓적극 권장 ✓✓
