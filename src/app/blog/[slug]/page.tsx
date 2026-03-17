@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) return {};
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
@@ -68,7 +68,7 @@ function extractHeadings(raw: string) {
 }
 
 function PostContent({ slug }: { slug: string }) {
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) notFound();
 
   const MDXContent = useMDXComponent(post.body.code);
