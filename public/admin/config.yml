@@ -13,11 +13,12 @@ collections:
     label: "Blog Posts"
     folder: content/posts
     create: true
-    slug: "{{slug}}"
+    slug: "{{fields.slug}}"
     extension: mdx
     format: frontmatter
     fields:
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug (영문)", name: "slug", widget: "string", hint: "영문 소문자, 숫자, 하이픈만 사용 (예: my-blog-post-2026)" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
       - { label: "Category", name: "category", widget: "string" }
