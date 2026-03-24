@@ -494,8 +494,9 @@ function closeModal() {
 }
 
 function executeAction() {
+  const action = pendingAction;
   closeModal();
-  if (pendingAction) pendingAction();
+  if (action) action();
 }
 
 function confirmBulkDelete() {
