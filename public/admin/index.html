@@ -5,11 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
+  <style>
+    #bulk-admin-link {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 9999;
+      background: #ed8936;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      font-family: -apple-system, sans-serif;
+    }
+    #bulk-admin-link:hover { background: #dd6b20; }
+  </style>
   <script>
     window.CMS_MANUAL_INIT = true;
   </script>
 </head>
 <body>
+  <a id="bulk-admin-link" href="/admin/bulk.html" target="_blank">📋 일괄 관리</a>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
     CMS.init({

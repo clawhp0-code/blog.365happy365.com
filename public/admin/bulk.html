@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>일괄 관리 — Blog Posts</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+
+    .header {
+      background: #2d3748;
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header h1 { font-size: 18px; font-weight: 600; }
+    .header a { color: #90cdf4; font-size: 14px; text-decoration: none; }
+    .header a:hover { text-decoration: underline; }
+
+    .auth-section {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .auth-section label { font-size: 14px; font-weight: 500; white-space: nowrap; }
+    .auth-section input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 400px;
+      padding: 8px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .auth-status { font-size: 13px; }
+    .auth-status.ok { color: #38a169; }
+    .auth-status.err { color: #e53e3e; }
+
+    .toolbar {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .toolbar-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+    .toolbar input[type="text"] {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 260px;
+    }
+    .selected-count { font-size: 14px; color: #718096; }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    button:hover:not(:disabled) { opacity: 0.85; }
+
+    .btn-primary { background: #4299e1; color: white; }
+    .btn-danger { background: #e53e3e; color: white; }
+    .btn-warning { background: #ed8936; color: white; }
+    .btn-success { background: #38a169; color: white; }
+    .btn-gray { background: #718096; color: white; }
+
+    .main { padding: 24px; }
+
+    .post-list {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+    }
+
+    .post-list-header {
+      display: grid;
+      grid-template-columns: 40px 1fr 140px 120px 100px;
+      padding: 10px 16px;
+      background: #f7fafc;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 40px 1fr 140px 120px 100px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: center;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .post-item:last-child { border-bottom: none; }
+    .post-item:hover { background: #f7fafc; }
+    .post-item.selected { background: #ebf8ff; }
+    .post-item.draft-item { opacity: 0.6; }
+
+    .post-item input[type="checkbox"] { cursor: pointer; width: 16px; height: 16px; }
+    .post-title { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 12px; }
+    .post-filename { font-size: 12px; color: #718096; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .post-date { font-size: 13px; color: #4a5568; }
+    .post-category { font-size: 12px; }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .tag-draft { background: #fed7d7; color: #c53030; }
+    .tag-published { background: #c6f6d5; color: #276749; }
+
+    .empty-state {
+      padding: 48px;
+      text-align: center;
+      color: #718096;
+    }
+
+    .log-panel {
+      margin-top: 24px;
+      background: #1a202c;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 13px;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+    .log-panel.visible { display: block; }
+    .log-line { margin-bottom: 4px; }
+    .log-line.ok { color: #68d391; }
+    .log-line.err { color: #fc8181; }
+    .log-line.info { color: #90cdf4; }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 4px;
+      height: 6px;
+      margin: 8px 0;
+      overflow: hidden;
+      display: none;
+    }
+    .progress-bar-wrap.visible { display: block; }
+    .progress-bar {
+      height: 100%;
+      background: #4299e1;
+      transition: width 0.3s;
+      width: 0%;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.visible { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal h2 { font-size: 18px; margin-bottom: 12px; }
+    .modal p { font-size: 14px; color: #4a5568; margin-bottom: 20px; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 일괄 관리</h1>
+  <a href="/admin/">← Decap CMS로 돌아가기</a>
+</div>
+
+<div class="auth-section">
+  <label for="token-input">GitHub Token:</label>
+  <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxx" />
+  <button class="btn-primary" onclick="loadPosts()">포스트 불러오기</button>
+  <span class="auth-status" id="auth-status"></span>
+</div>
+
+<div class="toolbar">
+  <div class="toolbar-left">
+    <label style="display:flex;align-items:center;gap:6px;font-size:14px;cursor:pointer;">
+      <input type="checkbox" id="select-all" onchange="toggleSelectAll(this)" style="width:16px;height:16px;" />
+      전체 선택
+    </label>
+    <input type="text" id="search" placeholder="제목/파일명 검색..." oninput="filterPosts()" />
+    <span class="selected-count" id="selected-count">0개 선택됨</span>
+  </div>
+  <button class="btn-warning" id="btn-draft" onclick="confirmBulkDraft()" disabled>선택 항목 숨기기 (Draft)</button>
+  <button class="btn-success" id="btn-undraft" onclick="confirmBulkUndraft()" disabled>선택 항목 공개</button>
+  <button class="btn-danger" id="btn-delete" onclick="confirmBulkDelete()" disabled>선택 항목 삭제</button>
+</div>
+
+<div class="main">
+  <div class="post-list" id="post-list">
+    <div class="empty-state" id="empty-state">
+      위에서 GitHub Token을 입력하고 포스트를 불러오세요.
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap" id="progress-wrap">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <div class="log-panel" id="log-panel"></div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2 id="modal-title"></h2>
+    <p id="modal-body"></p>
+    <div class="modal-actions">
+      <button class="btn-gray" onclick="closeModal()">취소</button>
+      <button id="modal-confirm" onclick="executeAction()"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+const REPO = 'clawhp0-code/blog.365happy365.com';
+const BRANCH = 'main';
+const POSTS_PATH = 'content/posts';
+
+let allPosts = [];
+let filteredPosts = [];
+let pendingAction = null;
+
+// Try to get token from Decap CMS localStorage
+function autoDetectToken() {
+  const keys = ['decap-cms-user', 'netlify-cms-user', 'github_auth'];
+  for (const key of keys) {
+    try {
+      const data = localStorage.getItem(key);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (parsed.token) {
+          document.getElementById('token-input').value = parsed.token;
+          document.getElementById('auth-status').textContent = '✓ localStorage에서 토큰 자동 감지됨';
+          document.getElementById('auth-status').className = 'auth-status ok';
+          return;
+        }
+      }
+    } catch(e) {}
+  }
+}
+
+function getToken() {
+  return document.getElementById('token-input').value.trim();
+}
+
+async function apiGet(path) {
+  const res = await fetch(`https://api.github.com/repos/${REPO}/${path}`, {
+    headers: {
+      Authorization: `token ${getToken()}`,
+      Accept: 'application/vnd.github.v3+json'
+    }
+  });
+  if (!res.ok) throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
+  return res.json();
+}
+
+async function loadPosts() {
+  const token = getToken();
+  if (!token) {
+    document.getElementById('auth-status').textContent = '⚠ 토큰을 입력하세요';
+    document.getElementById('auth-status').className = 'auth-status err';
+    return;
+  }
+
+  document.getElementById('auth-status').textContent = '불러오는 중...';
+  document.getElementById('auth-status').className = 'auth-status';
+  document.getElementById('empty-state').textContent = '포스트 목록을 불러오는 중...';
+
+  try {
+    const files = await apiGet(`contents/${POSTS_PATH}?ref=${BRANCH}`);
+    const mdxFiles = files.filter(f => f.name.endsWith('.mdx') || f.name.endsWith('.md'));
+
+    document.getElementById('auth-status').textContent = `✓ ${mdxFiles.length}개 파일 발견`;
+    document.getElementById('auth-status').className = 'auth-status ok';
+
+    // Fetch frontmatter for each file in parallel (batched)
+    log('info', `${mdxFiles.length}개 포스트 메타데이터 로딩 중...`);
+    showLog();
+
+    const BATCH = 10;
+    const posts = [];
+    for (let i = 0; i < mdxFiles.length; i += BATCH) {
+      const batch = mdxFiles.slice(i, i + BATCH);
+      const results = await Promise.all(batch.map(async f => {
+        try {
+          const data = await apiGet(`contents/${POSTS_PATH}/${f.name}?ref=${BRANCH}`);
+          const content = atob(data.content.replace(/\n/g, ''));
+          const fm = parseFrontmatter(content);
+          return {
+            filename: f.name,
+            sha: data.sha,
+            title: fm.title || f.name,
+            date: fm.date || '',
+            category: fm.category || '',
+            draft: fm.draft === true || fm.draft === 'true',
+            content: content,
+            rawFm: fm
+          };
+        } catch(e) {
+          return { filename: f.name, sha: f.sha, title: f.name, date: '', category: '', draft: false, content: '', rawFm: {} };
+        }
+      }));
+      posts.push(...results);
+      setProgress((i + BATCH) / mdxFiles.length * 100);
+    }
+
+    posts.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    allPosts = posts;
+    filteredPosts = posts;
+    renderList();
+    hideProgress();
+    log('ok', `완료: ${posts.length}개 포스트 로드됨`);
+
+  } catch(e) {
+    document.getElementById('auth-status').textContent = '✗ 오류: ' + e.message;
+    document.getElementById('auth-status').className = 'auth-status err';
+    log('err', e.message);
+    showLog();
+  }
+}
+
+function parseFrontmatter(content) {
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) return {};
+  const fm = {};
+  const lines = match[1].split('\n');
+  for (const line of lines) {
+    const m = line.match(/^(\w+):\s*(.*)/);
+    if (m) {
+      let val = m[2].trim();
+      if (val === 'true') val = true;
+      else if (val === 'false') val = false;
+      else val = val.replace(/^['"]|['"]$/g, '');
+      fm[m[1]] = val;
+    }
+  }
+  return fm;
+}
+
+function setFrontmatterField(content, field, value) {
+  const match = content.match(/^(---\r?\n)([\s\S]*?)(\r?\n---)/);
+  if (!match) return content;
+
+  const before = match[1];
+  let fmBlock = match[2];
+  const after = match[3];
+  const rest = content.slice(match[0].length);
+
+  const fieldRegex = new RegExp(`^(${field}:\\s*).*`, 'm');
+  if (fieldRegex.test(fmBlock)) {
+    fmBlock = fmBlock.replace(fieldRegex, `$1${value}`);
+  } else {
+    fmBlock += `\n${field}: ${value}`;
+  }
+
+  return before + fmBlock + after + rest;
+}
+
+function renderList() {
+  const list = document.getElementById('post-list');
+  if (filteredPosts.length === 0) {
+    list.innerHTML = '<div class="empty-state">검색 결과가 없습니다.</div>';
+    return;
+  }
+
+  const header = `<div class="post-list-header">
+    <div></div>
+    <div>제목 / 파일명</div>
+    <div>날짜</div>
+    <div>카테고리</div>
+    <div>상태</div>
+  </div>`;
+
+  const items = filteredPosts.map((p, i) => `
+    <div class="post-item ${p.draft ? 'draft-item' : ''}" id="row-${i}" onclick="rowClick(event, ${i})">
+      <div><input type="checkbox" id="chk-${i}" onchange="updateSelected()" onclick="event.stopPropagation()" /></div>
+      <div>
+        <div class="post-title">${escHtml(p.title)}</div>
+        <div class="post-filename">${escHtml(p.filename)}</div>
+      </div>
+      <div class="post-date">${p.date || '—'}</div>
+      <div class="post-category">${escHtml(p.category)}</div>
+      <div>
+        <span class="tag ${p.draft ? 'tag-draft' : 'tag-published'}">${p.draft ? 'Draft' : '공개'}</span>
+      </div>
+    </div>
+  `).join('');
+
+  list.innerHTML = header + items;
+  updateSelected();
+}
+
+function rowClick(event, i) {
+  const chk = document.getElementById(`chk-${i}`);
+  chk.checked = !chk.checked;
+  updateSelected();
+}
+
+function toggleSelectAll(cb) {
+  filteredPosts.forEach((_, i) => {
+    const chk = document.getElementById(`chk-${i}`);
+    if (chk) chk.checked = cb.checked;
+  });
+  updateSelected();
+}
+
+function updateSelected() {
+  const selected = getSelectedIndices();
+  document.getElementById('selected-count').textContent = `${selected.length}개 선택됨`;
+  const hasSelected = selected.length > 0;
+  document.getElementById('btn-draft').disabled = !hasSelected;
+  document.getElementById('btn-undraft').disabled = !hasSelected;
+  document.getElementById('btn-delete').disabled = !hasSelected;
+
+  const rows = filteredPosts.map((_, i) => document.getElementById(`row-${i}`));
+  rows.forEach((row, i) => {
+    const chk = document.getElementById(`chk-${i}`);
+    if (row && chk) row.classList.toggle('selected', chk.checked);
+  });
+
+  const all = filteredPosts.every((_, i) => document.getElementById(`chk-${i}`)?.checked);
+  document.getElementById('select-all').checked = all && filteredPosts.length > 0;
+}
+
+function getSelectedIndices() {
+  return filteredPosts.map((_, i) => i).filter(i => document.getElementById(`chk-${i}`)?.checked);
+}
+
+function getSelectedPosts() {
+  return getSelectedIndices().map(i => filteredPosts[i]);
+}
+
+function filterPosts() {
+  const q = document.getElementById('search').value.toLowerCase();
+  filteredPosts = allPosts.filter(p =>
+    p.title.toLowerCase().includes(q) || p.filename.toLowerCase().includes(q)
+  );
+  renderList();
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Modal
+function showModal(title, body, confirmText, confirmClass, action) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent = body;
+  const btn = document.getElementById('modal-confirm');
+  btn.textContent = confirmText;
+  btn.className = confirmClass;
+  pendingAction = action;
+  document.getElementById('modal').classList.add('visible');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('visible');
+  pendingAction = null;
+}
+
+function executeAction() {
+  closeModal();
+  if (pendingAction) pendingAction();
+}
+
+function confirmBulkDelete() {
+  const posts = getSelectedPosts();
+  showModal(
+    '선택 항목 삭제',
+    `선택한 ${posts.length}개 포스트를 GitHub에서 영구 삭제합니다. 이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?`,
+    '삭제', 'btn-danger', bulkDelete
+  );
+}
+
+function confirmBulkDraft() {
+  const posts = getSelectedPosts();
+  showModal(
+    '선택 항목 숨기기',
+    `선택한 ${posts.length}개 포스트를 Draft(비공개)로 변경합니다. 블로그에서 숨겨집니다.`,
+    '숨기기', 'btn-warning', bulkDraft
+  );
+}
+
+function confirmBulkUndraft() {
+  const posts = getSelectedPosts();
+  showModal(
+    '선택 항목 공개',
+    `선택한 ${posts.length}개 포스트를 공개(Draft 해제)로 변경합니다.`,
+    '공개', 'btn-success', bulkUndraft
+  );
+}
+
+async function bulkDelete() {
+  const posts = getSelectedPosts();
+  showLog();
+  setProgress(0);
+  showProgress();
+  log('info', `${posts.length}개 포스트 삭제 시작...`);
+
+  let done = 0;
+  for (const post of posts) {
+    try {
+      // Get current SHA
+      const data = await apiGet(`contents/${POSTS_PATH}/${post.filename}?ref=${BRANCH}`);
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${POSTS_PATH}/${post.filename}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `token ${getToken()}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `chore: delete post ${post.filename}`,
+          sha: data.sha,
+          branch: BRANCH
+        })
+      });
+      if (!res.ok) throw new Error(await res.text());
+      log('ok', `✓ 삭제: ${post.filename}`);
+    } catch(e) {
+      log('err', `✗ 실패 (${post.filename}): ${e.message}`);
+    }
+    done++;
+    setProgress(done / posts.length * 100);
+    await delay(300);
+  }
+
+  log('info', '완료. 목록 새로고침 중...');
+  hideProgress();
+  await loadPosts();
+}
+
+async function bulkSetDraft(value) {
+  const posts = getSelectedPosts();
+  showLog();
+  setProgress(0);
+  showProgress();
+  log('info', `${posts.length}개 포스트 draft=${value} 변경 시작...`);
+
+  let done = 0;
+  for (const post of posts) {
+    try {
+      const data = await apiGet(`contents/${POSTS_PATH}/${post.filename}?ref=${BRANCH}`);
+      const originalContent = atob(data.content.replace(/\n/g, ''));
+      const newContent = setFrontmatterField(originalContent, 'draft', value);
+
+      if (newContent === originalContent) {
+        log('info', `→ 변경 없음: ${post.filename}`);
+      } else {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${POSTS_PATH}/${post.filename}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${getToken()}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `chore: set draft=${value} for ${post.filename}`,
+            content: btoa(unescape(encodeURIComponent(newContent))),
+            sha: data.sha,
+            branch: BRANCH
+          })
+        });
+        if (!res.ok) throw new Error(await res.text());
+        log('ok', `✓ draft=${value}: ${post.filename}`);
+      }
+    } catch(e) {
+      log('err', `✗ 실패 (${post.filename}): ${e.message}`);
+    }
+    done++;
+    setProgress(done / posts.length * 100);
+    await delay(300);
+  }
+
+  log('info', '완료. 목록 새로고침 중...');
+  hideProgress();
+  await loadPosts();
+}
+
+function bulkDraft() { return bulkSetDraft('true'); }
+function bulkUndraft() { return bulkSetDraft('false'); }
+
+// Log helpers
+function log(type, msg) {
+  const panel = document.getElementById('log-panel');
+  const line = document.createElement('div');
+  line.className = `log-line ${type}`;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  panel.appendChild(line);
+  panel.scrollTop = panel.scrollHeight;
+}
+function showLog() { document.getElementById('log-panel').classList.add('visible'); }
+function setProgress(pct) { document.getElementById('progress-bar').style.width = pct + '%'; }
+function showProgress() { document.getElementById('progress-wrap').classList.add('visible'); }
+function hideProgress() { document.getElementById('progress-wrap').classList.remove('visible'); }
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// Init
+window.onload = autoDetectToken;
+</script>
+</body>
+</html>
