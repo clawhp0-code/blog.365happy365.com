@@ -319,7 +319,7 @@ async function loadPosts() {
       const results = await Promise.all(batch.map(async f => {
         try {
           const data = await apiGet(`contents/${POSTS_PATH}/${f.name}?ref=${BRANCH}`);
-          const content = atob(data.content.replace(/\n/g, ''));
+          const content = decodeBase64Utf8(data.content);
           const fm = parseFrontmatter(content);
           return {
             filename: f.name,
@@ -575,7 +575,7 @@ async function bulkSetDraft(value) {
   for (const post of posts) {
     try {
       const data = await apiGet(`contents/${POSTS_PATH}/${post.filename}?ref=${BRANCH}`);
-      const originalContent = atob(data.content.replace(/\n/g, ''));
+      const originalContent = decodeBase64Utf8(data.content);
       const newContent = setFrontmatterField(originalContent, 'draft', value);
 
       if (newContent === originalContent) {
@@ -589,7 +589,7 @@ async function bulkSetDraft(value) {
           },
           body: JSON.stringify({
             message: `chore: set draft=${value} for ${post.filename}`,
-            content: btoa(unescape(encodeURIComponent(newContent))),
+            content: encodeBase64Utf8(newContent),
             sha: data.sha,
             branch: BRANCH
           })
@@ -612,6 +612,21 @@ async function bulkSetDraft(value) {
 
 function bulkDraft() { return bulkSetDraft('true'); }
 function bulkUndraft() { return bulkSetDraft('false'); }
+
+// UTF-8 safe base64 helpers
+function decodeBase64Utf8(b64) {
+  const binary = atob(b64.replace(/\n/g, ''));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+function encodeBase64Utf8(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  for (const b of bytes) binary += String.fromCharCode(b);
+  return btoa(binary);
+}
 
 // Log helpers
 function log(type, msg) {
