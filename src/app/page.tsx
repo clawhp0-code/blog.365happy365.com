@@ -22,8 +22,8 @@ export default function HomePage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <FeaturedPosts posts={featuredPosts} />
             <RecentPosts posts={recentPosts} />
+            <FeaturedPosts posts={featuredPosts} />
           </div>
 
           {/* Sidebar */}
