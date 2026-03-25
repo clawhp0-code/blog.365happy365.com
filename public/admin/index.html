@@ -22,6 +22,10 @@
       font-family: -apple-system, sans-serif;
     }
     #bulk-admin-link:hover { background: #dd6b20; }
+    @keyframes pasteToastIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
   <script>
     window.CMS_MANUAL_INIT = true;
@@ -68,6 +72,136 @@
         ]
       }
     });
+  </script>
+  <script>
+  // ── 이미지 붙여넣기(Ctrl+V / Cmd+V) → GitHub 업로드 → 마크다운 삽입 ──
+  (function () {
+    function getGitHubToken() {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        if (key.includes('decap-cms') || key.includes('netlify-cms')) {
+          try {
+            const data = JSON.parse(localStorage.getItem(key));
+            if (data && data.token) return data.token;
+          } catch (_) {}
+        }
+      }
+      return null;
+    }
+
+    function fileToBase64(file) {
+      return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function () { resolve(reader.result.split(',')[1]); };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function showToast(message, type) {
+      var existing = document.getElementById('paste-img-toast');
+      if (existing) existing.remove();
+      var colors = { info: '#3182ce', success: '#38a169', error: '#e53e3e' };
+      var toast = document.createElement('div');
+      toast.id = 'paste-img-toast';
+      toast.textContent = message;
+      toast.style.cssText = [
+        'position:fixed', 'bottom:24px', 'right:24px', 'z-index:999999',
+        'background:' + (colors[type] || colors.info), 'color:#fff',
+        'padding:12px 18px', 'border-radius:8px', 'font-size:14px',
+        'font-family:-apple-system,sans-serif', 'max-width:420px',
+        'box-shadow:0 4px 16px rgba(0,0,0,.35)',
+        'animation:pasteToastIn .25s ease'
+      ].join(';');
+      document.body.appendChild(toast);
+      if (type !== 'info') setTimeout(function () { toast.remove(); }, 4000);
+      return toast;
+    }
+
+    function insertText(target, text) {
+      // CodeMirror 에디터
+      var cmEl = target.closest ? target.closest('.CodeMirror') : null;
+      if (cmEl && cmEl.CodeMirror) {
+        cmEl.CodeMirror.replaceSelection(text);
+        cmEl.CodeMirror.focus();
+        return;
+      }
+      // textarea (Decap CMS raw 마크다운 모드)
+      if (target.tagName === 'TEXTAREA') {
+        var s = target.selectionStart, e = target.selectionEnd;
+        target.value = target.value.substring(0, s) + text + target.value.substring(e);
+        target.selectionStart = target.selectionEnd = s + text.length;
+        target.dispatchEvent(new Event('input', { bubbles: true }));
+        return;
+      }
+      // contenteditable / Slate (WYSIWYG 모드)
+      if (document.execCommand) {
+        document.execCommand('insertText', false, text);
+        return;
+      }
+      // 최후 수단: 클립보드에 복사
+      navigator.clipboard.writeText(text).then(function () {
+        showToast('📋 마크다운이 클립보드에 복사됐습니다. 직접 붙여넣기 해주세요.', 'info');
+      });
+    }
+
+    function isEditorTarget(el) {
+      if (!el) return false;
+      if (el.tagName === 'TEXTAREA') return true;
+      if (el.isContentEditable) return true;
+      if (el.closest && (el.closest('.CodeMirror') || el.closest('[contenteditable="true"]'))) return true;
+      return false;
+    }
+
+    document.addEventListener('paste', async function (e) {
+      var items = Array.from((e.clipboardData || {}).items || []);
+      var imgItem = items.find(function (it) { return it.type.startsWith('image/'); });
+      if (!imgItem) return;
+      if (!isEditorTarget(e.target)) return;
+
+      e.preventDefault();
+
+      var token = getGitHubToken();
+      if (!token) {
+        showToast('❌ 로그인이 필요합니다. 다시 로그인해주세요.', 'error');
+        return;
+      }
+
+      var toast = showToast('⏳ 이미지 업로드 중…', 'info');
+      var file = imgItem.getAsFile();
+      var ext = (file.type.split('/')[1] || 'png').replace('jpeg', 'jpg');
+      var filename = 'paste-' + Date.now() + '.' + ext;
+      var apiPath = 'public/images/posts/' + filename;
+
+      try {
+        var base64 = await fileToBase64(file);
+        var res = await fetch(
+          'https://api.github.com/repos/clawhp0-code/blog.365happy365.com/contents/' + apiPath,
+          {
+            method: 'PUT',
+            headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: 'chore: upload pasted image ' + filename,
+              content: base64,
+              branch: 'main'
+            })
+          }
+        );
+        if (!res.ok) {
+          var errBody = await res.text();
+          throw new Error(res.status + ' ' + errBody);
+        }
+        toast.remove();
+        var markdown = '\n![이미지](/images/posts/' + filename + ')\n';
+        insertText(e.target, markdown);
+        showToast('✅ 이미지 업로드 완료: ' + filename, 'success');
+      } catch (err) {
+        toast.remove();
+        showToast('❌ 업로드 실패: ' + err.message, 'error');
+      }
+    });
+  })();
   </script>
 </body>
 </html>
