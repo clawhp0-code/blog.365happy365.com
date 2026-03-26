@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase";
+import { doc, setDoc, getDoc, increment } from "firebase/firestore";
 
 interface VisitorData {
   total: number;
@@ -8,13 +10,30 @@ interface VisitorData {
   yesterday: number;
 }
 
+function getDateKey(offset = 0): string {
+  const d = new Date();
+  d.setDate(d.getDate() - offset);
+  return d.toISOString().split("T")[0];
+}
+
 export function VisitorCounter() {
   const [data, setData] = useState<VisitorData | null>(null);
 
   useEffect(() => {
-    fetch("/api/visitors")
-      .then((res) => res.json())
-      .then(setData)
+    const today = getDateKey(0);
+    const yesterday = getDateKey(1);
+    const ref = doc(db, "visitors", "counters");
+
+    setDoc(ref, { total: increment(1), [today]: increment(1) }, { merge: true })
+      .then(() => getDoc(ref))
+      .then((snap) => {
+        const d = snap.data() || {};
+        setData({
+          total: d.total ?? 0,
+          today: d[today] ?? 0,
+          yesterday: d[yesterday] ?? 0,
+        });
+      })
       .catch(() => {});
   }, []);
 
