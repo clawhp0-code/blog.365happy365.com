@@ -18,6 +18,7 @@ function getDateKey(offset = 0): string {
 
 export function VisitorCounter() {
   const [data, setData] = useState<VisitorData | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const today = getDateKey(0);
@@ -34,25 +35,38 @@ export function VisitorCounter() {
           yesterday: d[yesterday] ?? 0,
         });
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error("[VisitorCounter] Firestore error:", err);
+        setError(true);
+      });
   }, []);
-
-  if (!data) return null;
 
   return (
     <div className="bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.06)] p-5 text-center">
-      <p className="text-xs text-[#999999] mb-1">Total</p>
-      <p className="font-heading font-extrabold text-3xl text-[#333333] mb-3">
-        {data.total.toLocaleString()}
-      </p>
-      <div className="flex justify-between text-sm border-t border-[#E8E2D9] pt-3">
-        <span className="text-[#888888]">Today</span>
-        <span className="font-medium text-[#333333]">{data.today.toLocaleString()}</span>
-      </div>
-      <div className="flex justify-between text-sm mt-1">
-        <span className="text-[#888888]">Yesterday</span>
-        <span className="font-medium text-[#333333]">{data.yesterday.toLocaleString()}</span>
-      </div>
+      <p className="text-xs text-[#999999] mb-1">방문자</p>
+      {error ? (
+        <p className="text-xs text-[#BBBBBB] py-2">불러오는 중 오류 발생</p>
+      ) : !data ? (
+        <div className="animate-pulse py-2 space-y-2">
+          <div className="h-8 bg-[#F0EBE3] rounded mx-auto w-20" />
+          <div className="h-4 bg-[#F0EBE3] rounded w-full" />
+          <div className="h-4 bg-[#F0EBE3] rounded w-full" />
+        </div>
+      ) : (
+        <>
+          <p className="font-heading font-extrabold text-3xl text-[#333333] mb-3">
+            {data.total.toLocaleString()}
+          </p>
+          <div className="flex justify-between text-sm border-t border-[#E8E2D9] pt-3">
+            <span className="text-[#888888]">오늘</span>
+            <span className="font-medium text-[#333333]">{data.today.toLocaleString()}</span>
+          </div>
+          <div className="flex justify-between text-sm mt-1">
+            <span className="text-[#888888]">어제</span>
+            <span className="font-medium text-[#333333]">{data.yesterday.toLocaleString()}</span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
