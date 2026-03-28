@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
-const DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+interface CalendarWidgetProps {
+  locale?: Locale;
+}
 
-export function CalendarWidget() {
+export function CalendarWidget({ locale = "ko" }: CalendarWidgetProps) {
   const [current, setCurrent] = useState(new Date());
+  const dict = getDictionary(locale);
+  const DAYS = dict.calendar.days;
+
   const year = current.getFullYear();
   const month = current.getMonth();
 

@@ -217,11 +217,21 @@ ${relatedWorksStr}---
   writeFileSync(filePath, frontmatter + body, 'utf-8');
   console.log(`✅ Post created: ${filePath}`);
 
-  // Auto commit
+  // Auto-translate to English
   try {
     const { execSync } = await import('child_process');
     const relativeFilePath = filePath.replace(ROOT_DIR + '/', '');
-    execSync(`git add "${relativeFilePath}"`, { cwd: ROOT_DIR });
+    console.log('Translating to English...');
+    execSync(`node scripts/translate-post.mjs "${relativeFilePath}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+    console.log('✅ English translation complete');
+  } catch (err) {
+    console.warn('⚠️ English translation failed:', err.message);
+  }
+
+  // Auto commit
+  try {
+    const { execSync } = await import('child_process');
+    execSync(`git add content/posts/`, { cwd: ROOT_DIR });
     execSync(`git commit -m "content: add daily US history post"`, { cwd: ROOT_DIR });
     console.log('✅ Git commit successful');
   } catch (err) {

@@ -2,17 +2,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { type Post } from "contentlayer2/generated";
 import { formatDate } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n";
 
 interface PostCardProps {
   post: Post;
   featured?: boolean;
+  locale?: Locale;
 }
 
-export function PostCard({ post, featured = false }: PostCardProps) {
+export function PostCard({ post, locale = "ko" }: PostCardProps) {
+  const postUrl = `/${locale}/blog/${post.slug}`;
+
   return (
     <article className="group bg-white rounded-lg overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
       {post.coverImage && (
-        <Link href={post.url} className="block aspect-video overflow-hidden">
+        <Link href={postUrl} className="block aspect-video overflow-hidden">
           <Image
             src={post.coverImage}
             alt={post.title}
@@ -25,7 +29,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
       <div className="p-4 sm:p-[16px_18px_20px]">
         <h3 className="font-heading font-bold text-[1.05rem] leading-snug text-[#333333] mb-2 line-clamp-2">
           <Link
-            href={post.url}
+            href={postUrl}
             className="hover:text-[#607D8B] transition-colors"
           >
             {post.title}
@@ -37,7 +41,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
           </p>
         )}
         <span className="text-[0.78rem] text-[#999999]">
-          {formatDate(post.date)}
+          {formatDate(post.date, locale)}
         </span>
       </div>
     </article>

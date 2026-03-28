@@ -17,6 +17,7 @@ export const Post = defineDocumentType(() => ({
     featured: { type: "boolean", default: false },
     draft: { type: "boolean", default: false },
     coverImage: { type: "string" },
+    locale: { type: "string", default: "ko" },
   },
   computedFields: {
     slug: {
@@ -25,8 +26,10 @@ export const Post = defineDocumentType(() => ({
     },
     url: {
       type: "string",
-      resolve: (post) =>
-        `/blog/${post._raw.flattenedPath.replace("posts/", "")}`,
+      resolve: (post) => {
+        const locale = (post.locale as string) || "ko";
+        return `/${locale}/blog/${post._raw.flattenedPath.replace("posts/", "")}`;
+      },
     },
     readingTime: {
       type: "number",

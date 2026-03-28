@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { Rss } from "lucide-react";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
-export function Footer() {
+interface FooterProps {
+  locale: Locale;
+}
+
+export function Footer({ locale }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const dict = getDictionary(locale);
 
   return (
     <footer className="border-t border-[#E8E2D9] mt-16">
@@ -12,12 +19,12 @@ export function Footer() {
             365 Happy 365
           </span>
           <p className="text-sm text-[#888888] text-center">
-            세상의 모든 궁금한 것들을 탐구합니다
+            {dict.footer.tagline}
           </p>
           <Link
-            href="/feed.xml"
+            href={`/${locale}/feed.xml`}
             className="text-[#AAAAAA] hover:text-[#607D8B] transition-colors"
-            aria-label="RSS 피드"
+            aria-label={dict.footer.rssFeed}
           >
             <Rss className="w-5 h-5" />
           </Link>

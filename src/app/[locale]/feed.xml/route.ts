@@ -1,21 +1,29 @@
 import { Feed } from "feed";
 import { getAllPosts } from "@/lib/posts";
+import type { Locale } from "@/lib/i18n";
+import { getDictionary } from "@/lib/dictionaries";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
 
-export async function GET() {
-  const posts = getAllPosts();
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ locale: string }> }
+) {
+  const { locale } = await params;
+  const l = locale as Locale;
+  const posts = getAllPosts(l);
+  const dict = getDictionary(l);
 
   const feed = new Feed({
-    title: "365happy365 - 세상의 모든 궁금한 것들",
-    description: "세상의 모든 궁금한 것들을 탐구하는 블로그",
+    title: dict.site.title,
+    description: dict.site.tagline,
     id: siteUrl,
     link: siteUrl,
-    language: "ko",
+    language: locale,
     favicon: `${siteUrl}/favicon.ico`,
-    copyright: `© ${new Date().getFullYear()} 365happy365`,
+    copyright: `\u00A9 ${new Date().getFullYear()} 365happy365`,
     feedLinks: {
-      rss2: `${siteUrl}/feed.xml`,
+      rss2: `${siteUrl}/${locale}/feed.xml`,
     },
     author: {
       name: "365happy365",
@@ -26,8 +34,8 @@ export async function GET() {
   posts.forEach((post) => {
     feed.addItem({
       title: post.title,
-      id: `${siteUrl}${post.url}`,
-      link: `${siteUrl}${post.url}`,
+      id: `${siteUrl}/${locale}/blog/${post.slug}`,
+      link: `${siteUrl}/${locale}/blog/${post.slug}`,
       description: post.description,
       date: new Date(post.date),
       category: [{ name: post.category }],

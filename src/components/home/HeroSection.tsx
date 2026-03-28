@@ -1,8 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  locale: Locale;
+}
+
+export function HeroSection({ locale }: HeroSectionProps) {
+  const dict = getDictionary(locale);
+
   return (
     <section className="bg-white border-b border-[#E8E2D9] py-12 md:py-16">
       <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -15,7 +23,7 @@ export function HeroSection() {
             blog.365happy365.com
           </h1>
           <p className="text-base md:text-lg text-[#888888]">
-            세상의 모든 궁금한 것들을 탐구하는 블로그
+            {dict.site.tagline}
           </p>
         </motion.div>
       </div>

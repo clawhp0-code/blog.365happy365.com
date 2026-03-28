@@ -1,40 +1,52 @@
 import { allPosts, type Post } from "contentlayer2/generated";
+import type { Locale } from "@/lib/i18n";
 
-export function getAllPosts(): Post[] {
-  return allPosts
-    .filter((post) => !post.draft)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+function filterByLocale(posts: Post[], locale?: Locale): Post[] {
+  if (!locale) return posts;
+  return posts.filter((post) => (post.locale || "ko") === locale);
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return allPosts.find((post) => post.slug === slug && !post.draft);
+export function getAllPosts(locale?: Locale): Post[] {
+  return filterByLocale(
+    allPosts.filter((post) => !post.draft),
+    locale
+  ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getFeaturedPosts(limit = 3): Post[] {
-  return getAllPosts()
+export function getPostBySlug(slug: string, locale?: Locale): Post | undefined {
+  return allPosts.find(
+    (post) =>
+      post.slug === slug &&
+      !post.draft &&
+      (!locale || (post.locale || "ko") === locale)
+  );
+}
+
+export function getFeaturedPosts(limit = 3, locale?: Locale): Post[] {
+  return getAllPosts(locale)
     .filter((post) => post.featured)
     .slice(0, limit);
 }
 
-export function getRecentPosts(limit = 6): Post[] {
-  return getAllPosts().slice(0, limit);
+export function getRecentPosts(limit = 6, locale?: Locale): Post[] {
+  return getAllPosts(locale).slice(0, limit);
 }
 
-export function getPostsByCategory(category: string): Post[] {
-  return getAllPosts().filter(
+export function getPostsByCategory(category: string, locale?: Locale): Post[] {
+  return getAllPosts(locale).filter(
     (post) => post.category.toLowerCase() === category.toLowerCase()
   );
 }
 
-export function getPostsByTag(tag: string): Post[] {
-  return getAllPosts().filter((post) =>
+export function getPostsByTag(tag: string, locale?: Locale): Post[] {
+  return getAllPosts(locale).filter((post) =>
     post.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase())
   );
 }
 
-export function getAllCategories(): { name: string; count: number; slug: string }[] {
+export function getAllCategories(locale?: Locale): { name: string; count: number; slug: string }[] {
   const categoryMap = new Map<string, number>();
-  getAllPosts().forEach((post) => {
+  getAllPosts(locale).forEach((post) => {
     const count = categoryMap.get(post.category) || 0;
     categoryMap.set(post.category, count + 1);
   });
@@ -43,9 +55,9 @@ export function getAllCategories(): { name: string; count: number; slug: string 
     .sort((a, b) => b.count - a.count);
 }
 
-export function getAllTags(): { name: string; count: number; slug: string }[] {
+export function getAllTags(locale?: Locale): { name: string; count: number; slug: string }[] {
   const tagMap = new Map<string, number>();
-  getAllPosts().forEach((post) => {
+  getAllPosts(locale).forEach((post) => {
     post.tags.forEach((tag) => {
       const count = tagMap.get(tag) || 0;
       tagMap.set(tag, count + 1);
@@ -56,9 +68,9 @@ export function getAllTags(): { name: string; count: number; slug: string }[] {
     .sort((a, b) => b.count - a.count);
 }
 
-export function getArchives(): { label: string; count: number; year: number; month: number }[] {
+export function getArchives(locale?: Locale): { label: string; count: number; year: number; month: number }[] {
   const archiveMap = new Map<string, { count: number; year: number; month: number }>();
-  getAllPosts().forEach((post) => {
+  getAllPosts(locale).forEach((post) => {
     const d = new Date(post.date);
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
@@ -75,8 +87,8 @@ export function getArchives(): { label: string; count: number; year: number; mon
     .sort((a, b) => (b.year - a.year) || (b.month - a.month));
 }
 
-export function getPaginatedPosts(page: number, perPage = 10) {
-  const posts = getAllPosts();
+export function getPaginatedPosts(page: number, perPage = 10, locale?: Locale) {
+  const posts = getAllPosts(locale);
   const total = posts.length;
   const totalPages = Math.ceil(total / perPage);
   const start = (page - 1) * perPage;

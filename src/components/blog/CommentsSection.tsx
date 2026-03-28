@@ -12,6 +12,8 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Check } from "lucide-react";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
 interface Comment {
   id: string;
@@ -22,9 +24,10 @@ interface Comment {
 
 interface CommentsSectionProps {
   slug: string;
+  locale?: Locale;
 }
 
-export function CommentsSection({ slug }: CommentsSectionProps) {
+export function CommentsSection({ slug, locale = "ko" }: CommentsSectionProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
@@ -32,19 +35,16 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
   const [submitted, setSubmitted] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(true);
+  const dict = getDictionary(locale);
 
-  // Hydration guard
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Subscribe to Firestore comments
   useEffect(() => {
     if (!mounted) return;
-
     const commentsRef = collection(db, "comments", slug, "posts");
     const q = query(commentsRef, orderBy("createdAt", "desc"));
-
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data: Comment[] = [];
       snapshot.forEach((doc) => {
@@ -58,25 +58,20 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
       setComments(data);
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, [slug, mounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!name.trim() || !content.trim()) {
-      alert("이름과 내용을 입력해주세요.");
+      alert(dict.comments.alertNameContent);
       return;
     }
-
     if (content.length > 1000) {
-      alert("내용은 1000자 이하여야 합니다.");
+      alert(dict.comments.alertMaxLength);
       return;
     }
-
     setSubmitting(true);
-
     try {
       const commentsRef = collection(db, "comments", slug, "posts");
       await addDoc(commentsRef, {
@@ -84,16 +79,13 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
         content: content.trim(),
         createdAt: serverTimestamp(),
       });
-
       setName("");
       setContent("");
       setSubmitted(true);
-
-      // Show toast notification
       setTimeout(() => setSubmitted(false), 2000);
     } catch (error) {
-      console.error("댓글 등록 실패:", error);
-      alert("댓글 등록에 실패했습니다. 다시 시도해주세요.");
+      console.error("Comment submission failed:", error);
+      alert(dict.comments.alertError);
     } finally {
       setSubmitting(false);
     }
@@ -103,20 +95,14 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
 
   return (
     <section className="mt-12 pt-8 border-t border-cream-200">
-      {/* Header */}
       <h2 className="font-serif text-2xl font-bold text-ink-900 mb-6">
-        댓글 {comments.length}개
+        {dict.comments.title} {comments.length}{dict.comments.count}
       </h2>
 
-      {/* Comments List */}
       {loading ? (
-        // Skeleton loading
         <div className="space-y-3 mb-8">
           {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="bg-white rounded-xl p-5 border border-cream-200 animate-pulse"
-            >
+            <div key={i} className="bg-white rounded-xl p-5 border border-cream-200 animate-pulse">
               <div className="h-4 bg-cream-200 rounded w-24 mb-2"></div>
               <div className="h-3 bg-cream-200 rounded w-32 mb-3"></div>
               <div className="space-y-2">
@@ -127,30 +113,20 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
           ))}
         </div>
       ) : comments.length === 0 ? (
-        <p className="text-ink-400 text-sm text-center py-8">
-          첫 번째 댓글을 남겨보세요 💬
-        </p>
+        <p className="text-ink-400 text-sm text-center py-8">{dict.comments.firstComment}</p>
       ) : (
         <div className="space-y-3 mb-8">
           {comments.map((comment) => (
-            <div
-              key={comment.id}
-              className="bg-white rounded-xl p-5 border border-cream-200"
-            >
+            <div key={comment.id} className="bg-white rounded-xl p-5 border border-cream-200">
               <div className="flex items-center gap-2">
-                <span className="font-medium text-ink-800 text-sm">
-                  {comment.name}
-                </span>
+                <span className="font-medium text-ink-800 text-sm">{comment.name}</span>
                 <span className="text-ink-400 text-xs">
                   {comment.createdAt?.toDate
-                    ? new Date(
-                        comment.createdAt.toDate()
-                      ).toLocaleDateString("ko-KR", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })
-                    : "방금 전"}
+                    ? new Date(comment.createdAt.toDate()).toLocaleDateString(
+                        locale === "ko" ? "ko-KR" : "en-US",
+                        { year: "numeric", month: "short", day: "numeric" }
+                      )
+                    : dict.comments.justNow}
                 </span>
               </div>
               <p className="text-ink-600 text-sm mt-2 leading-relaxed whitespace-pre-wrap break-words">
@@ -161,18 +137,17 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
         </div>
       )}
 
-      {/* Comment Form */}
       <form onSubmit={handleSubmit} className="mt-6 bg-cream-50 rounded-xl p-5 border border-cream-200">
         <div className="mb-4">
           <label htmlFor="name" className="block text-sm font-medium text-ink-700 mb-2">
-            이름
+            {dict.comments.name}
           </label>
           <input
             id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="이름을 입력하세요"
+            placeholder={dict.comments.namePlaceholder}
             disabled={submitting}
             className="w-full px-4 py-2.5 rounded-lg border border-cream-300 bg-white text-sm text-ink-900 placeholder:text-ink-300 focus:outline-none focus:ring-2 focus:ring-sunny-400 disabled:opacity-50"
           />
@@ -180,20 +155,18 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
 
         <div className="mb-4">
           <label htmlFor="content" className="block text-sm font-medium text-ink-700 mb-2">
-            댓글
+            {dict.comments.comment}
           </label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="댓글을 입력하세요 (1000자 이하)"
+            placeholder={dict.comments.commentPlaceholder}
             disabled={submitting}
             maxLength={1000}
             className="w-full px-4 py-3 rounded-lg border border-cream-300 bg-white text-sm text-ink-900 placeholder:text-ink-300 focus:outline-none focus:ring-2 focus:ring-sunny-400 disabled:opacity-50 h-24 resize-none"
           />
-          <p className="text-xs text-ink-400 mt-1 text-right">
-            {content.length}/1000
-          </p>
+          <p className="text-xs text-ink-400 mt-1 text-right">{content.length}/1000</p>
         </div>
 
         <button
@@ -201,15 +174,14 @@ export function CommentsSection({ slug }: CommentsSectionProps) {
           disabled={submitting}
           className="bg-sunny-500 hover:bg-sunny-600 text-white rounded-full px-6 py-2.5 text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          {submitting ? "등록 중..." : "댓글 등록"}
+          {submitting ? dict.comments.submitting : dict.comments.submit}
         </button>
       </form>
 
-      {/* Toast notification */}
       {submitted && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-sunny-500 text-white rounded-full px-6 py-3 flex items-center gap-2 shadow-lg z-50 animate-in fade-in slide-in-from-bottom-4">
           <Check className="w-4 h-4" />
-          <span className="text-sm font-medium">댓글이 등록되었습니다! 🎉</span>
+          <span className="text-sm font-medium">{dict.comments.submitted}</span>
         </div>
       )}
     </section>

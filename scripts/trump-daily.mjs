@@ -147,11 +147,22 @@ ${newsSection}
   fs.writeFileSync(filePath, mdxContent);
   console.log(`✅ Post created: ${filename}`);
 
+  // Auto-translate to English
+  try {
+    const { execSync: execSyncTr } = await import('child_process');
+    const ROOT_DIR = path.join(__dirname, '..');
+    const relativeFilePathTr = path.relative(ROOT_DIR, filePath);
+    console.log('Translating to English...');
+    execSyncTr(`node scripts/translate-post.mjs "${relativeFilePathTr}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+    console.log('✅ English translation complete');
+  } catch (err) {
+    console.warn('⚠️ English translation failed:', err.message);
+  }
+
   // Auto commit
   try {
     const { execSync } = await import("child_process");
-    const relativeFilePath = path.relative(process.cwd(), filePath);
-    execSync(`git add "${relativeFilePath}"`, { stdio: "pipe" });
+    execSync(`git add content/posts/`, { stdio: "pipe" });
     execSync(`git commit -m "content: add daily trump news post"`, { stdio: "pipe" });
     console.log("✅ Git commit successful");
   } catch (err) {

@@ -1,15 +1,19 @@
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   basePath: string;
+  locale?: Locale;
 }
 
-export function Pagination({ currentPage, totalPages, basePath }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, basePath, locale = "ko" }: PaginationProps) {
   if (totalPages <= 1) return null;
+  const dict = getDictionary(locale);
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const visiblePages = pages.filter(
@@ -22,7 +26,7 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
         <Link
           href={`${basePath}?page=${currentPage - 1}`}
           className="p-2 rounded-full hover:bg-cream-100 text-ink-500 transition-colors"
-          aria-label="이전 페이지"
+          aria-label={dict.blog.prevPage}
         >
           <ChevronLeft className="w-5 h-5" />
         </Link>
@@ -54,7 +58,7 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
         <Link
           href={`${basePath}?page=${currentPage + 1}`}
           className="p-2 rounded-full hover:bg-cream-100 text-ink-500 transition-colors"
-          aria-label="다음 페이지"
+          aria-label={dict.blog.nextPage}
         >
           <ChevronRight className="w-5 h-5" />
         </Link>
