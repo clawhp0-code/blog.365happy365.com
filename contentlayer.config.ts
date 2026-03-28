@@ -22,13 +22,15 @@ export const Post = defineDocumentType(() => ({
   computedFields: {
     slug: {
       type: "string",
-      resolve: (post) => post._raw.flattenedPath.replace("posts/", ""),
+      resolve: (post) =>
+        post._raw.flattenedPath.replace("posts/", "").replace(/\.en$/, ""),
     },
     url: {
       type: "string",
       resolve: (post) => {
         const locale = (post.locale as string) || "ko";
-        return `/${locale}/blog/${post._raw.flattenedPath.replace("posts/", "")}`;
+        const slug = post._raw.flattenedPath.replace("posts/", "").replace(/\.en$/, "");
+        return `/${locale}/blog/${slug}`;
       },
     },
     readingTime: {
