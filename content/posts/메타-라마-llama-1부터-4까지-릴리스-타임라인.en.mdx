@@ -1,0 +1,80 @@
+---
+title: "Meta Llama Release Timeline: From Llama 1 to Llama 4"
+description: "Analyzing the release timeline from Llama 1 to the latest MoE-based Llama 4, and the practical lifecycle of open-weights models."
+date: 2026-03-17
+category: Tech
+tags:
+  - llama
+featured: false
+draft: false
+locale: "en"
+---
+Here's an overview of the current status and release schedule for Meta's open-source LLM, the Llama series.
+
+
+
+Unlike Google Gemini or OpenAI GPT, Llama is an open-weights model, so there's no concept of a complete service shutdown where "the server is turned off on a specific date" like Google does. Once you download it, you can use it permanently — but ecosystem support and availability from cloud API providers naturally determine when a model is phased out.
+
+
+
+---
+
+
+
+Meta Llama Series Release Timeline (2023-2026)
+
+
+
+1. Llama 4 Series (Latest Generation - 2025-2026)
+
+
+
+* Llama 4 (Scout & Maverick): Released April 2025.
+
+* Meta's latest flagship model, introducing MoE (Mixture-of-Experts) architecture and equipped with native multimodal capabilities (vision/audio, etc.), it currently leads the open-source ecosystem as of 2026.
+
+
+
+2. Llama 3 Series (Transitional Period & Lightweight Maturity - 2024)
+
+
+
+* Llama 3.3: Released December 2024. (Focused on a single 70B model, a major improvement over 3.1)
+
+* Llama 3.2: Released October 2024. (Added Vision and released on-device lightweight models: 1B/3B)
+
+* Llama 3.1: Released July 2024. (Including the massive 405B model, the definitive version of Llama 3)
+
+* Llama 3 (Base): Released April 2024. (Focused on 8B and 70B)
+
+* Current Status: Llama 3.1, 3.2, and 3.3 are still widely served through numerous developer environments and API providers (Groq, Together AI, AWS, etc.).
+
+
+
+3. Llama 1 & Llama 2 (Legacy Models - 2023)
+
+
+
+* Llama 2: Released July 2023. (The first official version permitting commercial use)
+
+* Llama 1: Released February 2023. (Released only for research, but became famous due to a leak)
+
+* Current Status (Effectively End-of-Life): Official API clouds (AWS Bedrock, Azure, etc.) and major hosting services have mostly discontinued hosting of Llama 1 and 2, which have lower performance efficiency relative to their parameter count. (Local download and self-hosting are still possible.)
+
+
+
+---
+
+
+
+Characteristics of "Deprecation" in the Llama Ecosystem
+
+
+
+Unlike API-based Google (Gemini), Llama lets developers own the model weights.
+
+
+
+1. Permanent Ownership: Even if Meta announces "Llama 2 is being discontinued as of tomorrow," models you've already downloaded can run on your PC or company server forever.
+
+2. API Provider Deprecation: If you're using API services (Groq, AWS, Azure, etc.) rather than self-hosting, the practical 'end of service' occurs when those providers stop routing to older Llama models to optimize service costs.

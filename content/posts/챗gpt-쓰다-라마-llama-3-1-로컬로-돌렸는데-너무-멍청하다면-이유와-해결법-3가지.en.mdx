@@ -1,0 +1,80 @@
+---
+title: "Switched from ChatGPT to Running Llama 3.1 Locally and It Seems Dumb? Here's Why (and 3 Fixes)"
+description: "Disappointed after installing Llama 3.1 via Ollama or LM Studio? Here's why it only gives short answers and misses Korean context (parameter size, missing system prompt, etc.), plus 3 essential settings to make it as smart as ChatGPT."
+date: 2026-03-17
+category: Tech
+tags:
+  - llm
+featured: false
+draft: false
+locale: "en"
+---
+So you've just started running llama3.1:latest through Ollama (or LM Studio)! If you've been using ChatGPT or Claude and then try running a local LLM for the first time, the reaction "Huh? Why are the answers so short and dumb? It seems under-trained..." is a completely normal and common response.
+
+
+
+There are three major technical reasons why it feels that way. Here's a breakdown along with tips to fix it.
+
+---
+
+
+
+3 Reasons Llama 3.1 Seems 'Dumb' at First
+
+
+
+1. The Overwhelming Difference in Size (Parameters)
+
+The default model downloaded with the llama3.1:latest tag is the 8B (8 billion parameter) model.
+
+The ChatGPT (GPT-4o) and Gemini we normally use are massive models with hundreds of billions to over a trillion parameters. The 8B class is fast and lightweight, but has clear limitations when it comes to complex reasoning or drawing on deep knowledge.
+
+
+
+2. The Absence of a 'System Prompt' (The Biggest Reason)
+
+ChatGPT receives a **powerful pre-instruction (System Prompt)** behind the scenes before the user even asks a question — something like "You are the world's best AI assistant who answers in a friendly and highly detailed manner. Use markdown to format your answers neatly."
+
+But a freshly launched local Llama has absolutely no such 'guidelines.' It's in a completely 'wild, raw' state. That's why it gives stiff one-line responses or answers in odd formats.
+
+
+
+3. Limitations of Korean Language Data
+
+While Llama 3.1 handles Korean much better than previous versions, it's still fundamentally an English model at its core. There's some awkwardness when processing complex Korean nuances or understanding Korean-specific context.
+
+---
+
+Fixes (Do These and It Gets Much Smarter!)
+
+Fix 1: Change How You Ask Questions (System Prompt / Role Assignment)
+
+Don't ask casually — specify a role and output format clearly, just like you would with ChatGPT.
+
+* Bad question: "What is quantum mechanics?" (High chance of a vague one or two-line answer)
+
+* Good question: "You are a physics professor. Explain the concept of quantum mechanics in detail using 3 analogies that even a middle schooler could understand, in markdown format. Make sure to answer naturally in Korean."
+
+
+
+Fix 2: Run a Larger Model (70B)
+
+If your PC has 32GB-64GB+ of RAM or you're using a Mac Studio, try running the 70B model instead of 8B. Starting from 70B, it really shows the kind of intelligence that feels like chatting with ChatGPT.
+
+
+
+* Command: `ollama run llama3.1:70b` (or `llama3.3:70b`)
+
+
+
+Fix 3: Use a Korean-Specialized Model (Fine-tuned)
+
+
+
+If Korean performance is lacking, there's no need to stick exclusively with Meta's vanilla Llama. Try running other open-source models specialized for Korean on Ollama. At the 8B class, the following models are far more fluent in Korean.
+
+
+
+* EXAONE 3.5 (LG AI Research): `ollama run exaone3.5` (Currently the top performer in the Korean ecosystem)
+
+* Aya Expanse 8B (Cohere): `ollama run aya-expanse:8b` (A multilingual-specialized model)

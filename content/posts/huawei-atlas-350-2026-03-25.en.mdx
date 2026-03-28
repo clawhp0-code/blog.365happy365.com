@@ -1,0 +1,121 @@
+---
+title: "Huawei Atlas 350: Running AI Infrastructure Without NVIDIA"
+description: "Why Huawei's Atlas 350 AI accelerator is drawing attention now, which companies are using it, what manufacturing process it uses, and the current state of Chinese AI chip development."
+date: 2026-03-25T10:00:00
+locale: "en"
+category: "Tech"
+tags: ["Huawei", "AI Chip", "Atlas 350", "AI Accelerator", "Semiconductors", "SMIC", "Chinese Semiconductors"]
+featured: false
+coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Huawei_Standard_logo.svg/1200px-Huawei_Standard_logo.svg.png"
+---
+
+Honestly, I wasn't paying much attention to Huawei's AI chips until last year. In a world where the NVIDIA H100 is essentially the standard, there was no real reason to look at alternatives. But recently, I started hearing that Chinese cloud companies were training LLMs on Huawei chips instead of NVIDIA, and I began digging in.
+
+At the center of it all was the **Atlas 350**.
+
+---
+
+![Huawei Logo -- Huawei Atlas AI Accelerator](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Huawei_Standard_logo.svg/800px-Huawei_Standard_logo.svg.png)
+
+## What Is the Atlas 350?
+
+The Atlas 350 is an inference-specialized AI accelerator powered by Huawei's **Ascend 950PR** chip. It was officially announced at the Huawei China Partner Conference on March 20, 2026, boasting significantly improved specs over the previous generation.
+
+Here's a summary of the key specs:
+
+| Item | Specification |
+|---|---|
+| **AI Compute Performance** | 1.56 PFLOPS (FP4 basis) |
+| **Memory** | 112GB HiBL 1.0 HBM (self-developed) |
+| **Memory Bandwidth** | 1.4 TB/s |
+| **Power** | 600W TDP |
+| **Supported Frameworks** | MindSpore, ONNX, PyTorch (conversion required) |
+| **vs. NVIDIA** | Approx. 2.8x FP4 performance vs. H20 |
+
+What stands out is the memory. While previous generations relied on SK Hynix or Samsung HBM, the 950PR is the first to use Huawei's **self-developed HiBL 1.0 HBM**. This is an important milestone in reducing external dependency.
+
+---
+
+## What Process Is It Made On? -- SMIC and the DUV Breakthrough
+
+The brain of the Atlas 350, the **Ascend 950PR**, is reportedly manufactured on **SMIC's N+3 process (approximately 5nm-class density)**.
+
+Here's where it gets interesting. Normally, achieving 5nm-class processes requires ASML's EUV (Extreme Ultraviolet) lithography equipment. However, due to U.S. export restrictions, SMIC cannot obtain EUV equipment. So how did they achieve 5nm-class?
+
+**The answer is SAQP (Self-Aligned Quadruple Patterning)**. This method overlays patterns four times using existing DUV (Deep Ultraviolet) equipment, achieving circuit density similar to EUV without it. The downside is that the process is complex and yields are lower, resulting in higher costs.
+
+![Semiconductor silicon wafer -- the starting point of the SMIC process](https://upload.wikimedia.org/wikipedia/commons/2/27/Silicon_wafers.jpg)
+*The silicon wafer at the foundation of semiconductor manufacturing. SMIC is implementing 5nm-class processes using only DUV equipment. (CC0)*
+
+The previous generation **Ascend 910C** has a somewhat different backstory. According to TechInsights' teardown analysis, both the NPU die and CPU die in the 910C were confirmed to be manufactured on **TSMC's 7nm process**. Huawei has been using dies stockpiled in bulk before the TSMC trade cutoff in 2020. As this inventory is depleted, new production is gradually transitioning to SMIC's N+2 process.
+
+| Chip | Process | Foundry |
+|---|---|---|
+| Ascend 910C | 7nm | TSMC (pre-stockpiled) |
+| Ascend 950PR (Atlas 350) | ~5nm-class (SAQP DUV) | SMIC |
+
+---
+
+## Why Is It Getting Attention Now?
+
+The reason is simple. **Because they can't buy NVIDIA chips.**
+
+U.S. export restrictions have blocked the sale of the H100, A100, and even their downgraded versions to Chinese companies, making alternatives desperately needed. Huawei seized this opportunity to rapidly expand its Ascend lineup, and the Atlas 350 is one of the results.
+
+Within China, major players like **Baidu, Huawei Cloud, and China Telecom** are already using Atlas-series chips, and some companies reportedly run inference on 70B parameter models using Atlas-based clusters.
+
+---
+
+## Chinese AI Chip Development -- The Race Toward Independence
+
+This isn't just a Huawei story. All of China is moving toward semiconductor self-sufficiency.
+
+**Key Players:**
+- **Huawei / HiSilicon** -- The dominant leader. Ascend 910B/C for training, Atlas 350 for inference. Targeting 4 zettaFLOPS (ZFLOPS) FP4 by 2028
+- **Cambricon** -- Siyuan 590/690 series. Targeting 3x shipment growth in 2026 vs. 2025 (500,000 units)
+- **Baidu** -- Kunlun M100 inference chip (2026), M300 training+inference (2027) planned
+- **Alibaba, Moore Threads, Hygon** and other second-tier players are growing rapidly
+
+**Notable Achievements:**
+- Huawei's **CloudMatrix 384** system (910C cluster) benchmarked as competitive with NVIDIA GB200 NVL72 at the cluster level, per SemiAnalysis
+- First **self-developed HBM (HiBL 1.0)** mounted on the Ascend 950PR -- beginning to internalize memory
+- SMIC has started testing China's first domestically produced immersion DUV lithography equipment (developed by Huawei subsidiary SiCarrier)
+- Huawei and Cambricon officially listed on the Chinese government procurement register
+
+**Remaining Challenges:**
+- Without EUV equipment, SMIC yields are at the 40-50% level (still lower than TSMC)
+- Software ecosystem -- there's a long way to go before building a library and toolchain ecosystem comparable to CUDA
+- Second-tier companies like Cambricon still see yields hovering around 20%
+
+---
+
+## How Does It Differ from NVIDIA GPUs?
+
+Looking at reviews from engineers who have actually used it, one common theme emerges:
+
+**The software ecosystem is the problem.**
+
+CUDA has decades of accumulated libraries and toolchains. PyTorch, TensorFlow, and various optimization libraries are all designed to run on CUDA. In contrast, the Atlas 350 runs on Huawei's proprietary framework **MindSpore** or **CANN (Compute Architecture for Neural Networks)**, meaning existing CUDA code can't be used directly.
+
+What this means in practice is that your team needs at least one person with MindSpore experience. And frankly, that talent pool isn't large yet.
+
+However, Huawei is well aware of this and has been continuously improving its **ONNX conversion tools** and **PyTorch adapters**. While not perfect, they're reportedly much better than before.
+
+![12-inch silicon wafer -- the heart of advanced semiconductor processes](https://upload.wikimedia.org/wikipedia/commons/e/eb/12-inch_silicon_wafer.jpg)
+*A 12-inch silicon wafer. Huawei's Ascend chips are also born on wafers like these through the SMIC process. (CC BY-SA 3.0, Peellden)*
+
+---
+
+## Summary
+
+Looking at the Atlas 350, it strikes me that this isn't about whether this chip beats NVIDIA or not. What matters more is that something people started using out of necessity turns out to be quite usable, and that accumulated experience eventually builds an ecosystem.
+
+Without EUV, they've achieved 5nm-class processes through SAQP, developed their own HBM, and produced benchmarks competing with the GB200 at the cluster level. These were hard to imagine five years ago.
+
+Just as ARM began to be taken seriously as an alternative to x86 five years ago, Huawei's Ascend may be riding that same wave now. Of course, it might not be.
+
+For now, I'm watching closely.
+
+---
+
+*This post was written based on publicly available technical documents and industry reports (TechInsights, SemiAnalysis, Tom's Hardware, TrendForce, etc.). (March 25, 2026)*

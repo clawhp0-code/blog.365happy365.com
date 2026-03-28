@@ -1,0 +1,96 @@
+---
+title: "What Is TinaCloud? — A Complete Guide to the Git-Based Headless CMS"
+description: "A clear explanation of what TinaCloud is, how it works, and how it differs from traditional CMS platforms. An open-source CMS that pairs perfectly with static sites built with Next.js, Gatsby, and more."
+date: 2026-03-26
+category: "Tech"
+tags: ["TinaCloud", "CMS", "Headless CMS", "Next.js", "Dev Tools", "Open Source"]
+featured: false
+locale: "en"
+coverImage: "https://images.unsplash.com/photo-1555066931-4365d14431b9?w=1200&auto=format&fit=crop"
+---
+
+![Code editor screen](https://images.unsplash.com/photo-1555066931-4365d14431b9?w=1200&auto=format&fit=crop)
+
+When building a website, figuring out who edits the content and how is always a headache. Having developers modify code directly is inefficient, but using a traditional CMS like WordPress makes the tech stack overly complex. **TinaCloud** is a headless CMS that solves this problem elegantly by centering everything around Git.
+
+## What Is TinaCloud?
+
+**TinaCloud** is the cloud version of [TinaCMS](https://tina.io). TinaCMS is an open-source headless CMS that lets you edit Markdown (MDX) files in a GitHub repository through a GUI. TinaCloud adds cloud hosting, authentication, and real-time collaboration features on top of that as a SaaS service.
+
+In simple terms: **"It's a service that lets you edit Markdown files in GitHub using a beautiful editor — no code required."**
+
+## Core Concept: Git-Based CMS
+
+Traditional CMS platforms (WordPress, Drupal, etc.) store data in a **database**. TinaCloud, on the other hand, stores content in a **Git repository (as Markdown files)**.
+
+![Git-based workflow](https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1200&auto=format&fit=crop)
+
+Benefits of this approach:
+- Content change history is automatically recorded as Git commits
+- Code and content can be managed in the same repository
+- No separate database server required
+- Content can be reviewed and approved via Pull Requests
+
+## How Does It Work?
+
+1. **Connect your GitHub repository** — Link your TinaCloud account to a GitHub repository.
+2. **Define the schema** — Define your content structure (field names, types, etc.) in the `tina/config.ts` file.
+3. **Access the editor** — Navigate to the `/admin` path to see the visual editing UI.
+4. **Edit and save** — When you save your edits, TinaCloud automatically creates a commit on GitHub.
+5. **Trigger a build** — Deployment platforms like Vercel or Netlify detect the commit and automatically build and deploy.
+
+## Key Features
+
+### Visual Editing
+
+TinaCloud's biggest differentiator is **real-time preview editing**. When you modify content on the left side of the editor, the preview on the right updates instantly. It delivers a WordPress Gutenberg-like editing experience for static sites.
+
+### MDX Support
+
+It fully supports the **MDX format**, which allows you to embed JSX components in Markdown. Adding interactive React components inside a blog post is as easy as a few clicks in the GUI.
+
+### GraphQL API
+
+TinaCloud serves content through a **GraphQL API**. When fetching data with `getStaticProps` or server components in frameworks like Next.js, you can write type-safe queries.
+
+### Team Collaboration and Permissions
+
+TinaCloud's paid plans let you configure editing permissions per team member. Non-developer editors (writers, marketers) can modify content without needing a GitHub account.
+
+## TinaCloud vs Other CMS Platforms
+
+| | **TinaCloud** | **WordPress** | **Contentful** | **Sanity** |
+|---|---|---|---|---|
+| **Content Storage** | Git (Markdown) | MySQL | Cloud DB | Cloud DB |
+| **Open Source** | Yes (TinaCMS) | Yes | No | No |
+| **Visual Editing** | Yes (live preview) | Yes | Limited | Yes |
+| **Static Site Friendly** | Very High | Low | High | High |
+| **Free Plan** | Yes (personal projects) | Yes | Limited | Yes |
+| **Technical Difficulty** | Medium | Low | Low–Medium | Medium |
+
+## What Projects Is It Best For?
+
+**TinaCloud is a great fit for:**
+- **Static/hybrid site** projects using Next.js, Gatsby, Astro, etc.
+- **Developer blogs and documentation sites** that manage content with Markdown files
+- Teams that want to version-control content with Git
+- When you want to run a **Jamstack architecture** without a separate backend server
+
+**TinaCloud may not be the best fit for:**
+- Large-scale e-commerce or services requiring complex DB queries
+- Cases where a non-developer needs to build a site from scratch
+- Web applications with heavy real-time dynamic data
+
+## Pricing
+
+- **Free Plan**: For personal projects and open-source repos, up to 2 editors
+- **Starter Plan**: $29/month, up to 5 editors, media management included
+- **Business Plan**: $99/month, unlimited editors, team permission management
+
+The **open-source version (TinaCMS)**, which you can self-host, is available for free.
+
+## Summary
+
+TinaCloud delivers a **"developer-friendly content editing experience."** Being Git and Markdown-based makes it familiar to developers, while the visual editing UI allows non-developers to manage content with ease.
+
+If you're running a Next.js-based blog or documentation site, it's well worth a try. The Vercel + GitHub + TinaCloud combination is particularly popular since it lets you set up a complete content management pipeline without any separate servers.

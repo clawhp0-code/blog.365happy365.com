@@ -1,0 +1,378 @@
+---
+title: How to Save API Credits When Using Claude Code
+description: API credits are being drained too quickly
+date: 2026-03-11
+category: AI
+tags:
+  - Claude Code
+featured: false
+draft: true
+locale: "en"
+---
+The user complained that "credits are being drained too quickly."
+
+This could be because heavy models (Opus or the latest Sonnet) are being used excessively during auto-posting (cron jobs) or Claude Code usage, or because too many prompts and context are being exchanged.
+
+Here is guidance on how to save credits.
+
+1. Change Models: Switch from Opus to Haiku (cheapest) or Sonnet
+2. Adjust Cron Schedule: Reduce the frequency of auto-posting scripts that run too often
+3. Optimize Prompts/Context: Avoid sending unnecessarily long documents or files as context
+
+Here are cost-saving tips. Credits draining quickly is most likely due to using expensive models or running automation scripts too frequently.
+
+Here are 3 tips to dramatically reduce costs!
+
+1. Switch to the Cheaper 'Haiku' Model (Most Recommended!)
+
+Among Claude models, 'Opus' is the smartest but most expensive. In contrast, 'Haiku' is about 30-50x cheaper than Opus while still performing excellently for everyday tasks like summarization, code writing, and posting.
+
+- When using Claude Code CLI:
+
+claude -m claude-3-5-haiku-20241022
+
+Add the -m option to specify the Haiku model.
+
+- For auto-posting Python scripts:
+
+If the code contains model="claude-3-opus...", change it to model="claude-3-5-haiku-20241022".
+
+2. Adjust Cron (Auto-Posting) Frequency
+
+Looking at the crontab schedule, over 10 Python auto-posting scripts run per day.
+
+- Each time these scripts run, they collect news and call the AI, incurring costs.
+- Keep only essential posts, or change scripts that run daily to run every 2-3 days to significantly reduce costs.
+
+3. Reduce Unnecessary Context (Input Length)
+
+AI APIs also charge for "the number of characters we send to the AI (Input tokens)."
+
+- If you have Claude read entire massive files or paste unnecessary logs when using the terminal, costs spike rapidly.
+- Only include the necessary code or key portions in your queries.
+
+Would you like me to check which models are being used in the Python script code?
+
+After checking, the auto-posting code does not appear to use Claude. (Yesterday's logs also showed GEMINI_API_KEY and Gemini report generation.)
+
+In other words, the main culprit behind the bill shock is "Claude Code (the claude command)" itself when coding in the terminal! After analysis, the culprit is not the auto-posting (Cron) but the "Claude Code (claude command)" used when coding in the terminal!
+
+The auto-posting scripts (trump_daily_poster.py, etc.) examined yesterday are coded to use the free (or inexpensive) Gemini API, not Claude.
+
+Therefore, the real reason Claude credits are being depleted so quickly is the costs incurred when running claude in the terminal.
+
+Why Does the Claude CLI Cost So Much?
+
+1. It reads entire folders (context bomb)
+
+When you ask Claude a question in the terminal, Claude reads numerous files in the project folder to answer. (Thousands to tens of thousands of lines of code)
+
+Since AI fees are proportional to the number of characters read (Tokens), each question can cost anywhere from a few cents to several dollars.
+
+2. It autonomously thinks and queries multiple times in the background (Agentic Action)
+
+Instead of just answering once, it checks file lists (ls), opens files (cat), fixes code, and even tests terminal commands, calling the API dozens of consecutive times behind the scenes.
+
+3. Expensive default model (Sonnet or Opus)
+
+The CLI uses a high-performance model by default, so the per-unit cost is high.
+
+So What Should You Do?
+
+The most practical solution is to force the cheapest model (Haiku) when asking questions!
+
+From now on, when running claude in the terminal, always append -m claude-3-5-haiku-20241022.
+
+\# Run it like this! (Cost reduced to 1/10 or less compared to before)
+
+claude -i -m claude-3-5-haiku-20241022
+
+This makes it much faster and your credits will drain remarkably slower.
+
+[2026-03-11 9:20 AM] Jarvismini: The user sent a screenshot of the Claude Console Billing page.
+
+
+
+The most important issue here is that the Credit balance shows "-US$0.96 (Unpaid Balance)" — it is in the negative!
+
+At the top, there is a red warning message: "To get started with the Claude API, purchase some credits."
+
+
+
+The $27.50 that appeared earlier in the 'Invoice history' was a "Credit grant (free credit)" entry, but the actual usable balance has been completely exhausted and gone negative.
+
+
+
+In this state, even with a properly issued API key, you will get a "Credit balance too low" error, and Claude Code or API-based auto-posting will not work.
+
+
+
+Solution:
+
+Click the black [Buy credits] button in the center of the screen and recharge at least the minimum amount (usually $5 or more).
+
+
+
+Looking at the screenshot, the issue is not the API key but the credit balance! The current balance shows -US$0.96 (Unpaid Balance) — it is negative.
+
+(The $27.50 shown below was a previously issued credit grant that has now been fully used.)
+
+
+
+That is why the "Credit balance too low" error was appearing and Claude was not working.
+
+
+
+---
+
+
+
+How to Fix: Recharge Credits
+
+
+
+1. Click the black [Buy credits] button in the center of the current screen.
+
+2. Enter the desired amount (usually in $5-$10 increments) and complete the payment.
+
+3. Once the balance is recharged to a positive amount, the commands and scripts that were blocked in the terminal will start working again immediately!
+
+
+
+Please let me know when the payment is complete! I will continue helping you from there.
+
+[2026-03-11 9:21 AM] Park Hohyun: Credits are being drained too fast.
+
+[2026-03-11 9:21 AM] Park Hohyun: Why is that?
+
+[2026-03-11 9:22 AM] Jarvismini: The user complained that "credits are being drained too quickly."
+
+
+
+This could be because heavy models (Opus or the latest Sonnet) are being used excessively during auto-posting (cron jobs) or Claude Code usage, or because too many prompts and context are being exchanged.
+
+
+
+Here is guidance on how to save credits.
+
+
+
+1. Change Models: Switch from Opus to Haiku (cheapest) or Sonnet
+
+2. Adjust Cron Schedule: Reduce the frequency of auto-posting scripts that run too often
+
+3. Optimize Prompts/Context: Avoid sending unnecessarily long documents or files as context
+
+
+
+Credits draining quickly is most likely due to using expensive models or running automation scripts too frequently.
+
+
+
+Here are 3 tips to dramatically reduce costs!
+
+
+
+---
+
+
+
+1. Switch to the Cheaper 'Haiku' Model (Most Recommended!)
+
+
+
+Among Claude models, 'Opus' is the smartest but most expensive. In contrast, 'Haiku' is about 30-50x cheaper than Opus while still performing excellently for everyday tasks like summarization, code writing, and posting.
+
+
+
+- When using Claude Code CLI:
+
+claude -m claude-3-5-haiku-20241022
+
+Add the -m option to specify the Haiku model.
+
+- For auto-posting Python scripts:
+
+If the code contains model="claude-3-opus...", change it to model="claude-3-5-haiku-20241022".
+
+
+
+2. Adjust Cron (Auto-Posting) Frequency
+
+
+
+Looking at the crontab schedule, over 10 Python auto-posting scripts run per day.
+
+
+
+- Each time these scripts run, they collect news and call the AI, incurring costs.
+
+- Keep only essential posts, or change scripts that run daily to run every 2-3 days to significantly reduce costs.
+
+
+
+3. Reduce Unnecessary Context (Input Length)
+
+
+
+AI APIs also charge for "the number of characters we send to the AI (Input tokens)."
+
+
+
+- If you have Claude read entire massive files or paste unnecessary logs when using the terminal, costs spike rapidly.
+
+- Only include the necessary code or key portions in your queries.
+
+
+
+---
+
+
+
+Would you like me to check which models are being used in the Python script code?
+
+[2026-03-11 9:22 AM] Jarvismini: The auto-posting code does not appear to use Claude. (Yesterday's logs also showed GEMINI_API_KEY and Gemini report generation.)
+
+
+
+In other words, the main culprit behind the bill shock is "Claude Code (the claude command)" itself when coding in the terminal! After analysis, the culprit is not the auto-posting (Cron) but the "Claude Code (claude command)" used when coding in the terminal!
+
+
+
+The auto-posting scripts (trump_daily_poster.py, etc.) examined yesterday are coded to use the free (or inexpensive) Gemini API, not Claude.
+
+
+
+Therefore, the real reason Claude credits are being depleted so quickly is the costs incurred when running claude in the terminal.
+
+
+
+---
+
+
+
+Why Does the Claude CLI Cost So Much?
+
+
+
+1. It reads entire folders (context bomb)
+
+When you ask Claude a question in the terminal, Claude reads numerous files in the project folder to answer. (Thousands to tens of thousands of lines of code)
+
+Since AI fees are proportional to the number of characters read (Tokens), each question can cost anywhere from a few cents to several dollars.
+
+
+
+2. It autonomously thinks and queries multiple times in the background (Agentic Action)
+
+Instead of just answering once, it checks file lists (ls), opens files (cat), fixes code, and even tests terminal commands, calling the API dozens of consecutive times behind the scenes.
+
+
+
+3. Expensive default model (Sonnet or Opus)
+
+The CLI uses a high-performance model by default, so the per-unit cost is high.
+
+
+
+---
+
+
+
+So What Should You Do?
+
+
+
+The most practical solution is to force the cheapest model (Haiku) when asking questions!
+
+
+
+From now on, when running claude in the terminal, always append -m claude-3-5-haiku-20241022.
+
+
+
+\# Run it like this! (Cost reduced to 1/10 or less compared to before)
+
+claude -i -m claude-3-5-haiku-20241022
+
+
+
+This makes it much faster and your credits will drain remarkably slower.
+
+[2026-03-11 9:33 AM] Jarvismini: The user asked what model their current Claude Code is using.
+
+
+
+Generally, Anthropic's Claude Code CLI tool uses Claude 3.7 Sonnet (the latest stable version) as its default model.
+
+However, looking back at the screenshot text log the user sent earlier, there was a clue.
+
+
+
+Claude Code v2.1.71 Haiku 4.5 with medium effort
+
+
+
+The screenshot text log shows Haiku 4.5!
+
+Let me check the runtime information embedded at the bottom of OpenClaw's system prompt.
+
+Runtime: agent=main | host=jarvismini's Mac mini | repo=/Users/jarvismini/.openclaw/workspace | os=Darwin 25.3.0 (arm64) | node=v24.14.0 | model=google/gemini-3-pro-preview | default_model=anthropic/claude-sonnet-4-6 | shell=zsh | channel=telegram | capabilities=inlineButtons | thinking=low
+
+
+
+The user is not asking about the OpenClaw bot's model but about **what model the "claude" terminal command (Claude Code CLI)** is using.
+
+
+
+From the previously sent terminal log:
+
+Claude Code v2.1.71 Haiku 4.5 with medium effort
+
+
+
+**The fact that credits are draining fast even while using Haiku means** the project (blog) files are enormously large, or each question is reading tens of thousands of lines of code. (e.g., reading node_modules, text-heavy MDX files, etc. without excluding them)
+
+You are already using the cheapest 'Haiku' model!
+
+Looking at the terminal error screen you captured a few days ago, the top line reads:
+
+Claude Code v2.1.71 Haiku 4.5 with medium effort
+
+So you are already using the lightest and cheapest model (Haiku 4.5).
+
+Why Are Credits Still Draining Fast Even with Haiku?
+
+If credits are draining even with the cheapest model, there is only one reason:
+
+**"Claude is reading too many files every time it thinks."**
+
+You run it in the blog project (~/xxx.xxx.com) directory, right?
+
+If Claude is reading and analyzing massive folders that should be ignored (e.g., node_modules, .next, hundreds of accumulated post files) every time, even the cheapest model will drain credits fast because the "number of characters read" is just too high.
+
+Solution: Create a .claudeignore File
+
+Just like .gitignore keeps useless files out of Git, you need a shield to prevent Claude from reading them.
+
+Create a file called .claudeignore at the root of your blog folder and add the following:
+
+\# .claudeignore file contents
+
+node_modules/
+
+.next/
+
+out/
+
+build/
+
+package-lock.json
+
+public/
+
+content/posts/  # Block this too if you have too many past posts.
+
+
+
+By filtering out these heavy folders, Claude will only read the files it actually needs (like src), and credit consumption will drop to less than half!

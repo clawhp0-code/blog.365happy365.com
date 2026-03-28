@@ -1,0 +1,102 @@
+---
+title: What Is LLM Quantization? A Simple Explanation
+slug: llm-quantization-explained-2026-03-27
+description: When using AI models, you often see terms like "quantization," "4bit," and "Q4_K_M." What do they actually mean? We explain it simply using a photo compression analogy.
+date: 2026-03-27
+category: Tech
+tags:
+  - LLM
+  - quantization
+  - quantization
+  - local AI
+  - Ollama
+  - GGUF
+  - AI terminology
+  - artificial intelligence
+featured: true
+draft: false
+locale: "en"
+coverImage: ""
+---
+When using local AI or tools like Ollama and LM Studio, you come across expressions like these:
+
+> "Q4_K_M", "INT8", "FP16", "4-bit quantization"
+
+They seem important, but the explanations are hard to follow. Today, we'll explain **quantization** in really simple terms.
+
+- - -
+
+## The Key Analogy: Photo Quality Compression
+
+![]()
+
+When you send a photo taken on your smartphone through a messaging app, the quality drops, right? That's because it was compressed to reduce file size.
+
+**Quantization works on exactly the same principle.**
+
+Inside an AI model, there are billions to hundreds of billions of numbers (weights). These numbers are the AI's "knowledge."
+
+| Storage Method          | Size Per Number | Example                  |
+| -------------- | --------- | ------------------- |
+| FP32 (original)      | 32 bits      | 3.14159265358979... |
+| FP16 (half precision)  | 16 bits      | 3.1416              |
+| INT8 (8-bit quantization) | 8 bits       | 3                   |
+| INT4 (4-bit quantization) | 4 bits       | 3 (even coarser)           |
+
+**Quantization = representing numbers more coarsely to reduce file size**
+
+- - -
+
+## Why Does It Matter?
+
+For example, say you have a Llama 3 70B model. That's **70 billion** parameters (numbers).
+
+* **FP32 original**: 70B x 4 bytes = **~280GB** — impossible on a regular PC
+* **FP16**: 70B x 2 bytes = **~140GB** — still difficult
+* **INT4 quantization**: 70B x 0.5 bytes = **~35GB** — possible on a high-end PC!
+
+Thanks to quantization, regular users can run powerful AI models on their own computers.
+
+- - -
+
+## What Does Q4_K_M Mean?
+
+This is a notation you frequently see in Ollama and GGUF files.
+
+```
+Q4_K_M
+│ │ └── M: Medium (balanced quality)
+│ └──── K: K-quant method (a more sophisticated quantization algorithm)
+└────── 4: Stored in 4 bits
+```
+
+| Notation     | Description               | Recommended Use Case             |
+| ------ | ---------------- | ----------------- |
+| Q8_0   | 8-bit, closest to original  | When you have plenty of VRAM     |
+| Q4_K_M | 4-bit, optimal quality/size balance | **Recommended for most cases** |
+| Q3_K_S | 3-bit, very small       | When VRAM is very limited    |
+| Q2_K   | 2-bit, minimum size       | Significant quality loss, not recommended      |
+
+- - -
+
+## Is the Quality Difference Really That Big?
+
+Honestly, **for most everyday conversations, there's almost no difference.**
+
+* Writing, translation, summarization — Q4_K_M is sufficient
+* Complex math reasoning, coding — Q6 or higher recommended
+* Academic research — FP16 recommended
+
+It's like watching YouTube — even at 1080p instead of 4K, you can enjoy most videos just fine.
+
+- - -
+
+## One-Line Summary
+
+> **Quantization = compressing an AI model's quality. The file gets smaller, performance drops slightly, but you can run it on your own PC.**
+
+If you want to run AI directly on your computer instead of the cloud, look for a **Q4_K_M** version. It's sufficient for most use cases.
+
+- - -
+
+*Related post: [What's the Best Llama Model That Runs on My Computer?](/posts/내-컴퓨터에서-돌아가는-최고의-라마-llama-모델은-사양별-추천)*
