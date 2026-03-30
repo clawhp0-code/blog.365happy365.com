@@ -1,0 +1,114 @@
+<svg width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" fill="url(#bgGrad)" rx="8"/>
+  <rect x="1" y="1" width="898" height="498" fill="none" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="490" y="26" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1e293b">한국 휘발유 소비자가격 50년 추이 (1975~2026)</text>
+  <text x="490" y="43" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">단위: 원/리터</text>
+
+  <!-- Grid lines (horizontal) -->
+  <!-- 500원 → y=336 -->
+  <line x1="80" y1="336" x2="860" y2="336" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- 1000원 → y=262 -->
+  <line x1="80" y1="262" x2="860" y2="262" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- 1500원 → y=188 -->
+  <line x1="80" y1="188" x2="860" y2="188" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- 2000원 → y=114 -->
+  <line x1="80" y1="114" x2="860" y2="114" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- 2500원 → y=40 -->
+  <line x1="80" y1="40" x2="860" y2="40" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Y-axis labels -->
+  <text x="74" y="340" text-anchor="end" font-family="sans-serif" font-size="11" fill="#94a3b8">500</text>
+  <text x="74" y="266" text-anchor="end" font-family="sans-serif" font-size="11" fill="#94a3b8">1,000</text>
+  <text x="74" y="192" text-anchor="end" font-family="sans-serif" font-size="11" fill="#94a3b8">1,500</text>
+  <text x="74" y="118" text-anchor="end" font-family="sans-serif" font-size="11" fill="#ef4444">2,000</text>
+  <text x="74" y="44" text-anchor="end" font-family="sans-serif" font-size="11" fill="#94a3b8">2,500</text>
+
+  <!-- X-axis labels (every 5 years) -->
+  <text x="80" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">1975</text>
+  <text x="157" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">1980</text>
+  <text x="233" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">1985</text>
+  <text x="309" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">1990</text>
+  <text x="386" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">1995</text>
+  <text x="462" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">2000</text>
+  <text x="539" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">2005</text>
+  <text x="615" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">2010</text>
+  <text x="692" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">2015</text>
+  <text x="768" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">2020</text>
+  <text x="845" y="428" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">2025</text>
+
+  <!-- X-axis tick marks -->
+  <line x1="80"  y1="410" x2="80"  y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="157" y1="410" x2="157" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="233" y1="410" x2="233" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="309" y1="410" x2="309" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="386" y1="410" x2="386" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="462" y1="410" x2="462" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="539" y1="410" x2="539" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="615" y1="410" x2="615" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="692" y1="410" x2="692" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="768" y1="410" x2="768" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="845" y1="410" x2="845" y2="416" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Axes -->
+  <line x1="80" y1="40" x2="80" y2="410" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="80" y1="410" x2="860" y2="410" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Area fill under line -->
+  <path d="M80,391 L95,386 L111,385 L126,380 L141,369 L157,343 L172,336 L187,338 L202,342 L218,345 L233,348 L248,348 L264,346 L279,346 L294,339 L309,324 L325,315 L340,314 L355,314 L371,303 L386,284 L401,277 L417,281 L432,289 L447,277 L462,240 L478,235 L493,232 L508,225 L524,206 L539,203 L554,200 L569,188 L585,126 L600,195 L615,185 L631,132 L646,121 L661,136 L677,147 L692,195 L707,210 L722,195 L738,165 L753,180 L768,232 L784,185 L799,102 L814,155 L829,170 L845,158 L860,107 L860,410 L80,410 Z" fill="url(#areaGrad)"/>
+
+  <!-- Main line -->
+  <polyline
+    points="80,391 95,386 111,385 126,380 141,369 157,343 172,336 187,338 202,342 218,345 233,348 248,348 264,346 279,346 294,339 309,324 325,315 340,314 355,314 371,303 386,284 401,277 417,281 432,289 447,277 462,240 478,235 493,232 508,225 524,206 539,203 554,200 569,188 585,126 600,195 615,185 631,132 646,121 661,136 677,147 692,195 707,210 722,195 738,165 753,180 768,232 784,185 799,102 814,155 829,170 845,158 860,107"
+    fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- 2008 peak -->
+  <circle cx="585" cy="126" r="5" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+  <line x1="585" y1="121" x2="540" y2="100" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="480" y="82" width="60" height="28" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="510" y="95" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">2008년</text>
+  <text x="510" y="106" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#dc2626">1,920원</text>
+
+  <!-- 2012 peak -->
+  <circle cx="646" cy="121" r="5" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+  <line x1="646" y1="116" x2="660" y2="98" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="657" y="80" width="60" height="28" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="687" y="93" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">2012년</text>
+  <text x="687" y="104" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#dc2626">1,950원</text>
+
+  <!-- 2022 peak -->
+  <circle cx="799" cy="102" r="5" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+  <line x1="799" y1="97" x2="790" y2="76" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="755" y="58" width="60" height="28" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="785" y="71" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">2022년</text>
+  <text x="785" y="82" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#dc2626">2,080원</text>
+
+  <!-- 2026 current (rightmost) -->
+  <circle cx="860" cy="107" r="6" fill="#f97316" stroke="white" stroke-width="2"/>
+  <circle cx="860" cy="107" r="11" fill="none" stroke="#f97316" stroke-width="1.5" opacity="0.5"/>
+  <rect x="795" y="440" width="100" height="36" rx="5" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="845" y="454" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ea580c">현재 (2026)</text>
+  <text x="845" y="468" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#ea580c">약 2,050원</text>
+
+  <!-- Y-axis unit label -->
+  <text x="20" y="230" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b" transform="rotate(-90,20,230)">(원/리터)</text>
+
+  <!-- 2000원 reference label -->
+  <text x="864" y="118" font-family="sans-serif" font-size="10" fill="#ef4444">2,000원선</text>
+
+  <!-- Data source -->
+  <text x="490" y="490" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#94a3b8">출처: 한국석유공사 Opinet, 통계청 에너지통계 참고 (소비자가격 기준, 추정치 포함)</text>
+</svg>
