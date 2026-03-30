@@ -43,9 +43,9 @@ export function VisitorCounter() {
 
   return (
     <div className="bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.06)] p-5 text-center">
-      <p className="text-xs text-[#999999] mb-1">방문자</p>
+      <p className="text-xs text-[#666666] mb-1">방문자</p>
       {error ? (
-        <p className="text-xs text-[#BBBBBB] py-2">불러오는 중 오류 발생</p>
+        <p className="text-xs text-[#666666] py-2">연결 오류</p>
       ) : !data ? (
         <div className="animate-pulse py-2 space-y-2">
           <div className="h-8 bg-[#F0EBE3] rounded mx-auto w-20" />
@@ -58,11 +58,11 @@ export function VisitorCounter() {
             {data.total.toLocaleString()}
           </p>
           <div className="flex justify-between text-sm border-t border-[#E8E2D9] pt-3">
-            <span className="text-[#888888]">오늘</span>
+            <span className="text-[#666666]">오늘</span>
             <span className="font-medium text-[#333333]">{data.today.toLocaleString()}</span>
           </div>
           <div className="flex justify-between text-sm mt-1">
-            <span className="text-[#888888]">어제</span>
+            <span className="text-[#666666]">어제</span>
             <span className="font-medium text-[#333333]">{data.yesterday.toLocaleString()}</span>
           </div>
         </>
