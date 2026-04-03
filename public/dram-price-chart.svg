@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="#F8FAFC" rx="12"/>
+  <rect x="1" y="1" width="898" height="518" fill="none" stroke="#E2E8F0" stroke-width="1" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">DRAM 가격 동향 (2025년 4월 ~ 2026년 3월)</text>
+  <text x="450" y="54" text-anchor="middle" font-size="11" fill="#64748B">계약가 기준 $/Gb (DRAM Exchange 참고)</text>
+
+  <!-- Plot area background -->
+  <rect x="70" y="68" width="610" height="370" fill="white" rx="4" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Horizontal grid lines -->
+  <line x1="70" y1="68"  x2="680" y2="68"  stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="119" x2="680" y2="119" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="171" x2="680" y2="171" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="222" x2="680" y2="222" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="274" x2="680" y2="274" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="325" x2="680" y2="325" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="377" x2="680" y2="377" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="438" x2="680" y2="438" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Y-axis labels -->
+  <text x="62" y="72"  text-anchor="end" font-size="11" fill="#64748B">$5.0</text>
+  <text x="62" y="123" text-anchor="end" font-size="11" fill="#64748B">$4.5</text>
+  <text x="62" y="175" text-anchor="end" font-size="11" fill="#64748B">$4.0</text>
+  <text x="62" y="226" text-anchor="end" font-size="11" fill="#64748B">$3.5</text>
+  <text x="62" y="278" text-anchor="end" font-size="11" fill="#64748B">$3.0</text>
+  <text x="62" y="329" text-anchor="end" font-size="11" fill="#64748B">$2.5</text>
+  <text x="62" y="381" text-anchor="end" font-size="11" fill="#64748B">$2.0</text>
+  <text x="62" y="442" text-anchor="end" font-size="11" fill="#64748B">$1.5</text>
+
+  <!-- Y-axis title -->
+  <text x="16" y="255" text-anchor="middle" font-size="11" fill="#64748B" transform="rotate(-90, 16, 255)">가격 ($/Gb)</text>
+
+  <!-- Vertical grid lines (month separators) -->
+  <line x1="125" y1="68" x2="125" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="181" y1="68" x2="181" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="236" y1="68" x2="236" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="292" y1="68" x2="292" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="347" y1="68" x2="347" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="403" y1="68" x2="403" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="458" y1="68" x2="458" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="514" y1="68" x2="514" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="569" y1="68" x2="569" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="625" y1="68" x2="625" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+  <line x1="680" y1="68" x2="680" y2="438" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- ===== Server DDR5 (amber) area fill ===== -->
+  <polygon points="70,183 125,173 181,163 236,147 292,132 347,111 403,101 458,117 514,142 569,163 625,178 680,173 680,438 70,438"
+    fill="#F59E0B" fill-opacity="0.08"/>
+
+  <!-- ===== DDR5 PC (green) area fill ===== -->
+  <polygon points="70,327 125,332 181,338 236,340 292,332 347,322 403,312 458,317 514,325 569,329 625,332 680,327 680,438 70,438"
+    fill="#059669" fill-opacity="0.08"/>
+
+  <!-- ===== DDR4 PC (blue) area fill ===== -->
+  <polygon points="70,389 125,394 181,399 236,404 292,397 347,389 403,381 458,384 514,391 569,399 625,401 680,397 680,438 70,438"
+    fill="#2563EB" fill-opacity="0.08"/>
+
+  <!-- ===== Server DDR5 line ===== -->
+  <polyline points="70,183 125,173 181,163 236,147 292,132 347,111 403,101 458,117 514,142 569,163 625,178 680,173"
+    fill="none" stroke="#D97706" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Server DDR5 dots -->
+  <circle cx="70"  cy="183" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="125" cy="173" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="181" cy="163" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="236" cy="147" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="292" cy="132" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="347" cy="111" r="5" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="403" cy="101" r="5" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="458" cy="117" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="514" cy="142" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="569" cy="163" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="625" cy="178" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <circle cx="680" cy="173" r="4" fill="#D97706" stroke="white" stroke-width="1.5"/>
+
+  <!-- ===== DDR5 PC line ===== -->
+  <polyline points="70,327 125,332 181,338 236,340 292,332 347,322 403,312 458,317 514,325 569,329 625,332 680,327"
+    fill="none" stroke="#059669" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- DDR5 dots -->
+  <circle cx="70"  cy="327" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="125" cy="332" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="181" cy="338" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="236" cy="340" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="292" cy="332" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="347" cy="322" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="403" cy="312" r="5" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="458" cy="317" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="514" cy="325" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="569" cy="329" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="625" cy="332" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <circle cx="680" cy="327" r="4" fill="#059669" stroke="white" stroke-width="1.5"/>
+
+  <!-- ===== DDR4 PC line ===== -->
+  <polyline points="70,389 125,394 181,399 236,404 292,397 347,389 403,381 458,384 514,391 569,399 625,401 680,397"
+    fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- DDR4 dots -->
+  <circle cx="70"  cy="389" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="125" cy="394" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="181" cy="399" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="236" cy="404" r="5" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="292" cy="397" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="347" cy="389" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="403" cy="381" r="5" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="458" cy="384" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="514" cy="391" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="569" cy="399" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="625" cy="401" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <circle cx="680" cy="397" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+
+  <!-- Peak annotation - Server DDR5 -->
+  <line x1="403" y1="101" x2="403" y2="68" stroke="#D97706" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="368" y="70" width="70" height="18" rx="4" fill="#FEF3C7"/>
+  <text x="403" y="82" text-anchor="middle" font-size="10" font-weight="600" fill="#92400E">고점 $4.60</text>
+
+  <!-- Low annotation - DDR4 -->
+  <line x1="236" y1="404" x2="236" y2="438" stroke="#2563EB" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="201" y="440" width="70" height="18" rx="4" fill="#DBEAFE"/>
+  <text x="236" y="452" text-anchor="middle" font-size="10" font-weight="600" fill="#1D4ED8">저점 $1.65</text>
+
+  <!-- X-axis labels -->
+  <text x="70"  y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 70, 465)">Apr'25</text>
+  <text x="125" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 125, 465)">May'25</text>
+  <text x="181" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 181, 465)">Jun'25</text>
+  <text x="236" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 236, 465)">Jul'25</text>
+  <text x="292" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 292, 465)">Aug'25</text>
+  <text x="347" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 347, 465)">Sep'25</text>
+  <text x="403" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 403, 465)">Oct'25</text>
+  <text x="458" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 458, 465)">Nov'25</text>
+  <text x="514" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 514, 465)">Dec'25</text>
+  <text x="569" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 569, 465)">Jan'26</text>
+  <text x="625" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 625, 465)">Feb'26</text>
+  <text x="680" y="465" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-40, 680, 465)">Mar'26</text>
+
+  <!-- Legend -->
+  <rect x="712" y="120" width="168" height="110" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="796" y="138" text-anchor="middle" font-size="11" font-weight="600" fill="#374151">범례</text>
+  <!-- Server DDR5 -->
+  <line x1="722" y1="155" x2="748" y2="155" stroke="#D97706" stroke-width="2.5"/>
+  <circle cx="735" cy="155" r="3.5" fill="#D97706" stroke="white" stroke-width="1.5"/>
+  <text x="754" y="159" font-size="10.5" fill="#374151">서버 DDR5</text>
+  <!-- DDR5 PC -->
+  <line x1="722" y1="178" x2="748" y2="178" stroke="#059669" stroke-width="2.5"/>
+  <circle cx="735" cy="178" r="3.5" fill="#059669" stroke="white" stroke-width="1.5"/>
+  <text x="754" y="182" font-size="10.5" fill="#374151">PC DDR5</text>
+  <!-- DDR4 PC -->
+  <line x1="722" y1="201" x2="748" y2="201" stroke="#2563EB" stroke-width="2.5"/>
+  <circle cx="735" cy="201" r="3.5" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+  <text x="754" y="205" font-size="10.5" fill="#374151">PC DDR4</text>
+
+  <!-- Data table box -->
+  <rect x="712" y="250" width="168" height="175" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="796" y="268" text-anchor="middle" font-size="11" font-weight="600" fill="#374151">현재가 (Mar'26)</text>
+  <line x1="720" y1="274" x2="872" y2="274" stroke="#E2E8F0" stroke-width="1"/>
+  <!-- Server DDR5 -->
+  <rect x="718" y="280" width="10" height="10" rx="2" fill="#D97706"/>
+  <text x="734" y="290" font-size="10" fill="#374151">서버 DDR5</text>
+  <text x="870" y="290" text-anchor="end" font-size="11" font-weight="700" fill="#D97706">$3.90/Gb</text>
+  <!-- DDR5 PC -->
+  <rect x="718" y="302" width="10" height="10" rx="2" fill="#059669"/>
+  <text x="734" y="312" font-size="10" fill="#374151">PC DDR5</text>
+  <text x="870" y="312" text-anchor="end" font-size="11" font-weight="700" fill="#059669">$2.40/Gb</text>
+  <!-- DDR4 PC -->
+  <rect x="718" y="324" width="10" height="10" rx="2" fill="#2563EB"/>
+  <text x="734" y="334" font-size="10" fill="#374151">PC DDR4</text>
+  <text x="870" y="334" text-anchor="end" font-size="11" font-weight="700" fill="#2563EB">$1.72/Gb</text>
+  <line x1="720" y1="346" x2="872" y2="346" stroke="#E2E8F0" stroke-width="1"/>
+  <!-- 1yr change -->
+  <text x="734" y="362" font-size="10" fill="#374151">서버 1년 변동</text>
+  <text x="870" y="362" text-anchor="end" font-size="11" font-weight="700" fill="#D97706">+2.6%</text>
+  <text x="734" y="380" font-size="10" fill="#374151">PC DDR5 변동</text>
+  <text x="870" y="380" text-anchor="end" font-size="11" font-weight="700" fill="#059669">±0%</text>
+  <text x="734" y="398" font-size="10" fill="#374151">PC DDR4 변동</text>
+  <text x="870" y="398" text-anchor="end" font-size="11" font-weight="700" fill="#EF4444">-4.4%</text>
+
+  <!-- Source note -->
+  <text x="450" y="510" text-anchor="middle" font-size="10" fill="#94A3B8">* 출처: DRAM Exchange, TrendForce 참고 / 계약가 기준 추정치 포함</text>
+</svg>
