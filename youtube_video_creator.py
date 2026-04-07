@@ -20,6 +20,7 @@ from pathlib import Path
 # ─── 환경 변수 ───────────────────────────────────────────────
 OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+FAL_KEY           = os.getenv("FAL_KEY", "")
 
 # ─── 영상 설정 ────────────────────────────────────────────────
 SHORTS_W, SHORTS_H = 1080, 1920   # 세로형 9:16
@@ -56,8 +57,16 @@ try:
 except ImportError:
     print("❌ pip install requests 필요"); sys.exit(1)
 
+try:
+    import fal_client
+except ImportError:
+    print("❌ pip install fal-client 필요"); sys.exit(1)
+
 openai_client    = OpenAI(api_key=OPENAI_API_KEY)
 claude_client    = anthropic_lib.Anthropic(api_key=ANTHROPIC_API_KEY)
+
+# fal.ai 인증 설정
+os.environ.setdefault("FAL_KEY", FAL_KEY)
 
 
 # ════════════════════════════════════════════════════════════
@@ -200,32 +209,26 @@ def build_dalle_prompt(slide_text: str, title: str, slide_idx: int, total: int) 
 
 
 def generate_dalle_image(prompt: str, w: int, h: int, retries: int = 3) -> Image.Image | None:
-    """DALL-E 3으로 이미지 생성 (캐시 + 재시도)"""
-    # DALL-E 3 지원 사이즈
-    if h > w:
-        dalle_size = "1024x1792"
-    elif w > h:
-        dalle_size = "1792x1024"
-    else:
-        dalle_size = "1024x1024"
-
-    # 캐시 확인
+    """fal.ai FLUX.1로 이미지 생성 (캐시 + 재시도)"""
+    size_key = f"{w}x{h}"
     key = hashlib.md5(prompt.encode()).hexdigest()[:12]
-    cached = _image_cache_path(key, dalle_size)
+    cached = _image_cache_path(key, size_key)
     if os.path.exists(cached):
         print(f"      💾 캐시 사용: {key}")
         return Image.open(cached).convert("RGB")
 
     for attempt in range(retries):
         try:
-            resp = openai_client.images.generate(
-                model="dall-e-3",
-                prompt=prompt,
-                size=dalle_size,
-                quality="standard",
-                n=1,
+            result = fal_client.run(
+                "fal-ai/flux/dev",
+                arguments={
+                    "prompt": prompt,
+                    "image_size": {"width": w, "height": h},
+                    "num_images": 1,
+                    "enable_safety_checker": False,
+                },
             )
-            url = resp.data[0].url
+            url = result["images"][0]["url"]
             img_resp = req_lib.get(url, timeout=30)
             img = Image.open(io.BytesIO(img_resp.content)).convert("RGB")
             img.save(cached)
@@ -234,11 +237,11 @@ def generate_dalle_image(prompt: str, w: int, h: int, retries: int = 3) -> Image
         except Exception as e:
             err = str(e)
             if "rate_limit" in err.lower() or "429" in err:
-                wait = 20 * (attempt + 1)
+                wait = 10 * (attempt + 1)
                 print(f"      ⏳ Rate limit — {wait}초 대기 후 재시도...")
                 time.sleep(wait)
-            elif "content_policy" in err.lower() or "safety" in err.lower():
-                print(f"      ⚠️  콘텐츠 정책 → 폴백 이미지 사용")
+            elif "safety" in err.lower() or "nsfw" in err.lower():
+                print(f"      ⚠️  안전 정책 → 폴백 이미지 사용")
                 return None
             else:
                 print(f"      ❌ 이미지 생성 실패 (시도 {attempt+1}): {e}")
