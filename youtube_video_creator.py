@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 US History YouTube Content Creator — Graphic Novel Edition
-us-history MDX → GPT-4o 대본 → DALL-E 3 그래픽노블 이미지 → TTS 음성 → FFmpeg 영상 → YouTube 업로드
+us-history MDX → Claude 대본 → DALL-E 3 그래픽노블 이미지 → TTS 음성 → FFmpeg 영상 → YouTube 업로드
 """
 
 import argparse
@@ -18,7 +18,8 @@ import time
 from pathlib import Path
 
 # ─── 환경 변수 ───────────────────────────────────────────────
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 # ─── 영상 설정 ────────────────────────────────────────────────
 SHORTS_W, SHORTS_H = 1080, 1920   # 세로형 9:16
@@ -41,6 +42,11 @@ except ImportError:
     print("❌ pip install openai 필요"); sys.exit(1)
 
 try:
+    import anthropic as anthropic_lib
+except ImportError:
+    print("❌ pip install anthropic 필요"); sys.exit(1)
+
+try:
     from PIL import Image, ImageDraw, ImageFont, ImageFilter
 except ImportError:
     print("❌ pip install Pillow 필요"); sys.exit(1)
@@ -50,7 +56,8 @@ try:
 except ImportError:
     print("❌ pip install requests 필요"); sys.exit(1)
 
-openai_client = OpenAI(api_key=OPENAI_API_KEY)
+openai_client    = OpenAI(api_key=OPENAI_API_KEY)
+claude_client    = anthropic_lib.Anthropic(api_key=ANTHROPIC_API_KEY)
 
 
 # ════════════════════════════════════════════════════════════
@@ -88,7 +95,7 @@ def parse_mdx(file_path: str) -> dict:
 
 
 # ════════════════════════════════════════════════════════════
-#  2. 대본 생성 (GPT-4o)
+#  2. 대본 생성 (Claude)
 # ════════════════════════════════════════════════════════════
 def generate_script(parsed: dict, mode: str) -> str:
     title, body = parsed["title"], parsed["body"]
@@ -121,12 +128,12 @@ def generate_script(parsed: dict, mode: str) -> str:
 제목: {title}
 내용: {body[:4000]}"""
 
-    resp = openai_client.chat.completions.create(
-        model="gpt-4o",
+    resp = claude_client.messages.create(
+        model="claude-opus-4-6",
+        max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.75,
     )
-    return resp.choices[0].message.content.strip()
+    return resp.content[0].text.strip()
 
 
 # ════════════════════════════════════════════════════════════
@@ -170,9 +177,10 @@ def _image_cache_path(prompt_hash: str, size: str) -> str:
 
 
 def build_dalle_prompt(slide_text: str, title: str, slide_idx: int, total: int) -> str:
-    """슬라이드 내용 → DALL-E 프롬프트 (GPT-4o 활용)"""
-    resp = openai_client.chat.completions.create(
-        model="gpt-4o",
+    """슬라이드 내용 → DALL-E 프롬프트 (Claude 활용)"""
+    resp = claude_client.messages.create(
+        model="claude-opus-4-6",
+        max_tokens=250,
         messages=[{
             "role": "user",
             "content": (
@@ -187,10 +195,8 @@ def build_dalle_prompt(slide_text: str, title: str, slide_idx: int, total: int) 
                 f"Output only the prompt, nothing else."
             )
         }],
-        temperature=0.6,
-        max_tokens=200,
     )
-    return resp.choices[0].message.content.strip()
+    return resp.content[0].text.strip()
 
 
 def generate_dalle_image(prompt: str, w: int, h: int, retries: int = 3) -> Image.Image | None:
