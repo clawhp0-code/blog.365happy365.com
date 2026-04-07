@@ -220,7 +220,7 @@ def generate_dalle_image(prompt: str, w: int, h: int, retries: int = 3) -> Image
     for attempt in range(retries):
         try:
             result = fal_client.run(
-                "fal-ai/flux/dev",
+                "fal-ai/flux/schnell",
                 arguments={
                     "prompt": prompt,
                     "image_size": {"width": w, "height": h},
