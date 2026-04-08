@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 US History YouTube Content Creator — Graphic Novel Edition
-us-history MDX → Claude 대본 → DALL-E 3 그래픽노블 이미지 → TTS 음성 → FFmpeg 영상 → YouTube 업로드
+us-history MDX → Claude 대본 → fal.ai FLUX 그래픽노블 이미지 → TTS 음성 → FFmpeg 영상 → YouTube 업로드
 """
 
 import argparse
@@ -117,7 +117,8 @@ def generate_script(parsed: dict, mode: str) -> str:
 - 180~200 단어 이내
 - 첫 문장: 강렬한 후킹 (놀라운 사실 or 질문)
 - 핵심 1~2가지만 전달
-- 마지막: "구독과 좋아요 부탁드립니다!"
+- 마지막 문장: 구독과 좋아요를 유도하는 자연스러운 한국어 문장 (영어 단어 절대 사용 금지)
+- 전체 대본에 영어 단어를 절대 포함하지 마세요. 모든 내용을 순수 한국어로 작성하세요.
 - 구어체, 대본만 출력
 
 제목: {title}
@@ -129,10 +130,11 @@ def generate_script(parsed: dict, mode: str) -> str:
 구성:
 - 인트로 (30초): 강렬한 후킹
 - 본론 (4~5분): 시간순 전개, 역사적 맥락, 인물 이야기
-- 아웃트로 (30초): 요약 + "구독과 좋아요 눌러주세요!"
+- 아웃트로 (30초): 요약 + 구독과 좋아요를 유도하는 자연스러운 한국어 문장
 
 규칙:
 - 800~1000 단어, 구어체, 대본만 출력
+- 전체 대본에 영어 단어를 절대 포함하지 마세요. 모든 내용을 순수 한국어로 작성하세요.
 
 제목: {title}
 내용: {body[:4000]}"""
@@ -169,7 +171,7 @@ def audio_duration(path: str) -> float:
 
 
 # ════════════════════════════════════════════════════════════
-#  4. DALL-E 3 그래픽 노블 이미지 생성
+#  4. fal.ai FLUX 그래픽 노블 이미지 생성
 # ════════════════════════════════════════════════════════════
 GRAPHIC_NOVEL_STYLE = (
     "graphic novel art style, bold ink outlines, dramatic cross-hatching, "
@@ -185,8 +187,8 @@ def _image_cache_path(prompt_hash: str, size: str) -> str:
     return os.path.join(IMAGE_CACHE_DIR, f"{prompt_hash}_{size.replace('x','_')}.png")
 
 
-def build_dalle_prompt(slide_text: str, title: str, slide_idx: int, total: int) -> str:
-    """슬라이드 내용 → DALL-E 프롬프트 (Claude 활용)"""
+def build_image_prompt(slide_text: str, title: str, slide_idx: int, total: int) -> str:
+    """슬라이드 내용 → 이미지 프롬프트 (Claude 활용)"""
     resp = claude_client.messages.create(
         model="claude-opus-4-6",
         max_tokens=250,
@@ -196,7 +198,7 @@ def build_dalle_prompt(slide_text: str, title: str, slide_idx: int, total: int) 
                 f"You are an art director creating graphic novel panels for a historical video.\n"
                 f"Topic: {title}\n"
                 f"Narration (slide {slide_idx+1}/{total}): {slide_text}\n\n"
-                f"Write a concise DALL-E image generation prompt (in English, max 120 words) "
+                f"Write a concise image generation prompt (in English, max 120 words) "
                 f"that visually depicts THIS specific moment/scene. "
                 f"The prompt MUST include: {GRAPHIC_NOVEL_STYLE}\n"
                 f"Focus on the key historical figure, action, or setting described. "
@@ -208,8 +210,8 @@ def build_dalle_prompt(slide_text: str, title: str, slide_idx: int, total: int) 
     return resp.content[0].text.strip()
 
 
-def generate_dalle_image(prompt: str, w: int, h: int, retries: int = 3) -> Image.Image | None:
-    """fal.ai FLUX.1로 이미지 생성 (캐시 + 재시도)"""
+def generate_image(prompt: str, w: int, h: int, retries: int = 1) -> Image.Image | None:
+    """fal.ai FLUX로 이미지 생성 (캐시 + 재시도)"""
     size_key = f"{w}x{h}"
     key = hashlib.md5(prompt.encode()).hexdigest()[:12]
     cached = _image_cache_path(key, size_key)
@@ -249,6 +251,39 @@ def generate_dalle_image(prompt: str, w: int, h: int, retries: int = 3) -> Image
                     time.sleep(5)
 
     return None
+
+
+def generate_image_dalle2(prompt: str, w: int, h: int) -> Image.Image | None:
+    """DALL-E 2 폴백 이미지 생성 (fal.ai 실패 시)"""
+    size_key = f"{w}x{h}"
+    key = hashlib.md5(("dalle2_" + prompt).encode()).hexdigest()[:12]
+    cached = _image_cache_path(key, size_key)
+    if os.path.exists(cached):
+        print(f"      💾 DALL-E 2 캐시 사용: {key}")
+        return Image.open(cached).convert("RGB")
+
+    # DALL-E 2는 256x256, 512x512, 1024x1024만 지원
+    dalle_size = "1024x1024"
+    # 프롬프트 1000자 제한
+    short_prompt = prompt[:950]
+
+    try:
+        resp = openai_client.images.generate(
+            model="dall-e-2",
+            prompt=short_prompt,
+            n=1,
+            size=dalle_size,
+        )
+        url = resp.data[0].url
+        img_resp = req_lib.get(url, timeout=30)
+        img = Image.open(io.BytesIO(img_resp.content)).convert("RGB")
+        # 원하는 크기로 리사이즈
+        img = img.resize((w, h), Image.LANCZOS)
+        img.save(cached)
+        return img
+    except Exception as e:
+        print(f"      ❌ DALL-E 2 실패: {e}")
+        return None
 
 
 # ════════════════════════════════════════════════════════════
@@ -308,7 +343,7 @@ def compose_frame(
     frame.paste(top_overlay, (0, 0), top_overlay)
 
     # ── 하단 텍스트 박스 오버레이 ──
-    text_box_h = int(h * 0.42) if is_vertical else int(h * 0.38)
+    text_box_h = int(h * 0.50) if is_vertical else int(h * 0.45)
     text_box_y = h - text_box_h
     bottom_overlay = Image.new("RGBA", (w, text_box_h), (0, 0, 0, 0))
     for y in range(text_box_h):
@@ -320,11 +355,11 @@ def compose_frame(
     draw = ImageDraw.Draw(frame)
     margin = int(w * 0.06)
 
-    # 폰트 크기
+    # 폰트 크기 (설명 폰트 1.5배)
     if is_vertical:
-        t_sz, b_sz, s_sz = 48, 44, 28
+        t_sz, b_sz, s_sz = 48, 66, 28
     else:
-        t_sz, b_sz, s_sz = 56, 46, 30
+        t_sz, b_sz, s_sz = 56, 69, 30
 
     title_font = _load_font(t_sz)
     body_font  = _load_font(b_sz)
@@ -342,7 +377,7 @@ def compose_frame(
     _draw_text_shadow(draw, (margin, int(h * 0.085)), short_title, title_font, TEXT_COLOR)
 
     # ── 하단: 본문 나레이션 ──
-    max_c = 20 if is_vertical else 38
+    max_c = 14 if is_vertical else 26
     wrapped = textwrap.fill(slide_text, width=max_c)
     body_y = text_box_y + int(text_box_h * 0.08)
     lh = int(b_sz * 1.6)
@@ -396,7 +431,7 @@ def render_video(
     slides = split_into_slides(script, n_slides)
     sec_per = dur / len(slides)
 
-    print(f"    🎨 DALL-E 3 그래픽노블 이미지 생성: {len(slides)}장")
+    print(f"    🎨 fal.ai FLUX 그래픽노블 이미지 생성: {len(slides)}장")
 
     with tempfile.TemporaryDirectory() as tmp:
         concat_file = os.path.join(tmp, "concat.txt")
@@ -405,11 +440,15 @@ def render_video(
             for i, text in enumerate(slides):
                 print(f"      [{i+1}/{len(slides)}] 이미지 생성 중...", end=" ", flush=True)
 
-                # DALL-E 프롬프트 생성
-                dalle_prompt = build_dalle_prompt(text, title, i, len(slides))
+                # 이미지 프롬프트 생성
+                image_prompt = build_image_prompt(text, title, i, len(slides))
 
-                # DALL-E 이미지 생성
-                bg = generate_dalle_image(dalle_prompt, w, h)
+                # fal.ai FLUX 이미지 생성
+                bg = generate_image(image_prompt, w, h)
+                if bg is None:
+                    # 폴백: DALL-E 2로 이미지 생성
+                    print("🔄 DALL-E 2 폴백...", end=" ", flush=True)
+                    bg = generate_image_dalle2(image_prompt, w, h)
                 print("✅")
 
                 # 프레임 합성
@@ -439,11 +478,13 @@ def render_video(
             "-preset", "fast", "-crf", "20", silent,
         ], capture_output=True, check=True)
 
+        # Shorts(세로형)는 59초 제한
+        time_limit = ["-t", "59"] if h > w else []
         subprocess.run([
             "ffmpeg", "-y",
             "-i", silent, "-i", audio_path,
             "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
-            "-shortest", out_path,
+            "-shortest", *time_limit, out_path,
         ], capture_output=True, check=True)
 
     print(f"    ✅ 영상 → {out_path}")
@@ -528,6 +569,7 @@ def process(
     upload: bool = False,
     client_secrets: str = "client_secrets.json",
     voice: str = "onyx",
+    modes: list | None = None,   # None = 전체, ["shorts"] = 쇼츠만, ["longform"] = 롱폼만
 ):
     os.makedirs(out_dir, exist_ok=True)
     os.makedirs(IMAGE_CACHE_DIR, exist_ok=True)
@@ -544,10 +586,11 @@ def process(
     print(f"  제목: {parsed['title']}\n")
 
     results = {}
-    configs = [
+    all_configs = [
         ("shorts",   SHORTS_W, SHORTS_H),
         ("longform", LONG_W,   LONG_H),
     ]
+    configs = [(m, w, h) for m, w, h in all_configs if modes is None or m in modes]
 
     for mode, w, h in configs:
         print(f"  ── {mode.upper()} ──────────────────────────────")
@@ -597,14 +640,18 @@ def process(
 #  CLI
 # ════════════════════════════════════════════════════════════
 def main():
-    ap = argparse.ArgumentParser(description="미국 역사 MDX → 그래픽노블 YouTube 영상 자동 생성")
+    ap = argparse.ArgumentParser(description="미국 역사 MDX → fal.ai FLUX 그래픽노블 YouTube 영상 자동 생성")
     ap.add_argument("--mdx",            required=True,  help="MDX 파일 경로")
     ap.add_argument("--output",         default="./video_output")
     ap.add_argument("--upload",         action="store_true", help="YouTube 업로드")
     ap.add_argument("--client-secrets", default="client_secrets.json")
     ap.add_argument("--voice",          default="onyx",
                     choices=["alloy", "echo", "fable", "onyx", "nova", "shimmer"])
+    ap.add_argument("--mode",           default="all",
+                    choices=["all", "shorts", "longform"], help="생성할 영상 모드")
     args = ap.parse_args()
+
+    modes = None if args.mode == "all" else [args.mode]
 
     process(
         mdx_path=args.mdx,
@@ -612,6 +659,7 @@ def main():
         upload=args.upload,
         client_secrets=args.client_secrets,
         voice=args.voice,
+        modes=modes,
     )
 
 
