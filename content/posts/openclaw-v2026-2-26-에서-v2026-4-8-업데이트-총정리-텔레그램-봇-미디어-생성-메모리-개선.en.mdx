@@ -1,0 +1,221 @@
+---
+title: "OpenClaw v2026.2.26 to v2026.4.8 Update Summary - Telegram Bot, Media Generation, Memory Improvements"
+description: "A comprehensive summary of 10 releases (v2026.3.22-v2026.4.8) of the OpenClaw AI gateway. Covers Telegram error policies, video/music generation, dreaming memory, Task Flow, and more."
+date: 2026-04-09
+category: Tech
+tags:
+  - OpenClaw
+  - AI Gateway
+  - Telegram Bot
+  - LLM
+  - Artificial Intelligence
+  - Update
+  - Release Notes
+  - Media Generation
+  - Task Flow
+  - 2026 AI
+featured: false
+draft: false
+locale: "en"
+---
+
+OpenClaw is an open-source multi-channel AI gateway that connects LLM agents to various messaging platforms like Telegram, Discord, and Slack. Over the past three weeks (v2026.2.26 to v2026.4.8), there have been very active updates. Here's a version-by-version summary of the key changes.
+
+
+
+## v2026.3.22 - Major Structural Overhaul
+
+This release includes many breaking changes as part of a major update.
+
+**Plugin SDK Overhaul**
+- The old `openclaw/extension-api` has been removed and replaced with the `openclaw/plugin-sdk/*` subpath structure.
+- ClawHub marketplace was introduced, enabling skill search and installation via `openclaw skills search|install|update`.
+
+**Security Hardening**
+- Exec environment sandbox strengthened: JVM injection (`MAVEN_OPTS`, `SBT_OPTS`, etc.), glibc exploits (`GLIBC_TUNABLES`), and .NET hijacking (`DOTNET_ADDITIONAL_DEPS`) are now blocked.
+- Voice call webhook pre-auth body budget reduced to 64KB/5s.
+
+**Channel Updates**
+- Chrome MCP legacy extension relay path removed.
+- New Matrix plugin added based on official `matrix-js-sdk`.
+- Discord slash commands switched to Carbon reconcile mode.
+
+**Telegram**
+- Fixed missing `currentThreadTs` in DM topics, so thread-aware tools now work correctly.
+
+
+
+## v2026.3.23 - Qwen Model Studio + UI Improvements
+
+- Qwen (Alibaba Cloud Model Studio) DashScope endpoints added for both China and global API keys.
+- Control UI received Knot theme (black/red palette with WCAG 2.1 AA contrast), config icons, and accessibility improvements.
+- Bundled plugin runtime sidecars (WhatsApp, Matrix, etc.) re-included in the npm package, fixing global install failures.
+
+
+
+## v2026.3.24 - OpenAI Compatible API + MS Teams
+
+**OpenAI Compatible API**
+- `/v1/models` and `/v1/embeddings` endpoints added for broader RAG client compatibility.
+
+**Microsoft Teams**
+- Migrated to the official Teams SDK with streaming 1:1 replies, welcome cards, feedback/reflection, typing indicators, and native AI labeling.
+- Message edit and delete support added.
+
+**Other Key Changes**
+- `--container` option enables running commands inside Docker/Podman containers.
+- `/tools` command now shows only tools the current agent can actually use.
+- Slack rich reply parity restored with auto-rendered interactive buttons/selects.
+- Gateway channel startup is now sequential but isolated, so one broken channel no longer blocks others.
+
+
+
+## v2026.3.28 - xAI Search + Plugin Approval Hooks
+
+**xAI Integration**
+- xAI provider moved to the Responses API with first-class `x_search` support.
+- Optional x_search setup available during onboarding.
+
+**Plugin Hook Enhancements**
+- `requireApproval` added to `before_tool_call` hooks, allowing plugins to pause tool execution and prompt users for approval via Telegram buttons, Discord interactions, or the `/approve` command.
+
+**Channel Updates**
+- QQ Bot bundled channel plugin added.
+- Matrix received streaming replies (in-place message updates), room history context, and proxy configuration.
+- MiniMax image generation provider (`image-01` model) added.
+
+
+
+## v2026.3.31 - Background Tasks + Task Flow
+
+**Unified Background Tasks**
+- ACP, subagent, cron, and background CLI execution unified under a single SQLite-backed ledger.
+- `openclaw flows list|show|cancel` for task flow management.
+
+**Security Hardening**
+- `trusted-proxy` now rejects mixed shared-token configs.
+- Node commands require pairing approval before activation.
+- Skill/plugin installs with dangerous-code `critical` findings are blocked by default.
+
+**Channels**
+- LINE image/video/audio outbound sends added.
+- Matrix native voice bubble TTS and per-DM thread policy overrides added.
+
+
+
+## v2026.4.1 - Telegram Error Policy + Chat Task Board
+
+**Telegram Improvements**
+- Configurable `errorPolicy` and `errorCooldownMs` settings added to suppress repeated delivery errors per account, chat, and topic without muting distinct failures.
+
+**Chat Task Board**
+- `/tasks` command shows a background task board for the current session.
+
+**Other Changes**
+- SearXNG web search provider added.
+- Amazon Bedrock Guardrails support added.
+- macOS Voice Wake triggers Talk Mode.
+- Rate-limit auth profile rotation cap (`auth.cooldowns.rateLimitedProfileRotations`) is now configurable.
+- `/model` changes queue behind busy runs instead of interrupting the active turn.
+
+
+
+## v2026.4.2 - Task Flow API + Android Assistant
+
+**Task Flow**
+- Managed child task spawning with sticky cancel intent added.
+- Plugins can drive Task Flows directly via `api.runtime.taskFlow`.
+
+**Provider Transport Policy**
+- Auth, proxy, TLS, and header shaping centralized across HTTP, stream, and websocket paths.
+- Insecure TLS/runtime transport overrides blocked.
+
+**Android**
+- Google Assistant App Actions enable launching OpenClaw from the assistant trigger.
+
+
+
+## v2026.4.5 - Media Generation + Dreaming Memory
+
+**Media Generation Tools**
+- `video_generate`: xAI (grok-imagine-video), Alibaba Wan, and Runway providers.
+- `music_generate`: Google Lyria, MiniMax, and ComfyUI workflow support.
+- ComfyUI bundled plugin for local image/video/music generation.
+
+**Provider Expansion**
+- Qwen, Fireworks AI, and StepFun bundled providers added.
+- Amazon Bedrock Mantle auto-discovery with IAM auth support.
+
+**Memory/Dreaming (Experimental)**
+- Automatic short-term memory promotion system introduced.
+- Three cooperative dreaming phases: Light, Deep, and REM.
+- `/dreaming` command, Dreams UI, and multilingual conceptual tagging.
+- Configurable memory decay via `recencyHalfLifeDays` and `maxAgeDays`.
+
+**Control UI Multilingual**
+- Korean, Japanese, Chinese (Simplified/Traditional), Portuguese, German, Spanish, French, Turkish, Indonesian, Polish, and Ukrainian added.
+
+**iOS**
+- Exec approval APNs notifications + Apple Watch approval support.
+
+
+
+## v2026.4.7 - Inference Hub + Wiki Memory
+
+**`openclaw infer` Inference Hub**
+- Unified inference CLI for model, media, web, and embedding tasks.
+
+**Memory/Wiki**
+- Structured claim/evidence-based wiki memory stack restored.
+- Includes compiled digest retrieval, claim health linting, contradiction clustering, and freshness dashboards.
+
+**Session Management**
+- Compaction checkpoints are now persisted, enabling branch/restore in the Sessions UI.
+- Compaction providers can be replaced via plugins.
+
+**Providers**
+- Gemma 4 model support (Google).
+- Arcee AI bundled provider added.
+- Ollama vision model auto-detection (image attachment support).
+
+**Other**
+- Webhook ingress plugin enables external automation to drive TaskFlows.
+- `agents.defaults.systemPromptOverride` for controlled prompt experiments.
+
+
+
+## v2026.4.8 - Telegram Hotfix
+
+- Fixed missing `dist/extensions/telegram/src/*` files in npm builds during gateway startup.
+- Same fix applied to bundled channels: BlueBubbles, Feishu, Google Chat, IRC, Matrix, Mattermost, Microsoft Teams, Nextcloud Talk, Slack, and Zalo.
+- Bundled plugin compatibility metadata aligned with release version.
+- Slack Socket Mode WebSocket connections now work through HTTP(S) proxies.
+
+
+
+## How to Update
+
+Check your current version and update:
+
+```bash
+openclaw --version
+openclaw update
+```
+
+Preview with `--dry-run` first:
+
+```bash
+openclaw update --dry-run
+```
+
+With many breaking changes, make sure to run `openclaw doctor --fix` after updating to verify config migration:
+
+```bash
+openclaw doctor --fix
+```
+
+
+
+## Conclusion
+
+The most notable changes across these three weeks of updates are the addition of media generation tools (video, music), the dreaming memory system, Task Flow-based background task management, and Control UI multilingual support. For Telegram users, the error policy settings in v2026.4.1 and the startup fix in v2026.4.8 are particularly important.

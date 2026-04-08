@@ -1,0 +1,220 @@
+---
+title: OpenClaw v2026.2.26에서 v2026.4.8 업데이트 총정리 - 텔레그램 봇, 미디어 생성, 메모리 개선
+description: OpenClaw AI 게이트웨이의 최근 10개 릴리즈(v2026.3.22~v2026.4.8)에서 추가된 주요 기능과 버그 수정을 정리했습니다. 텔레그램 에러 정책, 동영상/음악 생성, 드리밍 메모리, Task Flow 등 실무에 필요한 변경사항을 한눈에 확인하세요.
+date: 2026-04-09
+category: 테크
+tags:
+  - OpenClaw
+  - AI게이트웨이
+  - 텔레그램봇
+  - LLM
+  - 인공지능
+  - 업데이트
+  - 릴리즈노트
+  - 미디어생성
+  - TaskFlow
+  - 2026년AI
+featured: false
+draft: false
+---
+
+OpenClaw는 멀티채널 AI 게이트웨이로, 텔레그램/디스코드/슬랙 등 다양한 메시징 플랫폼에 LLM 에이전트를 연결해주는 오픈소스 프로젝트입니다. 최근 약 3주간(v2026.2.26 → v2026.4.8) 매우 활발한 업데이트가 이루어졌는데, 버전별 주요 변경사항을 정리해 보았습니다.
+
+
+
+## v2026.3.22 - 대규모 구조 개편
+
+이번 릴리즈는 Breaking Change가 많은 대규모 업데이트입니다.
+
+**플러그인 SDK 전면 개편**
+- 기존 `openclaw/extension-api`가 제거되고 `openclaw/plugin-sdk/*` 서브패스 구조로 전환되었습니다.
+- ClawHub 마켓플레이스가 도입되어 `openclaw skills search|install|update` 명령으로 스킬을 검색하고 설치할 수 있습니다.
+
+**보안 강화**
+- 실행 환경 샌드박스가 강화되어 JVM 인젝션(`MAVEN_OPTS`, `SBT_OPTS` 등), glibc 취약점(`GLIBC_TUNABLES`), .NET 하이재킹(`DOTNET_ADDITIONAL_DEPS`)이 차단됩니다.
+- 음성 통화 웹훅에서 인증 전 바디 버짓이 64KB/5초로 축소되었습니다.
+
+**채널 관련**
+- Chrome MCP 레거시 확장 릴레이 경로가 제거되었습니다.
+- Matrix 플러그인이 공식 `matrix-js-sdk` 기반으로 새로 추가되었습니다.
+- Discord 슬래시 커맨드가 Carbon reconcile 방식으로 전환되었습니다.
+
+**텔레그램**
+- DM 토픽에서 `currentThreadTs`가 누락되는 문제가 수정되어, 스레드 인식 도구가 정상 동작합니다.
+
+
+
+## v2026.3.23 - Qwen 모델 스튜디오 + UI 개선
+
+- Qwen(알리바바 클라우드 모델 스튜디오) DashScope 엔드포인트가 추가되었습니다.
+- Control UI에 Knot 테마(블랙/레드 팔레트, WCAG 2.1 AA 대비), 설정 아이콘, 접근성 개선이 적용되었습니다.
+- 번들 플러그인 런타임 사이드카(WhatsApp, Matrix 등)가 npm 패키지에 다시 포함되어 글로벌 설치 실패 문제가 해결되었습니다.
+
+
+
+## v2026.3.24 - OpenAI 호환 API + MS Teams
+
+**OpenAI 호환 API**
+- `/v1/models`, `/v1/embeddings` 엔드포인트가 추가되어 RAG 클라이언트와의 호환성이 향상되었습니다.
+
+**Microsoft Teams**
+- 공식 Teams SDK로 마이그레이션되었으며, 스트리밍 1:1 답변, 환영 카드, 피드백/반성, 타이핑 인디케이터, AI 라벨링 등 모범 사례가 적용되었습니다.
+- 메시지 수정/삭제 기능이 추가되었습니다.
+
+**기타 주요 변경**
+- `--container` 옵션으로 Docker/Podman 컨테이너 내부에서 명령 실행이 가능해졌습니다.
+- `/tools` 명령이 현재 에이전트가 실제로 사용 가능한 도구만 표시하도록 개선되었습니다.
+- Slack 리치 답변 복구 및 인터랙티브 버튼/셀렉트 자동 렌더링이 추가되었습니다.
+- 게이트웨이 채널 시작이 순차적이되 격리되어, 하나의 채널 실패가 다른 채널을 막지 않습니다.
+
+
+
+## v2026.3.28 - xAI 검색 + 플러그인 승인 훅
+
+**xAI 통합**
+- xAI 프로바이더가 Responses API로 전환되고 `x_search`가 추가되었습니다.
+- 온보딩 과정에서 선택적으로 x_search 설정이 가능합니다.
+
+**플러그인 훅 강화**
+- `before_tool_call` 훅에 `requireApproval`이 추가되어, 플러그인이 도구 실행을 일시 중지하고 사용자에게 승인을 요청할 수 있습니다. 텔레그램 버튼, 디스코드 인터랙션, `/approve` 명령 등을 통해 승인이 가능합니다.
+
+**채널 업데이트**
+- QQ Bot 번들 채널 플러그인이 추가되었습니다.
+- Matrix에 스트리밍 응답(같은 메시지를 실시간 업데이트), 룸 히스토리 컨텍스트, 프록시 설정이 추가되었습니다.
+- MiniMax 이미지 생성 프로바이더(`image-01` 모델)가 추가되었습니다.
+
+
+
+## v2026.3.31 - 백그라운드 태스크 + Task Flow
+
+**백그라운드 태스크 통합**
+- ACP, 서브에이전트, cron, 백그라운드 CLI 실행이 하나의 SQLite 기반 레저로 통합되었습니다.
+- `openclaw flows list|show|cancel`로 태스크 플로우를 관리할 수 있습니다.
+
+**보안 강화**
+- `trusted-proxy`에서 혼합 공유 토큰 설정이 거부됩니다.
+- 노드 명령은 페어링 승인 후에만 활성화됩니다.
+- 스킬/플러그인 설치 시 위험 코드 `critical` 발견 시 기본적으로 설치가 차단됩니다.
+
+**채널**
+- LINE 이미지/비디오/오디오 아웃바운드 전송이 추가되었습니다.
+- Matrix 네이티브 음성 버블 TTS, 스레드 DM 정책 오버라이드가 추가되었습니다.
+
+
+
+## v2026.4.1 - 텔레그램 에러 정책 + 채팅 태스크 보드
+
+**텔레그램 개선**
+- `errorPolicy`와 `errorCooldownMs` 설정이 추가되어, 계정/채팅/토픽별로 반복되는 전송 에러를 억제할 수 있습니다. 서로 다른 에러는 여전히 정상 보고됩니다.
+
+**채팅 내 태스크 보드**
+- `/tasks` 명령으로 현재 세션의 백그라운드 태스크 보드를 볼 수 있습니다.
+
+**기타**
+- SearXNG 웹 검색 프로바이더가 추가되었습니다.
+- Amazon Bedrock Guardrails 지원이 추가되었습니다.
+- macOS Voice Wake으로 Talk Mode를 트리거할 수 있습니다.
+- Failover에서 Rate-limit 시 인증 프로필 로테이션 상한(`auth.cooldowns.rateLimitedProfileRotations`)이 설정 가능해졌습니다.
+- `/model` 변경이 실행 중인 턴을 중단하지 않고 큐에 대기합니다.
+
+
+
+## v2026.4.2 - Task Flow API + Android 어시스턴트
+
+**Task Flow**
+- 관리형 자식 태스크 생성과 취소 의도 전파가 추가되었습니다.
+- 플러그인에서 `api.runtime.taskFlow`를 통해 Task Flow를 직접 구동할 수 있습니다.
+
+**프로바이더 전송 정책**
+- HTTP, 스트림, 웹소켓 경로의 인증/프록시/TLS/헤더가 중앙 집중화되었습니다.
+- 불안전한 TLS/런타임 전송 오버라이드가 차단됩니다.
+
+**Android**
+- Google Assistant App Actions를 통해 어시스턴트 트리거로 OpenClaw를 실행할 수 있습니다.
+
+
+
+## v2026.4.5 - 미디어 생성 + 드리밍 메모리
+
+**미디어 생성 도구 대거 추가**
+- `video_generate`: xAI(grok-imagine-video), 알리바바 Wan, Runway 프로바이더 지원
+- `music_generate`: Google Lyria, MiniMax, ComfyUI 워크플로우 지원
+- ComfyUI 번들 플러그인으로 로컬 이미지/비디오/음악 생성 가능
+
+**프로바이더 확장**
+- Qwen, Fireworks AI, StepFun 번들 프로바이더 추가
+- Amazon Bedrock Mantle 자동 검색 및 IAM 인증 지원
+
+**메모리/드리밍 (실험적)**
+- 단기 기억의 자동 승격 시스템이 추가되었습니다.
+- Light, Deep, REM 세 단계의 협력적 드리밍 페이즈로 설계되었습니다.
+- `/dreaming` 명령, Dreams UI, 다국어 개념 태깅이 지원됩니다.
+- `recencyHalfLifeDays`, `maxAgeDays`로 기억 감쇠를 조절할 수 있습니다.
+
+**Control UI 다국어**
+- 한국어, 일본어, 중국어(간체/번체), 포르투갈어, 독일어, 스페인어, 프랑스어, 터키어, 인도네시아어, 폴란드어, 우크라이나어가 추가되었습니다.
+
+**iOS**
+- 실행 승인 APNs 알림 + Apple Watch 승인 지원이 추가되었습니다.
+
+
+
+## v2026.4.7 - 추론 허브 + 위키 메모리
+
+**`openclaw infer` 추론 허브**
+- 모델, 미디어, 웹, 임베딩 작업을 위한 통합 추론 CLI가 추가되었습니다.
+
+**메모리/위키**
+- 구조화된 claim/evidence 기반 위키 메모리 스택이 복원되었습니다.
+- 편집 다이제스트 검색, claim 건강 검사, 모순 클러스터링, 신선도 대시보드가 포함됩니다.
+
+**세션 관리**
+- 컴팩션 체크포인트가 저장되어, Sessions UI에서 브랜치/복원이 가능합니다.
+- 컴팩션 프로바이더를 플러그인으로 교체할 수 있습니다.
+
+**프로바이더**
+- Gemma 4 모델 지원 (Google)
+- Arcee AI 번들 프로바이더 추가
+- Ollama 비전 모델 자동 감지 (이미지 첨부 지원)
+
+**기타**
+- 웹훅 인그레스 플러그인으로 외부 자동화에서 TaskFlow를 구동할 수 있습니다.
+- `agents.defaults.systemPromptOverride`로 프롬프트 실험이 가능합니다.
+
+
+
+## v2026.4.8 - 텔레그램 핫픽스
+
+- npm 빌드에서 게이트웨이 시작 시 `dist/extensions/telegram/src/*` 파일 누락 문제가 수정되었습니다.
+- BlueBubbles, Feishu, Google Chat, IRC, Matrix, Mattermost, Microsoft Teams, Nextcloud Talk, Slack, Zalo 등 번들 채널에도 동일한 수정이 적용되었습니다.
+- 번들 플러그인 호환성 메타데이터가 릴리즈 버전과 정렬되었습니다.
+- Slack에서 HTTP(S) 프록시를 통한 Socket Mode WebSocket 연결이 지원됩니다.
+
+
+
+## 업데이트 방법
+
+현재 버전을 확인하고 업데이트하려면:
+
+```bash
+openclaw --version
+openclaw update
+```
+
+`--dry-run` 옵션으로 미리 확인할 수도 있습니다:
+
+```bash
+openclaw update --dry-run
+```
+
+주요 Breaking Change가 많으므로, 업데이트 후 반드시 `openclaw doctor --fix`를 실행하여 설정 마이그레이션을 확인하세요.
+
+```bash
+openclaw doctor --fix
+```
+
+
+
+## 마무리
+
+약 3주간의 업데이트에서 가장 눈에 띄는 변화는 미디어 생성 도구(비디오, 음악)의 추가, 드리밍 메모리 시스템, Task Flow 기반 백그라운드 작업 관리, 그리고 Control UI 다국어 지원입니다. 텔레그램 사용자라면 v2026.4.1의 에러 정책 설정과 v2026.4.8의 스타트업 수정이 특히 중요합니다.
