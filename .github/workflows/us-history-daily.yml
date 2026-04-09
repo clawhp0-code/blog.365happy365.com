@@ -2,7 +2,7 @@ name: Daily US History Post
 
 on:
   schedule:
-    - cron: "30 0 * * *"  # 매일 09:30 KST (UTC 00:30)
+    - cron: "0 3 * * *"  # 매일 12:00 KST (UTC 03:00)
   workflow_dispatch:
 
 jobs:
