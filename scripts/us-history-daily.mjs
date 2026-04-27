@@ -56,8 +56,54 @@ async function searchWikimediaImage(query) {
   }
 }
 
+// Validate that the generated post is actually about US history
+async function validateUsHistory(client, title, description) {
+  const message = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 100,
+    messages: [
+      {
+        role: 'user',
+        content: `다음 블로그 포스트 제목과 설명이 미국(United States of America)의 역사와 직접적으로 관련된 주제인지 판단해주세요.
+미국 역사로 인정되는 범위: 미국 독립 이후 또는 이전 미국 식민지 시대의 사건, 미국 내에서 일어난 사건, 미국인 인물, 미국 정치/사회/문화사.
+미국 역사로 인정되지 않는 범위: 외국 인물이나 사건 (비록 같은 시기라도), 세계대전 관련이지만 미국이 주인공이 아닌 사건.
+
+제목: "${title}"
+설명: "${description}"
+
+"YES" 또는 "NO"로만 답하세요.`,
+      },
+    ],
+  });
+
+  const answer = message.content[0].text.trim().toUpperCase();
+  return answer.startsWith('YES');
+}
+
+// Topic dedup log — used to avoid Claude picking the same topic across the day's runs
+const TOPIC_LOG_PATH = join(ROOT_DIR, 'video_output/us_history_log.json');
+
+function loadTopicLog() {
+  try {
+    if (existsSync(TOPIC_LOG_PATH)) {
+      return JSON.parse(readFileSync(TOPIC_LOG_PATH, 'utf-8'));
+    }
+  } catch (err) {
+    console.warn('Failed to read topic log:', err.message);
+  }
+  return [];
+}
+
+function saveTopicLog(log) {
+  try {
+    writeFileSync(TOPIC_LOG_PATH, JSON.stringify(log, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn('Failed to write topic log:', err.message);
+  }
+}
+
 // Generate post content using Claude
-async function generatePost() {
+async function generatePost(retryWithStrictPrompt = false, usedTitles = []) {
   const client = new Anthropic();
 
   const today = new Date().toLocaleDateString('ko-KR', {
@@ -67,7 +113,17 @@ async function generatePost() {
     day: 'numeric',
   });
 
-  const prompt = `당신은 미국 역사 전문 블로그 작가입니다. 오늘(${today}) 미국 역사에서 일어난 중요한 사건이나 인물, 또는 오늘 날짜를 기준으로 흥미로운 역사 이야기를 선택하여 한국어 블로그 포스트를 작성해주세요.
+  const strictWarning = retryWithStrictPrompt
+    ? `\n\n⚠️ 중요 경고: 반드시 미국(United States of America)과 직접적으로 관련된 사건/인물만 선택하세요. 외국 인물(예: 무솔리니, 히틀러, 처칠 등)이나 미국이 주인공이 아닌 사건은 절대 선택하지 마세요. 미국인이 주도한 사건, 미국 내 사건, 미국 역사의 전환점이 된 사건에만 집중하세요.`
+    : '';
+
+  const usedBlock = usedTitles.length > 0
+    ? `\n\n이미 사용한 주제(중복 금지, 최근 30개):\n${usedTitles.slice(-30).map((t) => `- ${t}`).join('\n')}\n\n위 목록과 다른 새로운 주제를 선택하세요.`
+    : '';
+
+  const prompt = `당신은 미국 역사 전문 블로그 작가입니다. 오늘(${today}) 미국(United States of America) 역사에서 일어난 중요한 사건이나 미국인 인물에 대한 이야기를 선택하여 한국어 블로그 포스트를 작성해주세요.
+
+반드시 미국과 직접적으로 관련된 주제만 선택하세요. 외국 인물이나 비미국 사건은 제외합니다.${strictWarning}${usedBlock}
 
 다음 JSON 형식으로 반드시 작성해주세요 (문자열 값 내의 따옴표는 모두 역슬래시로 이스케이프하세요):
 
@@ -141,26 +197,52 @@ async function generatePost() {
 async function main() {
   loadEnvLocal();
 
-  // KST date
+  // KST date + hour for frontmatter timestamp
   const now = new Date();
   const kstDate = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   const yyyy = kstDate.getFullYear();
   const mm = String(kstDate.getMonth() + 1).padStart(2, '0');
   const dd = String(kstDate.getDate()).padStart(2, '0');
+  const HH = String(kstDate.getHours()).padStart(2, '0');
+  const MM = String(kstDate.getMinutes()).padStart(2, '0');
   const dateStr = `${yyyy}-${mm}-${dd}`;
-  const filePath = join(POSTS_DIR, `us-history-${dateStr}.mdx`);
 
-  // Idempotent check
-  if (existsSync(filePath)) {
-    console.log(`Post already exists: ${filePath}`);
-    process.exit(0);
-  }
+  // Topic dedup log
+  const topicLog = loadTopicLog();
+  const usedTitles = topicLog.map((e) => e.title).filter(Boolean);
 
   console.log('Generating US history post with Claude...');
-  const postData = await generatePost();
-
+  let postData = await generatePost(false, usedTitles);
   console.log(`Title: ${postData.title}`);
   console.log(`Slug: ${postData.slug}`);
+
+  // Validate topic is actually US history
+  const validationClient = new Anthropic();
+  const isUsHistory = await validateUsHistory(validationClient, postData.title, postData.description);
+  if (!isUsHistory) {
+    console.warn(`⚠️ 생성된 포스트가 미국 역사 주제가 아닙니다: "${postData.title}"`);
+    console.log('🔄 미국 역사 주제로 재생성합니다...');
+    postData = await generatePost(true, usedTitles);
+    console.log(`재생성 Title: ${postData.title}`);
+    const isUsHistoryRetry = await validateUsHistory(validationClient, postData.title, postData.description);
+    if (!isUsHistoryRetry) {
+      throw new Error(`재생성 후에도 미국 역사 주제가 아닙니다: "${postData.title}". 수동으로 확인이 필요합니다.`);
+    }
+    console.log('✅ 미국 역사 주제 검증 통과 (재생성)');
+  } else {
+    console.log('✅ 미국 역사 주제 검증 통과');
+  }
+
+  // Build slug-based filename and check idempotency
+  const safeSlug = String(postData.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '');
+  if (!safeSlug) {
+    throw new Error('Claude가 빈 slug를 반환했습니다.');
+  }
+  const filePath = join(POSTS_DIR, `us-history-${safeSlug}-${dateStr}.mdx`);
+  if (existsSync(filePath)) {
+    console.log(`Post already exists (slug collision): ${filePath} — skipping`);
+    process.exit(0);
+  }
 
   // Fetch images
   console.log('Fetching images from Wikimedia...');
@@ -187,8 +269,8 @@ async function main() {
     .map((t) => `"${t}"`)
     .join(', ');
 
-  // US history runs at 06:00 KST
-  const dateWithTime = `${dateStr}T06:00:00`;
+  // Use actual KST run time (HH:MM) so multiple posts/day order correctly
+  const dateWithTime = `${dateStr}T${HH}:${MM}:00`;
 
   // Generate relatedWorks YAML
   let relatedWorksStr = '';
@@ -216,6 +298,15 @@ ${relatedWorksStr}---
   // Write file
   writeFileSync(filePath, frontmatter + body, 'utf-8');
   console.log(`✅ Post created: ${filePath}`);
+
+  // Update topic dedup log (keep last 200 entries)
+  topicLog.push({
+    date: dateStr,
+    time: `${HH}:${MM}`,
+    slug: safeSlug,
+    title: postData.title,
+  });
+  saveTopicLog(topicLog.slice(-200));
 
   // Auto-translate to English
   try {

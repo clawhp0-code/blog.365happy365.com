@@ -1,8 +1,8 @@
 name: Daily US History Post
 
 on:
-  schedule:
-    - cron: "0 3 * * *"  # 매일 12:00 KST (UTC 03:00)
+  # 자동 cron 비활성화 — 로컬 launchd가 06/12/17/19 KST에 풀파이프라인(포스트+쇼츠) 실행.
+  # GitHub Actions은 쇼츠 생성 환경(fal.ai/ElevenLabs/youtube-upload)이 없어 backup 용도로만 수동 실행.
   workflow_dispatch:
 
 jobs:
