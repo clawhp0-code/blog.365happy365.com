@@ -74,6 +74,12 @@ os.environ.setdefault("FAL_KEY", FAL_KEY)
 # 단가 (2026-04 기준)
 _PRICE_TTS_PER_CHAR   = 0.30 / 1_000       # ElevenLabs: $0.30/1K chars
 _PRICE_FAL_SCHNELL    = 0.003               # fal.ai FLUX Schnell: $0.003/image
+_PRICE_FAL_PRO        = 0.05                # fal.ai FLUX Pro: $0.05/image
+_PRICE_GPT_IMAGE      = 0.167              # gpt-image-1 1080x1920 (1024x1536 high): $0.167/image
+_PRICE_IMAGEN4_FAST   = 0.02               # Imagen 4 Fast via fal.ai: $0.02/image
+FAL_MODEL             = "fal-ai/flux/dev"    # "fal-ai/flux/schnell" or "fal-ai/flux-pro" or "fal-ai/flux/dev"
+FAL_SEED              = 42                   # 일관성 유지용 시드 (None이면 랜덤)
+IMAGE_ENGINE          = "fal"               # "fal" or "gpt-image-1" or "imagen4-fast"
 _PRICE_CLAUDE_SCRIPT  = 0.04                # Claude opus 대본 생성 1회 추정 (input+output)
 
 _cost = {"tts_chars": 0, "fal_images": 0, "claude_scripts": 0}
@@ -86,17 +92,39 @@ def _cost_reset():
 
 
 def _cost_summary() -> str:
-    tts_cost   = _cost["tts_chars"] * _PRICE_TTS_PER_CHAR
-    fal_cost   = _cost["fal_images"] * _PRICE_FAL_SCHNELL
+    if TTS_ENGINE == "edge":
+        price_per_char = 0.0
+        tts_label = f"edge_tts ({EDGE_TTS_VOICE}, 무료)"
+    elif TTS_ENGINE == "google":
+        price_per_char = _PRICE_GOOGLE_CHIRP3HD if "Chirp3" in GOOGLE_TTS_VOICE else _PRICE_GOOGLE_NEURAL2
+        tts_label = f"Google TTS ({GOOGLE_TTS_VOICE})"
+    elif TTS_ENGINE == "openai":
+        price_per_char = _PRICE_OPENAI_TTS
+        tts_label = f"OpenAI TTS ({OPENAI_TTS_VOICE})"
+    else:
+        price_per_char = _PRICE_TTS_PER_CHAR
+        tts_label = "ElevenLabs TTS"
+    tts_cost   = _cost["tts_chars"] * price_per_char
+    if IMAGE_ENGINE == "gpt-image-1":
+        fal_price = _PRICE_GPT_IMAGE
+    elif IMAGE_ENGINE == "imagen4-fast":
+        fal_price = _PRICE_IMAGEN4_FAST
+    elif FAL_MODEL == "fal-ai/flux-pro":
+        fal_price = _PRICE_FAL_PRO
+    elif FAL_MODEL == "fal-ai/flux/dev":
+        fal_price = 0.025
+    else:
+        fal_price = _PRICE_FAL_SCHNELL
+    fal_cost   = _cost["fal_images"] * fal_price
     claude_cost = _cost["claude_scripts"] * _PRICE_CLAUDE_SCRIPT
     total = tts_cost + fal_cost + claude_cost
-    krw = total * 1380  # 대략 환율
+    krw = total * 1380
     lines = [
         f"  {'─'*50}",
         f"  💰 비용 요약",
         f"  {'─'*50}",
-        f"  ElevenLabs TTS         : {_cost['tts_chars']:,}자 = ${tts_cost:.4f}",
-        f"  fal.ai FLUX (schnell)  : {_cost['fal_images']}장   = ${fal_cost:.4f}",
+        f"  {tts_label:30s}: {_cost['tts_chars']:,}자 = ${tts_cost:.4f}",
+        f"  {IMAGE_ENGINE if IMAGE_ENGINE in ('gpt-image-1','imagen4-fast') else 'fal.ai ' + FAL_MODEL.split('/')[-1]:20s}: {_cost['fal_images']}장   = ${fal_cost:.4f}",
     ]
     if _cost["claude_scripts"] > 0:
         lines.append(
@@ -127,6 +155,21 @@ def parse_mdx(file_path: str) -> dict:
         r = re.search(rf'^{key}:\s*["\']?(.*?)["\']?\s*$', fm, re.MULTILINE)
         return r.group(1).strip("\"'") if r else ""
 
+    def fm_tags(fm_text):
+        # Inline: tags: ["a", "b"]
+        inline = re.search(r'^tags:\s*\[(.*?)\]\s*$', fm_text, re.MULTILINE)
+        if inline:
+            return [t.strip() for t in re.findall(r'["\']([^"\']+)["\']', inline.group(1)) if t.strip()]
+        # Block: tags:\n  - a\n  - b
+        block = re.search(r'^tags:\s*\n((?:[ \t]+-[^\n]*\n?)+)', fm_text, re.MULTILINE)
+        if block:
+            return [
+                t.strip().strip("\"'")
+                for t in re.findall(r'-\s*([^\n]+)', block.group(1))
+                if t.strip()
+            ]
+        return []
+
     body = re.sub(r"#{1,6}\s+", "", body)
     body = re.sub(r"\*\*(.*?)\*\*", r"\1", body)
     body = re.sub(r"\*(.*?)\*", r"\1", body)
@@ -140,7 +183,64 @@ def parse_mdx(file_path: str) -> dict:
     return {
         "title":       fm_val("title"),
         "description": fm_val("description"),
+        "tags":        fm_tags(fm),
         "body":        body,
+    }
+
+
+# ════════════════════════════════════════════════════════════
+#  YouTube 메타데이터 빌더 — 영상별 고유 태그·풍부한 설명
+# ════════════════════════════════════════════════════════════
+_PLAYLISTS = [
+    ("🏭 길디드 에이지",     "PL984q0BAx8IGrt3AO-z6cYtombqW6_82R"),
+    ("🇺🇸 미국 역사 쇼츠",   "PL984q0BAx8IEcn5gl6UzSzKArnjcATPxb"),
+    ("⚔️ 남북전쟁",          "PL984q0BAx8IG3tPnKknt6VG8pnVgIomTA"),
+    ("🇺🇸 독립전쟁",         "PL984q0BAx8IHQqou7X_OJrr-bXt18vJva"),
+    ("💛 감동 실화",          "PL984q0BAx8IGz3qqLAbeIy-GZJEzWZpEb"),
+]
+_CHANNEL_TAGS = ["미국역사", "USHistory", "역사", "AmericanHistory", "역사쇼츠", "HistoryShorts", "세계사"]
+
+
+def _hashtagify(tag: str) -> str:
+    # 공백·특수문자 제거 → 해시태그용
+    return "#" + re.sub(r"[\s\-_().,!?]", "", tag)
+
+
+def build_youtube_metadata(parsed: dict, mdx_path: str, is_short: bool) -> dict:
+    slug = Path(mdx_path).stem.replace(".en", "")
+    blog_url = f"https://blog.365happy365.com/ko/blog/{slug}"
+
+    # 태그: 프론트매터 + 채널 고정. 중복 제거하면서 순서 유지. 15개 제한.
+    fm_tags = [t for t in parsed.get("tags", []) if t]
+    seen, all_tags = set(), []
+    for t in fm_tags + _CHANNEL_TAGS:
+        if t not in seen:
+            seen.add(t); all_tags.append(t)
+        if len(all_tags) >= 15:
+            break
+
+    # 해시태그: 프론트매터 태그 우선 5개 + 채널 고정 3개 (중복 회피)
+    htag_seen, htags = set(), []
+    for t in (fm_tags[:5] + _CHANNEL_TAGS[:3]):
+        h = _hashtagify(t)
+        if h not in htag_seen:
+            htag_seen.add(h); htags.append(h)
+    hashtags_line = " ".join(htags)
+
+    playlist_block = "\n".join(f"{name}: https://www.youtube.com/playlist?list={pid}" for name, pid in _PLAYLISTS)
+
+    description = (
+        f"{parsed.get('description', '')}\n\n"
+        f"📖 본문 보기: {blog_url}\n\n"
+        f"📁 재생목록\n{playlist_block}\n\n"
+        f"{hashtags_line}\n\n"
+        f"🎙️ US History Stories — 매일 1분, 미국 역사의 결정적 순간"
+    )
+
+    return {
+        "title":       parsed.get("title", ""),
+        "description": description,
+        "tags":        all_tags,
     }
 
 
@@ -151,23 +251,26 @@ def generate_script(parsed: dict, mode: str) -> str:
     title, body = parsed["title"], parsed["body"]
 
     if mode == "shorts":
-        prompt = f"""당신은 유튜브 Shorts 전문 작가입니다.
+        prompt = f"""당신은 유튜브 역사 다큐멘터리 나레이터입니다.
 아래 포스트를 읽고, 유튜브 Shorts용 **45~55초 한국어 나레이션 대본**을 작성하세요.
 
 스타일 예시 (이 스타일을 반드시 따를 것):
 ---
-25세 서점 주인 헨리 녹스. 군사 경험 제로, 전쟁 책 수백 권.
-대포 60문을 소 80마리 썰매로 480킬로미터 운반. 하룻밤에 설치.
-영국군 하우 장군이 말했다. "반란군이 하룻밤에 해낸 일을 우리가 한 달 걸려도 못 했을 것이다."
-보스턴 해방.
+1864년 2월, 남군에게는 마지막 카드가 있었습니다.
+물속에서 움직이는 배. 사람이 손으로 돌리는 프로펠러. 철로 만든 관 하나.
+그 안에 여덟 명이 탔습니다.
+그리고 역사상 처음으로, 잠수함이 적함을 격침했습니다.
+하지만 헌리호는 돌아오지 않았습니다.
+131년이 지나 발견됐을 때, 승조원들은 자기 자리에 앉아 있었습니다. 탈출하려 한 흔적이 없었습니다.
+그들은 무슨 일이 일어났는지도 모른 채, 그 자리에서 잠들었습니다.
 ---
 
 규칙:
-- 총 60~80 단어 (짧고 강렬하게)
-- 한 문장 = 한 사실. 군더더기 없이.
-- 핵심 숫자·팩트를 그대로 나열
-- 결정적 명언 또는 반전 한 줄 포함
-- 마지막은 짧고 강렬한 결론 한 줄로 마무리
+- 총 110~140 단어 (자연스러운 나레이션 호흡)
+- 문어체가 아닌 구어체 나레이션 — 다큐멘터리 성우가 읽는 것처럼
+- 문장과 문장 사이에 드라마틱한 흐름과 여백이 있어야 함
+- 핵심 숫자·팩트를 자연스럽게 녹여낼 것
+- 마지막은 여운이 남는 한 줄로 마무리
 - 구독·좋아요 유도 문장 절대 금지
 - 영어 단어 절대 사용 금지, 순수 한국어
 - 대본만 출력 (번호, 제목, 설명 없이)
@@ -202,55 +305,147 @@ def generate_script(parsed: dict, mode: str) -> str:
 # ════════════════════════════════════════════════════════════
 #  3. TTS 음성 생성
 # ════════════════════════════════════════════════════════════
+_KO_ONES = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"]
+_KO_UNITS = [(1_0000_0000, "억"), (1_000_0000, "천만"), (100_0000, "백만"),
+             (10_0000, "십만"), (1_0000, "만"), (1000, "천"), (100, "백"), (10, "십")]
+
+# 고유어 숫자 (1~99) — 개·권·명·마리 등 단위 앞에 사용
+_KO_NATIVE = {
+    1:"한", 2:"두", 3:"세", 4:"네", 5:"다섯",
+    6:"여섯", 7:"일곱", 8:"여덟", 9:"아홉", 10:"열",
+    11:"열한", 12:"열두", 13:"열세", 14:"열네", 15:"열다섯",
+    16:"열여섯", 17:"열일곱", 18:"열여덟", 19:"열아홉", 20:"스물",
+    21:"스물한", 22:"스물두", 23:"스물세", 24:"스물네", 25:"스물다섯",
+    30:"서른", 40:"마흔", 50:"쉰", 60:"예순", 70:"일흔", 80:"여든", 90:"아흔",
+}
+# 고유어 단위 (이 단위 앞 숫자는 고유어로 읽음)
+# 고유어 단위: 개(물건), 권, 명, 마리 등 — 개월·개국 등 한자어 합성은 제외
+# 대(臺/對)는 한자어 단위(칠대이)이므로 제외
+_NATIVE_COUNTERS = r"(개(?!월|국|인|교)|권|명|마리|번|살|잔|채|켤레|벌|송이|가지|줄|군데|곳|곡|편|장)"
+
+def _num_to_ko(n: int) -> str:
+    if n == 0:
+        return "영"
+    result = ""
+    for unit_val, unit_name in _KO_UNITS:
+        if n >= unit_val:
+            q = n // unit_val
+            result += (_num_to_ko(q) if q > 1 else "") + unit_name
+            n %= unit_val
+    if n > 0:
+        result += _KO_ONES[n]
+    return result
+
+def _num_to_ko_native(n: int) -> str:
+    if n in _KO_NATIVE:
+        return _KO_NATIVE[n]
+    tens, ones = n // 10, n % 10
+    base = _KO_NATIVE.get(tens * 10, _num_to_ko(tens * 10))
+    return base + (_KO_NATIVE.get(ones, _KO_ONES[ones]) if ones else "")
+
+def _replace_numbers(text: str) -> str:
+    # 고유어 단위 앞 숫자: 열한 개, 두 명 등
+    def repl_native(m):
+        raw = m.group(1).replace(",", "")
+        try:
+            n = int(raw)
+            if 1 <= n <= 99:
+                return _num_to_ko_native(n) + " " + m.group(2)
+        except ValueError:
+            pass
+        return m.group(0)
+    text = re.sub(r"([\d,]+)\s*" + _NATIVE_COUNTERS, repl_native, text)
+    # 나머지 숫자: 한자어
+    def repl(m):
+        raw = m.group(1).replace(",", "")
+        try:
+            return _num_to_ko(int(raw))
+        except ValueError:
+            return m.group(0)
+    return re.sub(r"([\d,]+)", repl, text)
+
+# ElevenLabs가 오발음하는 단어 → 교정 표기
+_PRONUNCIATION_FIXES = {
+}
+
 def normalize_for_tts(text: str) -> str:
-    """Claude로 한국어 TTS 텍스트 정규화 — 숫자 한글화, 자연스러운 발음."""
     if not re.search(r"[가-힣]", text):
         return text
-    try:
-        resp = claude_client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=300,
-            messages=[{
-                "role": "user",
-                "content": (
-                    "아래 한국어 문장을 TTS(음성합성)로 읽을 때 자연스럽게 들리도록 변환해줘.\n"
-                    "규칙:\n"
-                    "1. 아라비아 숫자·연도는 반드시 한국어 독음으로 변환\n"
-                    "   예) 1775년 → 천칠백칠십오 년 / 1,100명 → 천백 명 / 350명 → 삼백오십 명\n"
-                    "   예) 320킬로미터 → 삼백이십 킬로미터 / 9발 → 아홉 발 / 30분 → 삼십 분\n"
-                    "2. 쉼표(,)로 자연스러운 호흡 위치를 추가해도 됨\n"
-                    "3. 문장 의미·순서 절대 변경 금지\n"
-                    "4. 한국어로만 출력 (설명·번호 없이 변환된 텍스트만)\n\n"
-                    f"{text}"
-                ),
-            }],
-        )
-        return resp.content[0].text.strip()
-    except Exception:
-        return text
+    text = _replace_numbers(text)
+    for wrong, right in _PRONUNCIATION_FIXES.items():
+        text = text.replace(wrong, right)
+    return text
 
 
-ELEVENLABS_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"  # Rachel — 차분하고 명료한 다큐 여성 보이스
+ELEVENLABS_VOICE_ID = "mYk0rAapHek2oTw18z8x"  # 사용자 지정 보이스
 
-def tts(script: str, out_path: str, voice: str = "elevenlabs"):
-    from elevenlabs.client import ElevenLabs
+# TTS 엔진 선택: "elevenlabs", "google", "edge", "openai"
+TTS_ENGINE = "elevenlabs"
+EDGE_TTS_VOICE = "ko-KR-SunHiNeural"
+EDGE_TTS_RATE  = "+25%"
+GOOGLE_TTS_VOICE = "ko-KR-Chirp3-HD-Aoede"
+GOOGLE_TTS_API_KEY = os.getenv("GOOGLE_TTS_API_KEY", "").strip()
+OPENAI_TTS_VOICE = "nova"           # alloy, echo, fable, onyx, nova, shimmer
+OPENAI_TTS_SPEED = 1.2              # 1.0 = 기본속도
+
+_PRICE_GOOGLE_NEURAL2  = 0.000016   # Google Neural2: $0.000016/자
+_PRICE_GOOGLE_CHIRP3HD = 0.000160   # Google Chirp3-HD: $0.000160/자
+_PRICE_OPENAI_TTS      = 0.000015   # OpenAI TTS: $15/1M chars
+
+def tts(script: str, out_path: str, voice: str = TTS_ENGINE):
+    import warnings; warnings.filterwarnings("ignore")
     normalized = normalize_for_tts(script)
     _cost["tts_chars"] += len(normalized)
-    el_client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
-    audio = el_client.text_to_speech.convert(
-        voice_id=ELEVENLABS_VOICE_ID,
-        text=normalized,
-        model_id="eleven_multilingual_v2",
-        voice_settings={
-            "stability": 0.6,
-            "similarity_boost": 0.8,
-            "style": 0.3,
-            "use_speaker_boost": True,
-        },
-    )
-    with open(out_path, "wb") as f:
-        for chunk in audio:
-            f.write(chunk)
+
+    if TTS_ENGINE == "openai":
+        resp = openai_client.audio.speech.create(
+            model="tts-1",
+            voice=OPENAI_TTS_VOICE,
+            input=normalized,
+            speed=OPENAI_TTS_SPEED,
+        )
+        resp.stream_to_file(out_path)
+    elif TTS_ENGINE == "edge":
+        import asyncio, edge_tts
+        async def _synthesize():
+            comm = edge_tts.Communicate(normalized, EDGE_TTS_VOICE, rate=EDGE_TTS_RATE)
+            await comm.save(out_path)
+        asyncio.run(_synthesize())
+    elif TTS_ENGINE == "google":
+        import requests, base64
+        resp = requests.post(
+            f"https://texttospeech.googleapis.com/v1/text:synthesize?key={GOOGLE_TTS_API_KEY}",
+            json={
+                "input": {"text": normalized},
+                "voice": {"languageCode": "ko-KR", "name": GOOGLE_TTS_VOICE},
+                "audioConfig": {"audioEncoding": "MP3", "speakingRate": 1.0},
+            },
+        )
+        resp.raise_for_status()
+        audio = base64.b64decode(resp.json()["audioContent"])
+        with open(out_path, "wb") as f:
+            f.write(audio)
+    else:
+        try:
+            from elevenlabs.client import ElevenLabs
+            el_client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
+            audio = el_client.text_to_speech.convert(
+                voice_id=ELEVENLABS_VOICE_ID,
+                text=normalized,
+                model_id="eleven_multilingual_v2",
+                voice_settings={"stability": 0.4, "similarity_boost": 0.8, "style": 0.5, "use_speaker_boost": True},
+            )
+            with open(out_path, "wb") as f:
+                for chunk in audio:
+                    f.write(chunk)
+        except Exception as e:
+            # ElevenLabs 실패 (401, rate limit, 네트워크 등) → 무료 Edge TTS로 자동 폴백
+            print(f"    ⚠️  ElevenLabs 실패 ({type(e).__name__}: {str(e)[:80]}) — Edge TTS로 폴백")
+            import asyncio, edge_tts
+            async def _fallback():
+                comm = edge_tts.Communicate(normalized, EDGE_TTS_VOICE, rate=EDGE_TTS_RATE)
+                await comm.save(out_path)
+            asyncio.run(_fallback())
     print(f"    🎙️  음성 → {out_path}")
 
 
@@ -266,9 +461,10 @@ def audio_duration(path: str) -> float:
 #  4. fal.ai FLUX 그래픽 노블 이미지 생성
 # ════════════════════════════════════════════════════════════
 GRAPHIC_NOVEL_STYLE = (
-    "cinematic graphic novel illustration, vivid colors, dramatic lighting, "
-    "bold outlines, comic book art style, high detail, "
-    "dynamic perspective, expressive characters, detailed historical illustration, "
+    "Gilded Age oil painting, rich golden warm tones, opulent and dramatic lighting, "
+    "19th century American realist painting style, Thomas Eakins and John Singer Sargent inspired, "
+    "chiaroscuro shadows, museum-quality historical scene, painterly brushstrokes, "
+    "deeply detailed, emotionally powerful composition, "
     "purely visual storytelling, completely text-free image, "
     "zero text zero letters zero writing zero signs zero symbols zero glyphs"
 )
@@ -284,7 +480,33 @@ def _strip_non_ascii(s: str) -> str:
     return re.sub(r"[^\x20-\x7E]+", " ", s).strip()
 
 
-def _translate_scene_to_english(ko_text: str, en_title: str) -> str:
+def _infer_historical_context(title: str) -> str:
+    """MDX 제목에서 시대/배경 컨텍스트를 추론해 이미지 프롬프트 base를 반환."""
+    t = title.lower()
+    if any(k in t for k in ["civil war", "남북전쟁", "dred scott", "드레드", "uncle tom", "엉클 톰",
+                              "bull run", "불런", "lincoln", "링컨", "slavery", "노예", "emancipation",
+                              "gettysburg", "게티즈버그", "reconstruction", "재건"]):
+        return (
+            "American Civil War era, 1850s-1860s, United States. "
+            "Period-accurate 19th-century American settings: courtrooms, plantations, "
+            "battlefields, government buildings, city streets. "
+            "Realistic depiction of people of the era — including African American figures where historically appropriate. "
+        )
+    if any(k in t for k in ["revolutionary", "독립전쟁", "revolution", "colonial", "1775", "1776",
+                              "lexington", "렉싱턴", "bunker", "벙커", "washington", "워싱턴"]):
+        return (
+            "American Revolutionary War, 1775-1783, colonial New England. "
+            "White European-American soldiers and civilians in 18th-century colonial attire. "
+            "Stone and wooden colonial architecture or wilderness landscape. "
+        )
+    # 기본: 미국 역사 일반
+    return (
+        "American historical scene, 19th century United States. "
+        "Period-accurate clothing, architecture, and setting. "
+    )
+
+
+def _translate_scene_to_english(ko_text: str, en_title: str, context: str) -> str:
     """Claude로 한국어 슬라이드 텍스트를 영어 시각 장면 묘사로 번역."""
     try:
         resp = claude_client.messages.create(
@@ -293,14 +515,15 @@ def _translate_scene_to_english(ko_text: str, en_title: str) -> str:
             messages=[{
                 "role": "user",
                 "content": (
-                    f"Write a vivid image generation prompt (3 sentences) for this American Revolutionary War scene.\n"
-                    f"Story context: '{en_title}'\n"
+                    f"Write a vivid image generation prompt (3 sentences) for this historical scene.\n"
+                    f"Historical context: {context}\n"
+                    f"Story title: '{en_title}'\n"
                     f"This slide's text: '{ko_text}'\n\n"
                     f"STRICT rules:\n"
-                    f"- Even if the slide text is very short or abstract, invent specific VISUAL details that fit the story context\n"
-                    f"- All people: white European-American men in 18th-century colonial military uniforms or period civilian clothes\n"
-                    f"- Setting: colonial America — wilderness, forests, stone forts, wooden colonial buildings. NO Asia.\n"
-                    f"- Describe actions, facial expressions, environment, lighting — make it cinematic\n"
+                    f"- Invent specific VISUAL details that directly match the slide text and historical context\n"
+                    f"- Describe the exact people, actions, facial expressions, environment, and lighting shown in THIS slide\n"
+                    f"- Stay true to the era and subject — do NOT invent scenes from the wrong time period\n"
+                    f"- No text, no Asian elements, no anachronisms\n"
                     f"- Output ONLY the scene description in English, nothing else."
                 ),
             }],
@@ -313,19 +536,14 @@ def _translate_scene_to_english(ko_text: str, en_title: str) -> str:
 def build_image_prompt(slide_text: str, title: str, slide_idx: int, total: int) -> str:
     """슬라이드 내용 → fal.ai FLUX 이미지 프롬프트 (영문 전용, 한자/한글 제거)."""
     clean_title = _strip_non_ascii(title)
+    context = _infer_historical_context(title)
     has_korean = bool(re.search(r"[가-힣]", slide_text))
     if has_korean:
-        scene_desc = _translate_scene_to_english(slide_text[:300], clean_title)
+        scene_desc = _translate_scene_to_english(slide_text[:300], clean_title, context)
     else:
         scene_desc = _strip_non_ascii(slide_text[:240])
 
-    # 명시적 positive 묘사로 FLUX가 서양인 장면을 생성하도록 유도
-    base = (
-        f"Scene {slide_idx + 1} of {total}. "
-        f"American Revolutionary War, 1775, colonial New England. "
-        f"White European-American soldiers and civilians in 18th-century colonial attire. "
-        f"Stone and wooden colonial architecture or wilderness landscape. "
-    )
+    base = f"Scene {slide_idx + 1} of {total}. {context}"
     scene = f"{base}{scene_desc}. " if scene_desc else base
     return (
         f"{scene}{GRAPHIC_NOVEL_STYLE}. "
@@ -346,15 +564,18 @@ def generate_image(prompt: str, w: int, h: int, retries: int = 1) -> Image.Image
     for attempt in range(retries):
         try:
             _cost["fal_images"] += 1
-            result = fal_client.run(
-                "fal-ai/flux/schnell",
-                arguments={
-                    "prompt": prompt,
-                    "image_size": {"width": w, "height": h},
-                    "num_images": 1,
-                    "enable_safety_checker": False,
-                },
-            )
+            args = {
+                "prompt": prompt,
+                "image_size": {"width": w, "height": h},
+                "num_images": 1,
+            }
+            if FAL_SEED is not None:
+                args["seed"] = FAL_SEED
+            if FAL_MODEL == "fal-ai/flux-pro":
+                args["safety_tolerance"] = "5"
+            else:
+                args["enable_safety_checker"] = False
+            result = fal_client.run(FAL_MODEL, arguments=args)
             url = result["images"][0]["url"]
             img_resp = req_lib.get(url, timeout=30)
             img = Image.open(io.BytesIO(img_resp.content)).convert("RGB")
@@ -376,6 +597,70 @@ def generate_image(prompt: str, w: int, h: int, retries: int = 1) -> Image.Image
                     time.sleep(5)
 
     return None
+
+
+def generate_image_imagen4(prompt: str, w: int, h: int) -> Image.Image | None:
+    """Imagen 4 Fast via fal.ai"""
+    size_key = f"{w}x{h}"
+    key = hashlib.md5(("imagen4_" + prompt).encode()).hexdigest()[:12]
+    cached = _image_cache_path(key, size_key)
+    if os.path.exists(cached):
+        print(f"      💾 Imagen4 캐시 사용: {key}")
+        return Image.open(cached).convert("RGB")
+    try:
+        _cost["fal_images"] += 1
+        result = fal_client.run(
+            "fal-ai/imagen4/preview/fast",
+            arguments={
+                "prompt": prompt[:2000],
+                "image_size": {"width": w, "height": h},
+                "num_images": 1,
+            },
+        )
+        url = result["images"][0]["url"]
+        img_data = req_lib.get(url, timeout=30).content
+        img = Image.open(io.BytesIO(img_data)).convert("RGB")
+        img.save(cached)
+        return img
+    except Exception as e:
+        print(f"      ❌ Imagen4 생성 실패: {e}")
+        return None
+
+
+def generate_image_gpt(prompt: str, w: int, h: int) -> Image.Image | None:
+    """gpt-image-1 이미지 생성"""
+    import base64
+    size_key = f"{w}x{h}"
+    key = hashlib.md5(("gpt1_" + prompt).encode()).hexdigest()[:12]
+    cached = _image_cache_path(key, size_key)
+    if os.path.exists(cached):
+        print(f"      💾 GPT 캐시 사용: {key}")
+        return Image.open(cached).convert("RGB")
+
+    # gpt-image-1: 세로 1024x1536, 가로 1536x1024
+    if h > w:
+        gpt_size = "1024x1536"
+    else:
+        gpt_size = "1536x1024"
+
+    try:
+        _cost["fal_images"] += 1
+        resp = openai_client.images.generate(
+            model="gpt-image-1",
+            prompt=prompt[:4000],
+            n=1,
+            size=gpt_size,
+            quality="high",
+        )
+        b64 = resp.data[0].b64_json
+        img_data = base64.b64decode(b64)
+        img = Image.open(io.BytesIO(img_data)).convert("RGB")
+        img = img.resize((w, h), Image.LANCZOS)
+        img.save(cached)
+        return img
+    except Exception as e:
+        print(f"      ❌ GPT Image 생성 실패: {e}")
+        return None
 
 
 def generate_image_dalle2(prompt: str, w: int, h: int) -> Image.Image | None:
@@ -482,22 +767,50 @@ def compose_frame(
     short_title = (title[:26] + "…") if len(title) > 26 else title
     _draw_text_shadow(draw, (margin, title_y), short_title, title_font, TEXT_COLOR)
 
-    # ── 가운데: 하드 캡션 (나레이션 텍스트, 배경 없이 그림자만) ──
-    max_c = 16 if is_vertical else 30
-    wrapped_lines = textwrap.fill(slide_text, width=max_c).split("\n")
-    lh = int(cap_sz * 1.55)
-    block_h = lh * len(wrapped_lines)
-    block_y = (h - block_h) // 2
+    # ── 하단 자막: 한 줄(또는 두 줄까지) + 반투명 박스 ──
+    if slide_text and slide_text.strip():
+        cap_text = slide_text.strip()
+        max_c = 16 if is_vertical else 28
+        wrapped_lines = textwrap.fill(cap_text, width=max_c).split("\n")[:2]
+        lh = int(cap_sz * 1.35)
+        block_h = lh * len(wrapped_lines)
 
-    cap_y = block_y
-    for line in wrapped_lines:
+        # 하단에서 약 18% 위에 자막 박스 배치 (진행바 위)
+        cap_y_start = h - int(h * 0.20) - block_h
+
+        max_tw = 0
+        line_widths = []
+        for line in wrapped_lines:
+            try:
+                tw = draw.textlength(line, font=caption_font)
+            except AttributeError:
+                tw = caption_font.getsize(line)[0]
+            line_widths.append(tw)
+            max_tw = max(max_tw, tw)
+
+        box_pad_x = 32
+        box_pad_y = 14
+        box_x1 = max(margin // 2, (w - max_tw) // 2 - box_pad_x)
+        box_y1 = cap_y_start - box_pad_y
+        box_x2 = min(w - margin // 2, (w + max_tw) // 2 + box_pad_x)
+        box_y2 = cap_y_start + block_h + box_pad_y
+
+        overlay = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+        overlay_draw = ImageDraw.Draw(overlay)
         try:
-            tw = draw.textlength(line, font=caption_font)
+            overlay_draw.rounded_rectangle(
+                [box_x1, box_y1, box_x2, box_y2], radius=14, fill=(0, 0, 0, 180)
+            )
         except AttributeError:
-            tw = caption_font.getsize(line)[0]
-        cx = (w - tw) // 2
-        _draw_text_shadow(draw, (cx, cap_y), line, caption_font, TEXT_COLOR, shadow_offset=4)
-        cap_y += lh
+            overlay_draw.rectangle([box_x1, box_y1, box_x2, box_y2], fill=(0, 0, 0, 180))
+        frame = Image.alpha_composite(frame, overlay)
+        draw = ImageDraw.Draw(frame)
+
+        cy = cap_y_start
+        for line, tw in zip(wrapped_lines, line_widths):
+            cx = (w - tw) // 2
+            _draw_text_shadow(draw, (cx, cy), line, caption_font, TEXT_COLOR, shadow_offset=3)
+            cy += lh
 
     # ── 구독 · 좋아요: 맨 마지막 슬라이드에서만 표시 ──
     if is_last:
@@ -577,6 +890,48 @@ def split_by_sentence(script: str, max_slides: int = 14) -> list[str]:
     return [" ".join(sents[i:i + per]) for i in range(0, len(sents), per)]
 
 
+def split_into_caption_lines(text: str, max_chars: int) -> list[str]:
+    """슬라이드 한 덩어리 텍스트를 자막 한 줄씩 표시할 단위로 분할.
+
+    1순위: 마침표/물음표/느낌표 단위
+    2순위: 쉼표 단위 (max_chars 이하로)
+    3순위: textwrap (그래도 길면)
+    """
+    text = text.strip()
+    if not text:
+        return []
+
+    sents = re.split(r"(?<=[.!?。])\s+", text)
+    sents = [s.strip() for s in sents if s.strip()]
+
+    lines: list[str] = []
+    for s in sents:
+        if len(s) <= max_chars:
+            lines.append(s)
+            continue
+        chunks = re.split(r"(?<=[,，、])\s*", s)
+        chunks = [c.strip() for c in chunks if c.strip()]
+        cur = ""
+        for c in chunks:
+            if not cur:
+                cur = c
+            elif len(cur) + 1 + len(c) <= max_chars:
+                cur = cur + " " + c
+            else:
+                lines.append(cur)
+                cur = c
+        if cur:
+            lines.append(cur)
+
+    final: list[str] = []
+    for line in lines:
+        if len(line) <= max_chars:
+            final.append(line)
+        else:
+            final.extend(textwrap.wrap(line, width=max_chars))
+    return [l for l in final if l.strip()]
+
+
 def render_video(
     script: str,
     title: str,
@@ -605,11 +960,12 @@ def render_video(
 
         with open(video_concat, "w") as vf, open(audio_concat, "w") as af:
             for i, text in enumerate(slides):
-                # ── 슬라이드별 TTS ──
+                # ── 슬라이드별 TTS (숫자 변환 후 발음) / 자막은 원본 유지 ──
                 slide_audio = os.path.join(tmp, f"a{i:04d}.mp3")
                 tts(text, slide_audio, voice=voice)
                 dur = audio_duration(slide_audio)
                 slide_durs.append(dur)
+                caption_text = text  # 자막: 숫자 그대로 표시
 
                 # ── 이미지 ──
                 print(f"      [{i+1}/{len(slides)}] 이미지 준비 중...", end=" ", flush=True)
@@ -627,19 +983,35 @@ def render_video(
                         bg = generate_image(realistic_prompt, w, h)
                 else:
                     image_prompt = build_image_prompt(text, title, i, len(slides))
-                    bg = generate_image(image_prompt, w, h)
-                    if bg is None:
-                        print("🔄 DALL-E 2 폴백...", end=" ", flush=True)
-                        bg = generate_image_dalle2(image_prompt, w, h)
+                    if IMAGE_ENGINE == "gpt-image-1":
+                        bg = generate_image_gpt(image_prompt, w, h)
+                    elif IMAGE_ENGINE == "imagen4-fast":
+                        bg = generate_image_imagen4(image_prompt, w, h)
+                    else:
+                        bg = generate_image(image_prompt, w, h)
+                        if bg is None:
+                            print("🔄 DALL-E 2 폴백...", end=" ", flush=True)
+                            bg = generate_image_dalle2(image_prompt, w, h)
                 print("✅")
 
-                # ── 프레임 합성 (가운데 하드 캡션 + 구독·좋아요 배너) ──
-                frame = compose_frame(bg, text, title, i, len(slides), w, h)
-                img_path = os.path.join(tmp, f"s{i:04d}.png")
-                frame.save(img_path, "PNG")
-                last_img_path = img_path
+                # ── 자막 줄 분할: 한 줄씩 표시 (사진을 가리지 않게 하단 박스) ──
+                cap_max_chars = 16 if h > w else 28
+                caption_lines = split_into_caption_lines(caption_text, cap_max_chars)
+                if not caption_lines:
+                    caption_lines = [caption_text.strip()[:cap_max_chars] or " "]
 
-                vf.write(f"file '{img_path}'\nduration {dur:.4f}\n")
+                # 줄별 표시 시간: 글자 수에 비례 (총합 = 슬라이드 오디오 길이)
+                char_counts = [max(len(l), 1) for l in caption_lines]
+                total_chars = sum(char_counts)
+                line_durs = [dur * c / total_chars for c in char_counts]
+
+                for j, (line_text, line_dur) in enumerate(zip(caption_lines, line_durs)):
+                    frame = compose_frame(bg, line_text, title, i, len(slides), w, h)
+                    img_path = os.path.join(tmp, f"s{i:04d}_{j:02d}.png")
+                    frame.save(img_path, "PNG")
+                    last_img_path = img_path
+                    vf.write(f"file '{img_path}'\nduration {line_dur:.4f}\n")
+
                 af.write(f"file '{slide_audio}'\n")
 
                 if i < len(slides) - 1:
@@ -812,11 +1184,12 @@ def process(
         # 업로드
         url = None
         if upload:
+            meta = build_youtube_metadata(parsed, mdx_path, is_short=(mode == "shorts"))
             url = upload_youtube(
                 video_path,
-                title=parsed["title"],
-                description=f"{parsed['description']}\n\nblog.365happy365.com",
-                tags=["미국역사", "역사", "USHistory", "세계사", "그래픽노블"],
+                title=meta["title"],
+                description=meta["description"],
+                tags=meta["tags"],
                 is_short=(mode == "shorts"),
                 client_secrets=client_secrets,
             )
