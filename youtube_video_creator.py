@@ -1319,8 +1319,10 @@ def main():
     ap.add_argument("--client-secrets", default="client_secrets.json")
     ap.add_argument("--voice",          default="nova",
                     choices=["alloy", "echo", "fable", "onyx", "nova", "shimmer"])
-    ap.add_argument("--mode",           default="all",
-                    choices=["all", "shorts", "longform"], help="생성할 영상 모드")
+    # 2026-05-01: 롱폼 영상이 평균 46회 조회 vs 쇼츠 평균 928회로 시간·비용 낭비.
+    # 기본값을 "shorts"로 변경. 일회성으로 롱폼 필요 시 명시적으로 --mode longform 또는 --mode all.
+    ap.add_argument("--mode",           default="shorts",
+                    choices=["all", "shorts", "longform"], help="생성할 영상 모드 (기본 shorts)")
     ap.add_argument("--photo-urls",     default=None,
                     help="실제 사진 URL 목록 (쉼표 구분). 지정 시 AI 이미지 생성 건너뜀")
     ap.add_argument("--skip-script",    action="store_true",
