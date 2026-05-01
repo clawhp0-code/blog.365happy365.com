@@ -267,6 +267,11 @@ def generate_script(parsed: dict, mode: str) -> str:
 
 규칙:
 - 총 110~140 단어 (자연스러운 나레이션 호흡)
+- **첫 문장은 1초 안에 시청자의 손가락을 멈추게 하는 후크**:
+    - 충격적인 숫자 (예: "5분 만에 4,000명이 죽었습니다")
+    - 호기심 자극 질문 (예: "왜 미국은 이 사진을 30년간 숨겼을까요?")
+    - 반전 사실 (예: "히틀러가 죽은 그날, 미국은 다른 걸 결정하고 있었습니다")
+    - 평범한 날짜 나열로 시작 금지 ("1789년 4월 30일에…" ❌)
 - 문어체가 아닌 구어체 나레이션 — 다큐멘터리 성우가 읽는 것처럼
 - 문장과 문장 사이에 드라마틱한 흐름과 여백이 있어야 함
 - 핵심 숫자·팩트를 자연스럽게 녹여낼 것
@@ -721,6 +726,34 @@ def _draw_text_shadow(draw, pos, text, font, fill, shadow_offset=3):
     draw.text((x, y), text, font=font, fill=fill)
 
 
+def extract_hook(title: str) -> str:
+    """제목에서 가장 강렬한 짧은 후크 추출 (썸네일·첫 프레임용).
+
+    예) "1789년 4월 30일, 그 이후: 워싱턴이…" → "그 이후"
+        "월스트리트의 황제 — J.P. 모건…"   → "월스트리트의 황제"
+        "1992년 4월 29일, LA가 불탔다: 로드니…" → "LA가 불탔다"
+    """
+    t = title.strip().strip('"\'')
+    # 선두 날짜 제거
+    t = re.sub(r"^\s*\d{4}년\s*\d+월\s*\d+일\s*[,，:：\s]*", "", t)
+    t = re.sub(r"^\s*\d{4}년\s*[,，:：\s]*", "", t)
+    # 구분자(— : , ·)로 분할 → 가장 짧고 의미있는 청크
+    chunks = [c.strip() for c in re.split(r"[—:,·〜~]", t) if c.strip()]
+    if not chunks:
+        return (t[:14] + "…") if len(t) > 14 else t
+    # 너무 짧은 청크(2자 이하)는 제외 후 가장 짧은 것 선택
+    valid = [c for c in chunks if len(c) >= 3] or chunks
+    valid.sort(key=len)
+    hook = valid[0]
+    # 후행 괄호 제거 (예: "(1871년)")
+    hook = re.sub(r"\s*\([^)]*\)\s*$", "", hook).strip()
+    # 따옴표·꺽쇠 제거
+    hook = hook.strip('"\'""''「」『』')
+    if len(hook) > 16:
+        hook = hook[:16] + "…"
+    return hook
+
+
 def compose_frame(
     bg_image: Image.Image | None,
     slide_text: str,
@@ -729,6 +762,7 @@ def compose_frame(
     total: int,
     w: int,
     h: int,
+    is_thumbnail: bool = False,
 ) -> Image.Image:
     is_vertical = h > w
     is_last = (slide_idx == total - 1)
@@ -758,6 +792,64 @@ def compose_frame(
     caption_font = _load_font(cap_sz)
     small_font   = _load_font(s_sz)
     cta_font     = _load_font(cta_sz)
+
+    # ── 썸네일 모드: 첫 슬라이드의 첫 프레임 ──
+    # 큰 후크 텍스트를 정중앙에 배치 → YouTube 자동 썸네일이 이 프레임을 픽업
+    if is_thumbnail:
+        hook = extract_hook(title)
+        # 큰 폰트 — 세로 영상은 더 크게
+        hook_sz = int(h * 0.10) if is_vertical else int(h * 0.12)
+        hook_font = _load_font(hook_sz)
+
+        # 텍스트 너비 측정 (글자가 너무 길면 폰트 축소)
+        try:
+            tw = draw.textlength(hook, font=hook_font)
+        except AttributeError:
+            tw = hook_font.getsize(hook)[0]
+        max_tw = w - margin * 2
+        while tw > max_tw and hook_sz > 40:
+            hook_sz -= 6
+            hook_font = _load_font(hook_sz)
+            try:
+                tw = draw.textlength(hook, font=hook_font)
+            except AttributeError:
+                tw = hook_font.getsize(hook)[0]
+
+        # 중앙 위쪽 1/3 지점에 검은 반투명 박스 + 황금 텍스트
+        hook_y = int(h * 0.30)
+        pad_x, pad_y = 40, 24
+        box_x1 = (w - tw) // 2 - pad_x
+        box_x2 = (w + tw) // 2 + pad_x
+        box_y1 = hook_y - pad_y
+        box_y2 = hook_y + hook_sz + pad_y
+
+        overlay = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+        od = ImageDraw.Draw(overlay)
+        try:
+            od.rounded_rectangle([box_x1, box_y1, box_x2, box_y2], radius=20, fill=(0, 0, 0, 200))
+        except AttributeError:
+            od.rectangle([box_x1, box_y1, box_x2, box_y2], fill=(0, 0, 0, 200))
+        frame = Image.alpha_composite(frame, overlay)
+        draw = ImageDraw.Draw(frame)
+
+        hook_x = (w - tw) // 2
+        # 그림자 강화 (가독성)
+        for off in [(5, 5), (3, 3)]:
+            draw.text((hook_x + off[0], hook_y + off[1]), hook, font=hook_font, fill=(0, 0, 0, 255))
+        draw.text((hook_x, hook_y), hook, font=hook_font, fill=ACCENT)
+
+        # 채널 브랜딩 (하단 작게)
+        brand = "🇺🇸 US History Stories"
+        brand_font = _load_font(s_sz)
+        try:
+            btw = draw.textlength(brand, font=brand_font)
+        except AttributeError:
+            btw = brand_font.getsize(brand)[0]
+        bx = (w - btw) // 2
+        by = h - int(h * 0.08)
+        _draw_text_shadow(draw, (bx, by), brand, brand_font, TEXT_COLOR, shadow_offset=3)
+
+        return frame.convert("RGB")
 
     # ── 제목: 중간에서 위로 2/3 지점 (h/2 - (h/2)*2/3 = h/6) ──
     title_y = int(h / 6)
@@ -1006,7 +1098,12 @@ def render_video(
                 line_durs = [dur * c / total_chars for c in char_counts]
 
                 for j, (line_text, line_dur) in enumerate(zip(caption_lines, line_durs)):
-                    frame = compose_frame(bg, line_text, title, i, len(slides), w, h)
+                    # 첫 슬라이드의 첫 프레임 = YouTube 자동 썸네일이 픽업 → 큰 후크 텍스트 오버레이
+                    use_thumbnail = (i == 0 and j == 0)
+                    frame = compose_frame(
+                        bg, line_text, title, i, len(slides), w, h,
+                        is_thumbnail=use_thumbnail,
+                    )
                     img_path = os.path.join(tmp, f"s{i:04d}_{j:02d}.png")
                     frame.save(img_path, "PNG")
                     last_img_path = img_path
