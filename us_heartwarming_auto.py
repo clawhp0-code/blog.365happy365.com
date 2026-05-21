@@ -25,11 +25,11 @@ LOG_FILE          = VIDEO_OUTPUT / "heartwarming_log.json"
 VIDEO_CREATOR     = REPO_DIR / "youtube_video_creator.py"
 CLIENT_SECRETS    = REPO_DIR / "client_secrets.json"
 
-ANTHROPIC_API_KEY  = os.getenv("ANTHROPIC_API_KEY", "")
-OPENAI_API_KEY     = os.getenv("OPENAI_API_KEY", "")
-FAL_KEY            = os.getenv("FAL_KEY", "")
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8262409796:AAGYqrPGr0625xIdUzo0KX5Wue0ILQON5LQ")
-TELEGRAM_CHAT_ID   = os.getenv("TELEGRAM_CHAT_ID", "7578852838")
+ANTHROPIC_API_KEY  = os.getenv("ANTHROPIC_API_KEY", "").strip()
+OPENAI_API_KEY     = os.getenv("OPENAI_API_KEY", "").strip()
+FAL_KEY            = os.getenv("FAL_KEY", "").strip()
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8262409796:AAGYqrPGr0625xIdUzo0KX5Wue0ILQON5LQ").strip()
+TELEGRAM_CHAT_ID   = os.getenv("TELEGRAM_CHAT_ID", "7578852838").strip()
 
 claude = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
@@ -51,6 +51,18 @@ def save_log(log: list):
     LOG_FILE.write_text(json.dumps(log, ensure_ascii=False, indent=2))
 
 
+def slugify(text: str, max_len: int = 60) -> str:
+    """모델 출력에서 안전한 파일명용 slug를 만든다.
+
+    모델이 SLUG 칸에 사고 과정("Let me reconsider...", "아, 잠깐 —" 등)을
+    줄바꿈과 함께 흘려 넣는 경우가 있어, 첫 줄만 취하고 영숫자·하이픈
+    이외 문자는 모두 제거한다. 빈 값이면 ""를 반환(호출부에서 폴백)."""
+    first = next((ln for ln in text.strip().splitlines() if ln.strip()), "")
+    s = re.sub(r"[^a-z0-9]+", "-", first.lower())
+    s = re.sub(r"-+", "-", s).strip("-")
+    return s[:max_len].strip("-")
+
+
 # ════════════════════════════════════════════════════════════
 #  2. Claude로 이야기 생성
 # ════════════════════════════════════════════════════════════
@@ -70,36 +82,60 @@ def generate_story(used_titles: list) -> dict:
 - 사람 간의 따뜻한 이야기 (희생, 용기, 사랑, 회복, 기적 등)
 - 위 목록에 없는 새로운 이야기
 
-다음 JSON 형식으로만 출력하세요 (다른 텍스트 없이):
+**먼저 이야기를 머릿속에서 완전히 확정한 뒤** 아래 형식으로만 출력하세요.
+출력에는 사고 과정·후보 비교·정정("아, 잠깐", "Let me reconsider" 등)을
+절대 포함하지 마세요. 각 섹션은 구분자로 분리합니다:
 
-{{
-  "slug": "영어소문자-하이픈-주제어 (예: lenny-skutnik-potomac)",
-  "photo_keywords": ["사진 검색 키워드1", "키워드2", "키워드3"],
-  "ko": {{
-    "title": "한국어 제목",
-    "description": "한국어 설명 (2문장)",
-    "tags": ["태그1", "태그2", "태그3", "태그4"],
-    "body": "한국어 본문 (마크다운, 1500자 이상, 실제 사건 배경·경위·감동 포인트·결말 포함)"
-  }},
-  "en": {{
-    "title": "English Title",
-    "description": "English description (2 sentences)",
-    "tags": ["tag1", "tag2", "tag3", "tag4"],
-    "body": "English body (markdown, 800+ words, full story with background, events, impact)"
-  }}
-}}"""
+===SLUG===
+영어 소문자·숫자·하이픈만 사용한 한 줄. 2~5단어, 인물명 기반.
+설명이나 주석 없이 slug 자체만. (예: lenny-skutnik-potomac)
+===PHOTO_KEYWORDS===
+검색키워드1|검색키워드2|검색키워드3
+===KO_TITLE===
+한국어 제목
+===KO_DESC===
+한국어 설명 (2문장)
+===KO_TAGS===
+태그1|태그2|태그3|태그4
+===KO_BODY===
+한국어 본문 (마크다운, 실제 사건 배경·경위·감동 포인트·결말 포함, 1500자 이상)
+===EN_TITLE===
+English Title
+===EN_DESC===
+English description (2 sentences)
+===EN_TAGS===
+tag1|tag2|tag3|tag4
+===EN_BODY===
+English body (markdown, full story with background, events, impact, 600+ words)
+===END==="""
 
     resp = claude.messages.create(
         model="claude-opus-4-6",
-        max_tokens=4096,
+        max_tokens=6000,
         messages=[{"role": "user", "content": prompt}],
     )
     raw = resp.content[0].text.strip()
-    # JSON 추출
-    m = re.search(r"\{.*\}", raw, re.DOTALL)
-    if not m:
-        raise ValueError(f"JSON 파싱 실패:\n{raw[:200]}")
-    return json.loads(m.group())
+
+    def extract(tag):
+        m = re.search(rf"==={tag}===\n(.*?)(?:\n===|\Z)", raw, re.DOTALL)
+        return m.group(1).strip() if m else ""
+
+    return {
+        "slug":           slugify(extract("SLUG")),
+        "photo_keywords": [k.strip() for k in extract("PHOTO_KEYWORDS").split("|") if k.strip()],
+        "ko": {
+            "title":       extract("KO_TITLE"),
+            "description": extract("KO_DESC"),
+            "tags":        [t.strip() for t in extract("KO_TAGS").split("|") if t.strip()],
+            "body":        extract("KO_BODY"),
+        },
+        "en": {
+            "title":       extract("EN_TITLE"),
+            "description": extract("EN_DESC"),
+            "tags":        [t.strip() for t in extract("EN_TAGS").split("|") if t.strip()],
+            "body":        extract("EN_BODY"),
+        },
+    }
 
 
 # ════════════════════════════════════════════════════════════
@@ -121,7 +157,9 @@ def search_wiki_photos(keywords: list, max_photos: int = 6) -> list:
                 "srlimit": "5",
                 "format": "json",
             }
-            resp = requests.get(api_url, params=params, timeout=10)
+            resp = requests.get(api_url, params=params, timeout=20,
+                                headers={"User-Agent": "Mozilla/5.0 HeartBot/1.0"})
+            resp.raise_for_status()
             data = resp.json()
             for item in data.get("query", {}).get("search", []):
                 title = item["title"]  # e.g. "File:Foo.jpg"
@@ -135,7 +173,8 @@ def search_wiki_photos(keywords: list, max_photos: int = 6) -> list:
                     "iiprop": "url",
                     "format": "json",
                 }
-                img_resp = requests.get(api_url, params=img_params, timeout=10)
+                img_resp = requests.get(api_url, params=img_params, timeout=20,
+                                        headers={"User-Agent": "Mozilla/5.0 HeartBot/1.0"})
                 pages = img_resp.json().get("query", {}).get("pages", {})
                 for page in pages.values():
                     ii = page.get("imageinfo", [])
@@ -286,6 +325,10 @@ def main():
     print("📝 이야기 생성 중 (Claude)...")
     story = generate_story(used_titles)
     slug = story["slug"]
+    if not slug:
+        # SLUG 칸이 비었거나 정제 후 남은 게 없으면 영어 제목에서 폴백 생성
+        slug = slugify(story["en"]["title"]) or f"story-{today}"
+        print(f"  ⚠️  SLUG 누락 → 제목 기반 폴백: {slug}")
     print(f"  선정: {story['ko']['title']}")
 
     # 2. 사진 검색
