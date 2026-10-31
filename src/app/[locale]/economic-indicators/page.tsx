@@ -31,6 +31,11 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
             alt={isKo ? "최근 5년 4개국 경제지표 인포그래픽" : "Five-year economic indicators infographic for four countries"}
             className="w-full rounded-xl border border-cream-200"
           />
+          <section id="물가" className="mt-10 scroll-mt-24">
+            <h3 className="font-serif font-bold text-2xl text-ink-900 mb-2">{isKo ? "물가 인포그래픽" : "Inflation Infographic"}</h3>
+            <p className="text-ink-500 mb-5">{isKo ? "최근 5년 한국·미국·일본·중국의 소비자물가 상승률을 비교합니다." : "Five-year consumer inflation comparison for Korea, the US, Japan, and China."}</p>
+            <img src="/images/posts/economic-indicators-2026-10-31/inflation-5y.png" alt={isKo ? "최근 5년 4개국 물가상승률 인포그래픽" : "Five-year inflation infographic for four countries"} className="w-full rounded-xl border border-cream-200" />
+          </section>
           <section id="금리" className="mt-10 scroll-mt-24">
             <h3 className="font-serif font-bold text-2xl text-ink-900 mb-2">{isKo ? "금리 인포그래픽" : "Interest Rate Infographic"}</h3>
             <p className="text-ink-500 mb-5">{isKo ? "장단기 금리와 금리 역전을 일반인이 이해하기 쉽게 정리했습니다." : "A plain-language guide to short- and long-term rates and yield-curve inversions."}</p>
