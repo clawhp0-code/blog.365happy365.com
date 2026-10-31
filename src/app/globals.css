@@ -88,8 +88,16 @@ h4:hover .anchor {
 .news-ticker-track a { margin-right: 46px; white-space: nowrap; color: #4a3728; text-decoration: none; }
 .news-ticker-track a:hover { text-decoration: underline; }
 .news-ticker-track small { color: #8a8178; }
+.english-news-ticker { background: #f7fafc; }
+.english-news-ticker .news-ticker-label { color: #2876a8; background: #f7fafc; }
+.english-news-ticker-track { animation: english-news-ticker-scroll 55s linear infinite; }
 
 @keyframes market-ticker-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+@keyframes english-news-ticker-scroll {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 }
