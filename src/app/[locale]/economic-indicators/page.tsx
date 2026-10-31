@@ -28,16 +28,20 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
         <article className="rounded-2xl border border-cream-200 bg-white p-5 sm:p-8 shadow-sm">
           <h2 className="font-serif font-bold text-2xl text-ink-900 mb-2">{isKo ? "최근 5년 주요 경제지표" : "Key Economic Indicators: Latest Five Years"}</h2>
           <p className="text-ink-500 mb-6">{isKo ? "한국·미국·일본·중국의 물가, 금리, 성장률, 실업률, 심리를 한눈에 비교합니다." : "Compare inflation, rates, growth, unemployment, and sentiment across Korea, the US, Japan, and China."}</p>
-          <span id="물가" className="block -mt-20 pt-20" />
-          <span id="금리" className="block" />
-          <span id="경제성장률" className="block" />
-          <span id="실업률" className="block" />
-          <span id="심리" className="block" />
           <img
             src="/images/posts/economic-indicators-2026-10-31/01-all-indicators-5y-with-sentiment.png"
             alt={isKo ? "최근 5년 4개국 경제지표 인포그래픽" : "Five-year economic indicators infographic for four countries"}
             className="w-full rounded-xl border border-cream-200"
           />
+          <section id="금리" className="mt-10 scroll-mt-24">
+            <h3 className="font-serif font-bold text-2xl text-ink-900 mb-2">{isKo ? "금리 인포그래픽" : "Interest Rate Infographic"}</h3>
+            <p className="text-ink-500 mb-5">{isKo ? "장단기 금리와 금리 역전을 일반인이 이해하기 쉽게 정리했습니다." : "A plain-language guide to short- and long-term rates and yield-curve inversions."}</p>
+            <img
+              src="/images/posts/economic-indicators-2026-10-31/03-bonds-explained.png"
+              alt={isKo ? "장단기 채권금리와 금리차 인포그래픽" : "Long- and short-term bond rates infographic"}
+              className="w-full rounded-xl border border-cream-200"
+            />
+          </section>
         </article>
       </div>
     </Container>
