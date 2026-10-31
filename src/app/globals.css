@@ -90,14 +90,10 @@ h4:hover .anchor {
 .news-ticker-track small { color: #8a8178; }
 .english-news-ticker { background: #f7fafc; }
 .english-news-ticker .news-ticker-label { color: #2876a8; background: #f7fafc; }
-.english-news-ticker-track { animation: english-news-ticker-scroll 55s linear infinite; }
+.english-news-ticker-track { animation: market-ticker-scroll 55s linear infinite; }
 
 @keyframes market-ticker-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
-@keyframes english-news-ticker-scroll {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
