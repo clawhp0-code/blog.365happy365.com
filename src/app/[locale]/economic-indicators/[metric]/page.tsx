@@ -39,6 +39,7 @@ export default async function MetricPage({ params }: PageProps) {
             <article className="rounded-xl border border-cream-200 bg-cream-50 p-6">
               <h2 className="font-semibold text-ink-900 mb-3">{item.guide}</h2>
               <p className="text-ink-600 leading-7">{item.description}. 숫자의 정의와 관측기간을 구분하고, 생활에 어떤 의미가 있는지 사례와 함께 설명합니다.</p>
+              {metric === "inflation" && <a href={`/${locale}/blog/inflation-explained-five-year-four-countries-2026-11-01`} className="inline-block mt-5 font-semibold text-sunny-700 hover:underline">물가 아티클 읽기 →</a>}
             </article>
           </div>
         </article>
