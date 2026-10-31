@@ -40,8 +40,8 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
             <h3 className="font-serif font-bold text-2xl text-ink-900 mb-2">{isKo ? "금리 인포그래픽" : "Interest Rate Infographic"}</h3>
             <p className="text-ink-500 mb-5">{isKo ? "장단기 금리와 금리 역전을 일반인이 이해하기 쉽게 정리했습니다." : "A plain-language guide to short- and long-term rates and yield-curve inversions."}</p>
             <img
-              src="/images/posts/economic-indicators-2026-10-31/03-bonds-explained.png"
-              alt={isKo ? "장단기 채권금리와 금리차 인포그래픽" : "Long- and short-term bond rates infographic"}
+              src="/images/posts/economic-indicators-2026-10-31/rates-5y.png"
+              alt={isKo ? "최근 5년 한국·미국·일본·중국 금리 인포그래픽" : "Five-year interest rate infographic for Korea, the US, Japan, and China"}
               className="w-full rounded-xl border border-cream-200"
             />
           </section>
