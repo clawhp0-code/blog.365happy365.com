@@ -16,7 +16,7 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
     <Container className="py-12">
       <h1 className="font-serif font-bold text-4xl text-ink-900 mb-3">{isKo ? "경제지표" : "Economic Indicators"}</h1>
       <p className="text-ink-500 mb-10">{isKo ? "금리·물가·환율·주가지수 등 주요 경제 흐름을 한눈에 확인하세요." : "Explore key trends in rates, inflation, currencies, and stock indexes."}</p>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8 justify-end md:max-w-[900px] md:ml-auto">
         {(isKo ? [
           ["물가", "생활비와 가격 흐름"],
           ["금리", "대출·예금과 자금 비용"],
