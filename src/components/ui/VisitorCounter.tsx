@@ -21,13 +21,19 @@ export function VisitorCounter() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    let active = true;
     const today = getDateKey(0);
     const yesterday = getDateKey(1);
     const ref = doc(db, "visitors", "counters");
+    const timeout = window.setTimeout(() => {
+      if (active) setError(true);
+    }, 8_000);
 
     setDoc(ref, { total: increment(1), [today]: increment(1) }, { merge: true })
       .then(() => getDoc(ref))
       .then((snap) => {
+        window.clearTimeout(timeout);
+        if (!active) return;
         const d = snap.data() || {};
         setData({
           total: d.total ?? 0,
@@ -36,16 +42,21 @@ export function VisitorCounter() {
         });
       })
       .catch((err) => {
+        window.clearTimeout(timeout);
         console.error("[VisitorCounter] Firestore error:", err);
-        setError(true);
+        if (active) setError(true);
       });
+    return () => {
+      active = false;
+      window.clearTimeout(timeout);
+    };
   }, []);
 
   return (
     <div className="bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.06)] p-5 text-center">
       <p className="text-xs text-[#666666] mb-1">방문자</p>
       {error ? (
-        <p className="text-xs text-[#666666] py-2">연결 오류</p>
+        <p className="text-xs text-[#666666] py-2">방문자 집계를 불러오지 못했습니다</p>
       ) : !data ? (
         <div className="animate-pulse py-2 space-y-2">
           <div className="h-8 bg-[#F0EBE3] rounded mx-auto w-20" />
