@@ -58,12 +58,31 @@ h4:hover .anchor {
   background: rgba(248, 245, 238, 0.72);
 }
 
-.market-ticker .tradingview-widget-container {
+.market-ticker-track {
   height: 34px;
-  width: 100%;
+  display: inline-flex;
+  min-width: max-content;
+  align-items: center;
+  animation: market-ticker-scroll 32s linear infinite;
 }
 
-.market-ticker iframe {
-  border: 0 !important;
-  height: 34px !important;
+.market-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 28px;
+  border-right: 1px solid #eee8df;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #4a3728;
+}
+
+.market-ticker-item strong { font-variant-numeric: tabular-nums; }
+.market-ticker-item em { font-style: normal; font-variant-numeric: tabular-nums; }
+.market-ticker-item em.up { color: #c2413d; }
+.market-ticker-item em.down { color: #2876a8; }
+
+@keyframes market-ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
