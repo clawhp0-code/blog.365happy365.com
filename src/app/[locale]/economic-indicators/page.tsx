@@ -45,6 +45,11 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
               className="w-full rounded-xl border border-cream-200"
             />
           </section>
+          <section id="실업률" className="mt-10 scroll-mt-24">
+            <h3 className="font-serif font-bold text-2xl text-ink-900 mb-2">{isKo ? "실업률 인포그래픽" : "Unemployment Infographic"}</h3>
+            <p className="text-ink-500 mb-5">{isKo ? "최근 5년 한국·미국·일본·중국 실업률과 국가별 해석 차이를 정리했습니다." : "Five-year unemployment trends and country-specific interpretation notes."}</p>
+            <img src="/images/posts/economic-indicators-2026-10-31/unemployment-5y.png" alt={isKo ? "최근 5년 4개국 실업률 인포그래픽" : "Five-year unemployment infographic for four countries"} className="w-full rounded-xl border border-cream-200" />
+          </section>
         </article>
       </div>
     </Container>
