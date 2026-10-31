@@ -22,7 +22,6 @@ export function EnglishNewsTicker() {
 
   if (!items.length) return null;
   return <div className="news-ticker english-news-ticker" aria-label="English economy news">
-    <span className="news-ticker-label">EN NEWS</span>
     <div className="news-ticker-track english-news-ticker-track">
       {[...items, ...items].map((item, index) => <a key={`${item.link}-${index}`} href={item.link} target="_blank" rel="noreferrer">{item.title} <small>({item.source})</small></a>)}
     </div>

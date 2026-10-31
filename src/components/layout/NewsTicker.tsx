@@ -23,7 +23,6 @@ export function NewsTicker() {
   if (!items.length) return null;
   return (
     <div className="news-ticker" aria-label="주요 경제 뉴스">
-      <span className="news-ticker-label">NEWS</span>
       <div className="news-ticker-track">
         {[...items, ...items].map((item, index) => (
           <a key={`${item.link}-${index}`} href={item.link} target="_blank" rel="noreferrer">
