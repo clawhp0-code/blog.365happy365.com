@@ -24,9 +24,6 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
           alt={isKo ? "최근 5년 4개국 경제지표 인포그래픽" : "Five-year economic indicators infographic for four countries"}
           className="w-full rounded-xl border border-cream-200"
         />
-        <a href={`/${locale}/blog/economic-indicators-infographic-2026-10-31`} className="inline-block mt-6 text-sunny-700 font-semibold hover:underline">
-          {isKo ? "설명과 출처가 포함된 원문 보기 →" : "Read the full explanation and sources →"}
-        </a>
       </article>
     </Container>
   );
