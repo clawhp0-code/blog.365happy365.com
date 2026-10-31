@@ -82,6 +82,13 @@ h4:hover .anchor {
 .market-ticker-item em.up { color: #c2413d; }
 .market-ticker-item em.down { color: #2876a8; }
 
+.news-ticker { display: flex; align-items: center; overflow: hidden; height: 30px; border-bottom: 1px solid #eee8df; background: #fffdf9; color: #4a3728; font-size: 12px; }
+.news-ticker-label { flex: 0 0 auto; padding: 0 12px; font-weight: 800; letter-spacing: .08em; color: #c2413d; background: #fffdf9; z-index: 1; }
+.news-ticker-track { display: flex; width: max-content; animation: market-ticker-scroll 55s linear infinite; }
+.news-ticker-track a { margin-right: 46px; white-space: nowrap; color: #4a3728; text-decoration: none; }
+.news-ticker-track a:hover { text-decoration: underline; }
+.news-ticker-track small { color: #8a8178; }
+
 @keyframes market-ticker-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

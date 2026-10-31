@@ -9,6 +9,7 @@ import { SearchModal } from "@/components/search/SearchModal";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import { MarketTicker } from "@/components/layout/MarketTicker";
+import { NewsTicker } from "@/components/layout/NewsTicker";
 
 interface NavbarProps {
   locale: Locale;
@@ -128,6 +129,7 @@ export function Navbar({ locale }: NavbarProps) {
         )}
       </div>
       <MarketTicker />
+      <NewsTicker />
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} locale={locale} />
     </header>
   );
