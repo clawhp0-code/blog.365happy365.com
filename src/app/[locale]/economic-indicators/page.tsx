@@ -19,7 +19,7 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
           <h2 className="font-semibold text-ink-900 mb-3">{isKo ? "경제지표" : "Economic Indicators"}</h2>
           <nav className="space-y-1">
             {["물가", "금리", "경제성장률", "실업률", "심리"].map((item) => (
-              <a key={item} href={`#${item}`} className="block rounded-lg px-3 py-2 text-sm text-ink-600 hover:bg-cream-50 hover:text-sunny-700">{item}</a>
+              <a key={item} href={`/${locale}/economic-indicators/${({"물가":"inflation","금리":"rates","경제성장률":"growth","실업률":"unemployment","심리":"sentiment"} as Record<string,string>)[item]}`} className="block rounded-lg px-3 py-2 text-sm text-ink-600 hover:bg-cream-50 hover:text-sunny-700">{item}</a>
             ))}
           </nav>
         </aside>
