@@ -8,6 +8,7 @@ const metrics: Record<string, { title: string; description: string; image: strin
   growth: { title: "경제성장률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실질 GDP 성장률", image: "growth-5y.png", alt: "최근 5년 4개국 경제성장률 인포그래픽", guide: "GDP 성장률을 쉽게 이해하기" },
   unemployment: { title: "실업률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실업률 흐름", image: "unemployment-5y.png", alt: "최근 5년 4개국 실업률 인포그래픽", guide: "실업률과 일자리의 질" },
   sentiment: { title: "심리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자·경제심리", image: "sentiment-5y.png", alt: "최근 5년 4개국 심리 지표 인포그래픽", guide: "심리지표와 실제 경제의 차이" },
+  currency: { title: "환율 인포그래픽", description: "원/달러와 원/100엔 환율의 흐름", image: "02-currency-explained.png", alt: "원/달러와 원/100엔 환율 인포그래픽", guide: "환율이 생활과 투자에 미치는 영향" },
 };
 
 interface PageProps { params: Promise<{ locale: string; metric: string }> }
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function MetricPage({ params }: PageProps) {
   const { locale, metric } = await params;
   const item = metrics[metric] ?? metrics.inflation;
-  const tag = ({ inflation: "물가", rates: "금리", growth: "경제성장률", unemployment: "실업률", sentiment: "심리" } as Record<string, string>)[metric] ?? "물가";
+  const tag = ({ inflation: "물가", rates: "금리", growth: "경제성장률", unemployment: "실업률", sentiment: "심리", currency: "환율" } as Record<string, string>)[metric] ?? "물가";
   const articles = getAllPosts(locale as "ko" | "en").filter((post) => post.tags?.includes(tag)).slice(0, 3);
   return (
     <Container className="py-12">
@@ -28,7 +29,7 @@ export default async function MetricPage({ params }: PageProps) {
         <aside className="lg:sticky lg:top-24 rounded-2xl border border-cream-200 bg-white p-4">
           <h2 className="font-semibold text-ink-900 mb-3">경제지표</h2>
           <nav className="space-y-1">
-            {[["물가","inflation"],["금리","rates"],["경제성장률","growth"],["실업률","unemployment"],["심리","sentiment"]].map(([label, slug]) => <a key={slug} href={`/${locale}/economic-indicators/${slug}`} className={`block rounded-lg px-3 py-2 text-sm ${slug === metric ? "bg-cream-50 text-sunny-700 font-semibold" : "text-ink-600 hover:bg-cream-50"}`}>{label}</a>)}
+            {[["물가","inflation"],["금리","rates"],["경제성장률","growth"],["실업률","unemployment"],["심리","sentiment"],["환율","currency"]].map(([label, slug]) => <a key={slug} href={`/${locale}/economic-indicators/${slug}`} className={`block rounded-lg px-3 py-2 text-sm ${slug === metric ? "bg-cream-50 text-sunny-700 font-semibold" : "text-ink-600 hover:bg-cream-50"}`}>{label}</a>)}
           </nav>
         </aside>
         <article className="rounded-2xl border border-cream-200 bg-white p-5 sm:p-8 shadow-sm">
