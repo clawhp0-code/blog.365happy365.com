@@ -10,6 +10,7 @@ const ko = {
   // Navbar
   nav: {
     blog: "블로그",
+    indicators: "경제지표",
     categories: "카테고리",
     about: "소개",
     openSearch: "검색 열기",

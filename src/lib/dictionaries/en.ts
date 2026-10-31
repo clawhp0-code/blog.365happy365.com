@@ -11,6 +11,7 @@ const en = {
   // Navbar
   nav: {
     blog: "Blog",
+    indicators: "Economic Indicators",
     categories: "Categories",
     about: "About",
     openSearch: "Open search",
