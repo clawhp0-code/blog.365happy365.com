@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 
-const metrics: Record<string, { title: string; description: string; image: string; alt: string }> = {
-  inflation: { title: "물가 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자물가 상승률", image: "inflation-5y.png", alt: "최근 5년 4개국 물가상승률 인포그래픽" },
-  rates: { title: "금리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 정책금리 흐름", image: "rates-5y.png", alt: "최근 5년 4개국 금리 인포그래픽" },
-  growth: { title: "경제성장률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실질 GDP 성장률", image: "growth-5y.png", alt: "최근 5년 4개국 경제성장률 인포그래픽" },
-  unemployment: { title: "실업률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실업률 흐름", image: "unemployment-5y.png", alt: "최근 5년 4개국 실업률 인포그래픽" },
-  sentiment: { title: "심리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자·경제심리", image: "sentiment-5y.png", alt: "최근 5년 4개국 심리 지표 인포그래픽" },
+const metrics: Record<string, { title: string; description: string; image: string; alt: string; guide: string }> = {
+  inflation: { title: "물가 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자물가 상승률", image: "inflation-5y.png", alt: "최근 5년 4개국 물가상승률 인포그래픽", guide: "물가상승률을 생활비와 연결해 읽는 법" },
+  rates: { title: "금리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 정책금리 흐름", image: "rates-5y.png", alt: "최근 5년 4개국 금리 인포그래픽", guide: "금리와 대출·예금의 관계" },
+  growth: { title: "경제성장률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실질 GDP 성장률", image: "growth-5y.png", alt: "최근 5년 4개국 경제성장률 인포그래픽", guide: "GDP 성장률을 쉽게 이해하기" },
+  unemployment: { title: "실업률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실업률 흐름", image: "unemployment-5y.png", alt: "최근 5년 4개국 실업률 인포그래픽", guide: "실업률과 일자리의 질" },
+  sentiment: { title: "심리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자·경제심리", image: "sentiment-5y.png", alt: "최근 5년 4개국 심리 지표 인포그래픽", guide: "심리지표와 실제 경제의 차이" },
 };
 
 interface PageProps { params: Promise<{ locale: string; metric: string }> }
@@ -31,7 +31,16 @@ export default async function MetricPage({ params }: PageProps) {
         <article className="rounded-2xl border border-cream-200 bg-white p-5 sm:p-8 shadow-sm">
           <h1 className="font-serif font-bold text-3xl text-ink-900 mb-2">{item.title}</h1>
           <p className="text-ink-500 mb-6">{item.description}</p>
-          <img src={`/images/posts/economic-indicators-2026-10-31/${item.image}`} alt={item.alt} className="w-full rounded-xl border border-cream-200" />
+          <div className="grid gap-6 md:grid-cols-2">
+            <article className="rounded-xl border border-cream-200 p-4">
+              <h2 className="font-semibold text-ink-900 mb-3">{item.title}</h2>
+              <img src={`/images/posts/economic-indicators-2026-10-31/${item.image}`} alt={item.alt} className="w-full rounded-lg border border-cream-200" />
+            </article>
+            <article className="rounded-xl border border-cream-200 bg-cream-50 p-6">
+              <h2 className="font-semibold text-ink-900 mb-3">{item.guide}</h2>
+              <p className="text-ink-600 leading-7">{item.description}. 숫자의 정의와 관측기간을 구분하고, 생활에 어떤 의미가 있는지 사례와 함께 설명합니다.</p>
+            </article>
+          </div>
         </article>
       </div>
     </Container>
