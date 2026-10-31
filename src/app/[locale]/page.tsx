@@ -1,4 +1,3 @@
-import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturedPosts } from "@/components/home/FeaturedPosts";
 import { RecentPosts } from "@/components/home/RecentPosts";
 import { VisitorCounter } from "@/components/ui/VisitorCounter";
@@ -24,7 +23,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <>
-      <HeroSection locale={l} />
       <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main content */}
