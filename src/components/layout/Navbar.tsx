@@ -19,6 +19,7 @@ export function Navbar({ locale }: NavbarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [indicatorOpen, setIndicatorOpen] = useState(false);
   const dict = getDictionary(locale);
 
   const navLinks = [
@@ -54,19 +55,21 @@ export function Navbar({ locale }: NavbarProps) {
           </Link>
 
           <nav className="hidden sm:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-[#607D8B]",
-                  pathname.startsWith(link.href)
-                    ? "text-[#607D8B] font-semibold"
-                    : "text-[#555555]"
+            {navLinks.map((link) => link.label === dict.nav.indicators ? (
+              <div key={link.href} className="relative">
+                <button onClick={() => setIndicatorOpen(!indicatorOpen)} className="text-sm font-medium text-[#555555] hover:text-[#607D8B] transition-colors">
+                  {link.label} <span className="text-xs">▾</span>
+                </button>
+                {indicatorOpen && (
+                  <div className="absolute right-0 top-8 z-50 w-40 rounded-lg border border-[#E8E2D9] bg-white p-2 shadow-lg">
+                    {["물가", "금리", "경제성장률", "실업률", "심리"].map((item) => (
+                      <a key={item} href={`/${locale}/economic-indicators#${item}`} className="block rounded px-3 py-2 text-sm text-[#555555] hover:bg-[#F8F5EE] hover:text-[#607D8B]">{item}</a>
+                    ))}
+                  </div>
                 )}
-              >
-                {link.label}
-              </Link>
+              </div>
+            ) : (
+              <Link key={link.href} href={link.href} className={cn("text-sm font-medium transition-colors hover:text-[#607D8B]", pathname.startsWith(link.href) ? "text-[#607D8B] font-semibold" : "text-[#555555]")}>{link.label}</Link>
             ))}
             <button
               onClick={() => setIsSearchOpen(true)}
@@ -111,20 +114,13 @@ export function Navbar({ locale }: NavbarProps) {
 
         {mobileOpen && (
           <nav className="sm:hidden py-3 border-t border-[#E8E2D9]">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={cn(
-                  "block py-2 text-sm font-medium transition-colors hover:text-[#607D8B]",
-                  pathname.startsWith(link.href)
-                    ? "text-[#607D8B] font-semibold"
-                    : "text-[#555555]"
-                )}
-              >
-                {link.label}
-              </Link>
+            {navLinks.map((link) => link.label === dict.nav.indicators ? (
+              <div key={link.href}>
+                <button onClick={() => setIndicatorOpen(!indicatorOpen)} className="block py-2 text-sm font-medium text-[#555555]">{link.label} ▾</button>
+                {indicatorOpen && <div className="pl-4 pb-2">{["물가", "금리", "경제성장률", "실업률", "심리"].map((item) => <a key={item} href={`/${locale}/economic-indicators#${item}`} onClick={() => setMobileOpen(false)} className="block py-1 text-sm text-[#777777]">{item}</a>)}</div>}
+              </div>
+            ) : (
+              <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className={cn("block py-2 text-sm font-medium transition-colors hover:text-[#607D8B]", pathname.startsWith(link.href) ? "text-[#607D8B] font-semibold" : "text-[#555555]")}>{link.label}</Link>
             ))}
           </nav>
         )}

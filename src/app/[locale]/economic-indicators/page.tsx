@@ -30,7 +30,7 @@ export default async function EconomicIndicatorsPage({ params }: PageProps) {
           ["Unemployment", "The labor market"],
           ["Sentiment", "Consumer and business expectations"],
         ]).map(([title, description]) => (
-          <div key={title} className="rounded-xl border border-cream-200 bg-white p-4">
+          <div key={title} id={title} className="rounded-xl border border-cream-200 bg-white p-4 scroll-mt-24">
             <h2 className="font-semibold text-ink-900">{title}</h2>
             <p className="mt-1 text-xs text-ink-500">{description}</p>
           </div>
