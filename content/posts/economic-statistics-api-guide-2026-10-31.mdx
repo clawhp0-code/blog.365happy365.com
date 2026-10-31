@@ -1,0 +1,60 @@
+---
+title: '경제통계 API, 어디서 어떤 데이터를 받을 수 있을까'
+description: 'ECOS·KOSIS부터 FRED·World Bank까지 국내외 경제통계 API 16개를 제공 지표와 인증 방식, 활용 목적별로 비교합니다.'
+date: '2026-10-31'
+category: '경제분석'
+tags: ['경제통계', 'API', 'ECOS', 'KOSIS', 'FRED', '데이터분석']
+featured: false
+draft: true
+locale: ko
+---
+
+금리와 환율, 물가, 고용을 꾸준히 살펴보려면 발표 때마다 웹사이트를 찾아가 숫자를 옮기는 일이 반복된다. 경제통계 API를 이용하면 이 과정을 프로그램으로 연결할 수 있다. 국내 경제는 한국은행 ECOS와 KOSIS, 미국 경제는 FRED, 국가 간 비교는 World Bank와 OECD를 출발점으로 삼기 좋다.
+
+API는 다른 프로그램이 정해진 규칙에 따라 데이터를 요청하고 받는 통로다. 예를 들어 특정 소비자물가지수의 월별 값을 요청하면 서버가 JSON이나 XML 같은 구조화된 형식으로 응답한다. 이를 표와 그래프로 만들거나 정기 보고에 활용할 수 있다. 다만 API가 있다는 사실만으로 모든 자료를 제한 없이 가져올 수 있는 것은 아니다. 인증키와 호출 한도, 데이터 이용조건을 각각 확인해야 한다.
+
+아래는 2026년 10월 31일 공식 문서를 기준으로 살펴본 대표 서비스 16개다. 문서 조사이며, 모든 서비스의 신규 인증과 실제 응답을 시험한 결과는 아니다. 비용이 명확하지 않은 곳은 무료로 단정하지 않았다.
+
+## 국내 경제통계 API 6개
+
+| API | 주요 자료 | 인증과 이용 시 확인할 점 |
+|---|---|---|
+| [한국은행 ECOS](https://ecos.bok.or.kr/api/) | 금리·환율·통화·GDP 등 거시·금융 시계열 | 인증키 발급, 통계표·항목·주기 코드 확인 |
+| [KOSIS 공유서비스](https://kosis.kr/serviceInfo/openAPIGuide.do) | 물가·고용·생산·소비·인구·지역 통계 | 인증키 신청, HTTPS와 현행 호출 제한 확인 |
+| [관세청 수출입 API](https://www.data.go.kr/data/15100475/openapi.do) | 국가·HS 품목별 수출입금액과 무역수지 | 공공데이터포털 활용신청·키, 공식 카탈로그 무료 표기 |
+| [열린재정](https://m.openfiscaldata.go.kr/op/ko/ds/UOPKODSA06) | 재정 수입·지출·수지·채무·사업 관련 자료 | 인증키 발급, API 목록에서 실제 개방 항목 확인 |
+| [한국부동산원 R-ONE](https://www.reb.or.kr/r-one/portal/openapi/openApiDevPage.do) | 부동산 가격·지가 등 통계표 시계열 | 로그인 후 키 발급, JSON/XML 제공 |
+| [국토부 아파트 실거래가](https://www.data.go.kr/data/15126469/openapi.do) | 지역·계약월별 아파트 매매 신고 자료 | 공공데이터포털 활용신청·키, 무료 |
+
+ECOS와 KOSIS는 함께 활용할 때 범위가 넓어진다. 금융 여건과 거시 흐름을 보려면 ECOS에서 시작하고, 고용·소비·생산이나 지역별 차이를 살펴볼 때 KOSIS를 더하는 방식이다. 수출 산업을 분석한다면 관세청에서 국가와 HS 품목을 나눠 볼 수 있다. 공공데이터포털은 이들 자료를 모두 같은 형식으로 제공하는 단일 API라기보다 기관별 서비스를 검색하고 신청하는 창구다.
+
+부동산에서는 자료의 성격을 구분해야 한다. 가격지수는 시장의 흐름을 측정한 통계이고, 실거래가는 신고된 개별 계약 자료다. 거래된 주택의 구성에 따라 단순 평균가격이 달라질 수 있으므로 이를 가격지수와 같은 뜻으로 해석하면 곤란하다. R-ONE과 국토부 API를 고를 때도 먼저 필요한 것이 시장 추세인지 개별 거래인지 정해야 한다. ([R-ONE 개발가이드](https://www.reb.or.kr/r-one/portal/openapi/openApiDevPage.do), [국토부 공식 자료 설명](https://www.data.go.kr/catalog/15126469/openapi.json))
+
+## 해외 경제통계 API 10개
+
+| API | 주요 자료 | 인증과 이용 시 확인할 점 |
+|---|---|---|
+| [FRED / ALFRED](https://fred.stlouisfed.org/docs/api/fred/) | 미국 중심 경제·금융 시계열과 과거 시점 자료 | FRED 계정·API 키, 최신 수정치와 빈티지 구분 |
+| [미국 BLS](https://www.bls.gov/developers/) | CPI·PPI·고용·실업·임금·생산성 | 미등록 조회 가능, 등록하면 범위·한도 확대 |
+| [미국 BEA](https://apps.bea.gov/API/docs/) | GDP·개인소득·산업·지역경제 | 등록 후 UserID 사용, JSON/XML |
+| [미국 Census](https://www.census.gov/data/developers/data-sets.html) | 인구·소득·주거·사업체·경제통계 | 무료 키 발급, 2026년 5월부터 데이터 조회 키 필수 |
+| [World Bank Indicators v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392) | 국가별 GDP·인구·물가·부채·개발 지표 | 키·인증 불필요, v2 사용 |
+| [OECD Data Explorer](https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html) | 국가별 경기·고용·무역·세금 등 비교 | 무료 SDMX API, 현행 주소와 다운로드 제한 확인 |
+| [IMF Data APIs / DataMapper](https://data.imf.org/en/Resource-Pages/IMF-API) | IMF 통계와 국가별 지표·전망 분석 | 현행 SDMX 2.1/3.0, 서비스별 인증 확인; DataMapper는 별도 API |
+| [Eurostat](https://ec.europa.eu/eurostat/en/web/user-guides/data-browser/api-data-access/api-introduction) | EU GDP·물가·고용 등 | 무료 REST API, 최신 데이터 중심 |
+| [BIS](https://data.bis.org/help/tools) | 국제은행·신용·글로벌 유동성·실효환율·주택가격 | SDMX REST, 이번 조사에서 인증·비용 명시문 미확보 |
+| [UN Comtrade](https://uncomtrade.org/docs/un-comtrade-api/) | 국가·품목·교역상대별 월간·연간 수출입 | 무키 미리보기, 무료 키 기본 API, 유료 대량 서비스 구분 |
+
+미국의 주요 지표를 한곳에서 모으려면 FRED가 편리하다. 원발표기관의 산업·지역별 세부 자료가 필요할 때는 BLS·BEA·Census를 함께 검토하면 된다. 여러 나라를 비교하는 작업에는 World Bank와 OECD가 적합한 후보이며, 국제 신용과 은행 부문은 BIS, 상세한 교역 구조는 UN Comtrade로 범위를 좁힐 수 있다. 이는 각 기관의 제공 범위를 바탕으로 한 활용 제안이다.
+
+인터넷의 오래된 예제가 현재 정책과 맞지 않을 수도 있다. Census는 2026년 5월부터 데이터 조회에 키를 요구한다고 안내한다. OECD 역시 현재 시간당 데이터 다운로드 제한을 두고 필요한 범위를 좁힌 요청을 권고한다. SDMX는 통계 데이터와 메타데이터를 교환하는 표준이다. 처음 연결할 때는 데이터셋뿐 아니라 국가·항목·주기 코드의 순서도 확인해야 한다. ([Census 키 안내](https://www.census.gov/data/developers/guidance/api-user-guide.API_Key.html), [OECD 호출 권고](https://www.oecd.org/en/data/insights/data-explainers/2024/11/Api-best-practices-and-recommendations.html), [KOSIS API 안내](https://kosis.kr/serviceInfo/openAPIGuide.do))
+
+## 숫자를 받기 전에 확인할 것
+
+같은 이름처럼 보여도 지표의 정의가 다르면 결과도 달라진다. 물가지수의 수준과 물가상승률, 명목 GDP와 실질 성장률, 월평균 금리와 특정일 금리는 각각 구분해야 한다. 숫자와 함께 단위·주기·계절조정 여부·관측기간·출처를 보존하고, 발표 시점과 조회 시점도 나눠 기록하는 편이 좋다.
+
+특히 과거 분석에서는 개정치가 중요하다. 오늘 조회한 작년 GDP가 작년 발표 당시의 값과 같다는 보장은 없다. ALFRED 같은 과거 시점 자료를 이용하거나 발표본을 직접 보존해야 당시 알 수 있었던 정보로 분석할 수 있다. Eurostat는 최신 버전만 제공하고 이전 버전 이력을 보존하지 않는다고 안내하므로 별도 저장 계획이 필요하다. ([FRED 실시간 기간 안내](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html), [Eurostat 버전 정책](https://ec.europa.eu/eurostat/en/web/user-guides/data-browser/api-data-access/api-introduction))
+
+국내 무역도 정정될 수 있다. 관세청은 매월 15일경 과거 수출입 신고의 변경을 반영한다고 설명한다. 또한 수출은 FOB, 수입은 CIF 기준이므로 금액을 비교할 때 평가 기준을 함께 알아야 한다. ([관세청 공식 메타데이터](https://www.data.go.kr/catalog/15100475/openapi.json))
+
+처음에는 분석 질문 하나와 몇 개의 지표를 정해 연결하는 것이 실용적이다. 한국 경기와 금융 여건이면 ECOS·KOSIS, 미국 거시면 FRED, 국가 비교면 World Bank·OECD부터 시작할 수 있다. 이후 재정·부동산·무역처럼 필요한 분야를 더하되, 연결한 API 수보다 같은 기준으로 데이터를 해석하고 변경 이력을 관리하는 데 무게를 두는 편이 좋다.
