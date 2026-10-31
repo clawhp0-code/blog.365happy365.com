@@ -63,7 +63,7 @@ export function Navbar({ locale }: NavbarProps) {
                 {indicatorOpen && (
                   <div className="absolute right-0 top-8 z-50 w-40 rounded-lg border border-[#E8E2D9] bg-white p-2 shadow-lg">
                     {[['물가','inflation'], ['금리','rates'], ['경제성장률','growth'], ['실업률','unemployment'], ['심리','sentiment']].map(([item, slug]) => (
-                      <a key={item} href={`/${locale}/economic-indicators/${slug}`} className="block rounded px-3 py-2 text-sm text-[#555555] hover:bg-[#F8F5EE] hover:text-[#607D8B]">{item}</a>
+                      <a key={item} href={`/${locale}/economic-indicators/${slug}`} onClick={() => setIndicatorOpen(false)} className="block rounded px-3 py-2 text-sm text-[#555555] hover:bg-[#F8F5EE] hover:text-[#607D8B]">{item}</a>
                     ))}
                   </div>
                 )}
