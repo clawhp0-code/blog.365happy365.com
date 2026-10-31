@@ -50,3 +50,20 @@ h4:hover .anchor {
   z-index: 100;
   transition: width 0.1s linear;
 }
+
+.market-ticker {
+  height: 34px;
+  overflow: hidden;
+  border-top: 1px solid #eee8df;
+  background: rgba(248, 245, 238, 0.72);
+}
+
+.market-ticker .tradingview-widget-container {
+  height: 34px;
+  width: 100%;
+}
+
+.market-ticker iframe {
+  border: 0 !important;
+  height: 34px !important;
+}
