@@ -4,6 +4,7 @@ export const dynamic = "force-dynamic";
 
 const symbols = [
   { symbol: "^KS11", name: "KOSPI" },
+  { symbol: "005930.KS", name: "삼성전자" },
   { symbol: "^GSPC", name: "S&P 500" },
   { symbol: "AAPL", name: "Apple" },
   { symbol: "MSFT", name: "Microsoft" },
