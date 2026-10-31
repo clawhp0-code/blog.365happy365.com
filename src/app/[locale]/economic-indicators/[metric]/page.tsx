@@ -4,9 +4,9 @@ import { Container } from "@/components/layout/Container";
 const metrics: Record<string, { title: string; description: string; image: string; alt: string }> = {
   inflation: { title: "물가 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자물가 상승률", image: "inflation-5y.png", alt: "최근 5년 4개국 물가상승률 인포그래픽" },
   rates: { title: "금리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 정책금리 흐름", image: "rates-5y.png", alt: "최근 5년 4개국 금리 인포그래픽" },
-  growth: { title: "경제성장률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실질 GDP 성장률", image: "01-all-indicators-5y-with-sentiment.png", alt: "4개국 경제성장률 인포그래픽" },
+  growth: { title: "경제성장률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실질 GDP 성장률", image: "growth-5y.png", alt: "최근 5년 4개국 경제성장률 인포그래픽" },
   unemployment: { title: "실업률 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 실업률 흐름", image: "unemployment-5y.png", alt: "최근 5년 4개국 실업률 인포그래픽" },
-  sentiment: { title: "심리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자·경제심리", image: "01-all-indicators-5y-with-sentiment.png", alt: "4개국 심리 지표 인포그래픽" },
+  sentiment: { title: "심리 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자·경제심리", image: "sentiment-5y.png", alt: "최근 5년 4개국 심리 지표 인포그래픽" },
 };
 
 interface PageProps { params: Promise<{ locale: string; metric: string }> }
