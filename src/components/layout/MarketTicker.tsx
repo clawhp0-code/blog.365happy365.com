@@ -22,7 +22,7 @@ export function MarketTicker() {
   }, []);
 
   return (
-    <div className="market-ticker" aria-label="KOSPI와 S&P 500 실시간 시세">
+    <div className="market-ticker" aria-label="KOSPI, S&P 500 및 미국 빅테크 실시간 시세">
       <div className="market-ticker-track">
         {[...quotes, ...quotes].map((quote, index) => (
           <span className="market-ticker-item" key={`${quote.name}-${index}`}>

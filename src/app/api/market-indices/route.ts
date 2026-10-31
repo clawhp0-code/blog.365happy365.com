@@ -5,6 +5,13 @@ export const dynamic = "force-dynamic";
 const symbols = [
   { symbol: "^KS11", name: "KOSPI" },
   { symbol: "^GSPC", name: "S&P 500" },
+  { symbol: "AAPL", name: "Apple" },
+  { symbol: "MSFT", name: "Microsoft" },
+  { symbol: "NVDA", name: "NVIDIA" },
+  { symbol: "AMZN", name: "Amazon" },
+  { symbol: "GOOGL", name: "Alphabet" },
+  { symbol: "META", name: "Meta" },
+  { symbol: "TSLA", name: "Tesla" },
 ];
 
 async function quote(symbol: string, name: string) {
