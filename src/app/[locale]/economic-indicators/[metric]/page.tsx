@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
+import { getAllPosts } from "@/lib/posts";
 
 const metrics: Record<string, { title: string; description: string; image: string; alt: string; guide: string }> = {
   inflation: { title: "물가 인포그래픽", description: "최근 5년 한국·미국·일본·중국의 소비자물가 상승률", image: "inflation-5y.png", alt: "최근 5년 4개국 물가상승률 인포그래픽", guide: "물가상승률을 생활비와 연결해 읽는 법" },
@@ -19,6 +20,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function MetricPage({ params }: PageProps) {
   const { locale, metric } = await params;
   const item = metrics[metric] ?? metrics.inflation;
+  const tag = ({ inflation: "물가", rates: "금리", growth: "경제성장률", unemployment: "실업률", sentiment: "심리" } as Record<string, string>)[metric] ?? "물가";
+  const articles = getAllPosts(locale as "ko" | "en").filter((post) => post.tags?.includes(tag)).slice(0, 3);
   return (
     <Container className="py-12">
       <div className="grid gap-8 lg:grid-cols-[180px_minmax(0,1fr)] items-start">
@@ -42,6 +45,17 @@ export default async function MetricPage({ params }: PageProps) {
               {metric === "inflation" && <a href={`/${locale}/blog/inflation-explained-five-year-four-countries-2026-11-01`} className="inline-block mt-5 font-semibold text-sunny-700 hover:underline">물가 아티클 읽기 →</a>}
             </article>
           </div>
+          <section className="mt-10">
+            <h2 className="font-serif font-bold text-2xl text-ink-900 mb-4">관련 글</h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              {articles.map((post) => (
+                <a key={post.slug} href={`/${locale}/blog/${post.slug}`} className="rounded-xl border border-cream-200 p-4 hover:border-sunny-300 hover:shadow-sm">
+                  <h3 className="font-semibold text-ink-900 leading-6">{post.title}</h3>
+                  <p className="mt-2 text-sm text-ink-500 line-clamp-3">{post.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
         </article>
       </div>
     </Container>
