@@ -23,7 +23,7 @@ export function Navbar({ locale }: NavbarProps) {
 
   const navLinks = [
     { href: `/${locale}/blog`, label: dict.nav.blog },
-    { href: `/${locale}/blog/economic-indicators-infographic-2026-10-31`, label: dict.nav.indicators },
+    { href: `/${locale}/economic-indicators`, label: dict.nav.indicators },
     { href: `/${locale}/categories`, label: dict.nav.categories },
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
