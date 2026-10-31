@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function MetricPage({ params }: PageProps) {
-  const { metric } = await params;
+  const { locale, metric } = await params;
   const item = metrics[metric] ?? metrics.inflation;
   return (
     <Container className="py-12">
@@ -25,7 +25,7 @@ export default async function MetricPage({ params }: PageProps) {
         <aside className="lg:sticky lg:top-24 rounded-2xl border border-cream-200 bg-white p-4">
           <h2 className="font-semibold text-ink-900 mb-3">경제지표</h2>
           <nav className="space-y-1">
-            {[["물가","inflation"],["금리","rates"],["경제성장률","growth"],["실업률","unemployment"],["심리","sentiment"]].map(([label, slug]) => <a key={slug} href={`../${slug}`} className={`block rounded-lg px-3 py-2 text-sm ${slug === metric ? "bg-cream-50 text-sunny-700 font-semibold" : "text-ink-600 hover:bg-cream-50"}`}>{label}</a>)}
+            {[["물가","inflation"],["금리","rates"],["경제성장률","growth"],["실업률","unemployment"],["심리","sentiment"]].map(([label, slug]) => <a key={slug} href={`/${locale}/economic-indicators/${slug}`} className={`block rounded-lg px-3 py-2 text-sm ${slug === metric ? "bg-cream-50 text-sunny-700 font-semibold" : "text-ink-600 hover:bg-cream-50"}`}>{label}</a>)}
           </nav>
         </aside>
         <article className="rounded-2xl border border-cream-200 bg-white p-5 sm:p-8 shadow-sm">
