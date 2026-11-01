@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1050" viewBox="0 0 1800 1050">
+<rect width="1800" height="1050" fill="#fbfaf7"/>
+<style>
+.t{font:700 52px Arial,sans-serif;fill:#111}.s{font:400 25px Arial,sans-serif;fill:#666}.h{font:700 30px Arial,sans-serif;fill:#222}.axis{font:400 19px Arial,sans-serif;fill:#777}.year{font:700 18px Arial,sans-serif;fill:#444}.grid{stroke:#e2dfd8;stroke-width:2}.line{fill:none;stroke:#7b3fb6;stroke-width:8}.point{fill:#7b3fb6;stroke:#fff;stroke-width:4}.value{font:700 18px Arial,sans-serif;fill:#111}.note{font:400 22px Arial,sans-serif;fill:#555}.call{font:700 24px Arial,sans-serif;fill:#7b3fb6}
+</style>
+<text x="100" y="85" class="t">나이키 PER 10년 추이</text>
+<text x="100" y="125" class="s">FY2016~FY2026 · 근사 PER = 연말 시가총액 ÷ 해당 회계연도 순이익</text>
+<rect x="100" y="170" width="1600" height="650" rx="22" fill="#fff" stroke="#ddd8cf" stroke-width="2"/>
+<text x="145" y="220" class="h">시장이 나이키 이익에 붙인 가격 배수</text>
+<line x1="180" y1="280" x2="1630" y2="280" class="grid"/><line x1="180" y1="400" x2="1630" y2="400" class="grid"/><line x1="180" y1="520" x2="1630" y2="520" class="grid"/><line x1="180" y1="640" x2="1630" y2="640" class="grid"/><line x1="180" y1="760" x2="1630" y2="760" class="grid"/>
+<text x="130" y="287" class="axis">100배</text><text x="130" y="407" class="axis">75배</text><text x="130" y="527" class="axis">50배</text><text x="130" y="647" class="axis">25배</text><text x="145" y="767" class="axis">0배</text>
+<polyline points="240,652 380,645 520,470 660,582 800,339 940,576 1080,615 1220,604 1360,664 1500,626 1640,671" class="line"/>
+<g class="point"><circle cx="240" cy="652" r="10"/><circle cx="380" cy="645" r="10"/><circle cx="520" cy="470" r="10"/><circle cx="660" cy="582" r="10"/><circle cx="800" cy="339" r="10"/><circle cx="940" cy="576" r="10"/><circle cx="1080" cy="615" r="10"/><circle cx="1220" cy="604" r="10"/><circle cx="1360" cy="664" r="10"/><circle cx="1500" cy="626" r="10"/><circle cx="1640" cy="671" r="10"/></g>
+<g class="value"><text x="215" y="632">22.4x</text><text x="355" y="625">24.0x</text><text x="495" y="450">60.5x</text><text x="635" y="562">39.2x</text><text x="775" y="319">87.8x</text><text x="915" y="556">46.0x</text><text x="1055" y="595">30.3x</text><text x="1195" y="584">32.6x</text><text x="1335" y="644">20.0x</text><text x="1475" y="606">28.0x</text><text x="1615" y="651">18.5x</text></g>
+<g class="year"><text x="210" y="790">2016</text><text x="350" y="790">2017</text><text x="490" y="790">2018</text><text x="630" y="790">2019</text><text x="770" y="790">2020</text><text x="910" y="790">2021</text><text x="1050" y="790">2022</text><text x="1190" y="790">2023</text><text x="1330" y="790">2024</text><text x="1470" y="790">2025</text><text x="1610" y="790">2026</text></g>
+<text x="810" y="305" class="call">2020: 이익 급감으로 PER 급등</text>
+<text x="1330" y="705" class="call">2026: 낮아진 배수</text>
+<text x="100" y="890" class="note">PER이 낮아졌다고 무조건 싼 것은 아닙니다. 시장이 미래 이익 감소를 예상하면 낮은 PER을 적용할 수 있습니다.</text>
+<text x="100" y="930" class="note">이 그래프는 연말 시가총액과 회계연도 순이익을 이용한 근사치입니다. 정확한 거래일 PER과는 기준일·주식 수 차이가 있을 수 있습니다.</text>
+<text x="100" y="970" class="note">자료: Nike FY2016~FY2026 10-K, CompaniesMarketCap 시가총액 자료. 단위: 배.</text>
+</svg>
