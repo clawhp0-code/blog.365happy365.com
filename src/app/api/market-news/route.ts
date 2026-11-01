@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const feeds = [
   "https://news.google.com/rss/search?q=%EA%B2%BD%EC%A0%9C+%EC%A6%9D%EC%8B%9C&hl=ko&gl=KR&ceid=KR:ko",
@@ -15,7 +15,7 @@ export async function GET() {
   try {
     const items: { title: string; link: string; source: string }[] = [];
     for (const feed of feeds) {
-      const response = await fetch(feed, { cache: "no-store", headers: { "User-Agent": "Mozilla/5.0" } });
+      const response = await fetch(feed, { next: { revalidate: 300 }, headers: { "User-Agent": "Mozilla/5.0" } });
       if (!response.ok) continue;
       const xml = await response.text();
       for (const match of xml.matchAll(/<item>([\s\S]*?)<\/item>/g)) {
@@ -26,7 +26,7 @@ export async function GET() {
         if (title && link) items.push({ title, link, source });
       }
     }
-    return NextResponse.json(items.slice(0, 12), { headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json(items.slice(0, 12), { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" } });
   } catch {
     return NextResponse.json([], { status: 503 });
   }

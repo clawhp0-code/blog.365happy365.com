@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const symbols = [
   { symbol: "^KS11", name: "KOSPI" },
@@ -17,7 +17,7 @@ const symbols = [
 
 async function quote(symbol: string, name: string) {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`;
-  const response = await fetch(url, { cache: "no-store", headers: { "User-Agent": "Mozilla/5.0" } });
+  const response = await fetch(url, { next: { revalidate: 300 }, headers: { "User-Agent": "Mozilla/5.0" } });
   if (!response.ok) throw new Error(`quote ${response.status}`);
   const payload = await response.json();
   const meta = payload?.chart?.result?.[0]?.meta;
@@ -32,7 +32,7 @@ export async function GET() {
   try {
     const quotes = [];
     for (const item of symbols) quotes.push(await quote(item.symbol, item.name));
-    return NextResponse.json(quotes, { headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json(quotes, { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" } });
   } catch {
     return NextResponse.json({ error: "시세를 잠시 불러오지 못했습니다." }, { status: 503 });
   }
