@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1900" viewBox="0 0 1600 1900">
+  <rect width="1600" height="1900" fill="#f7f5f0"/>
+  <style>
+    .title{font:700 58px Arial,sans-serif;fill:#111}.sub{font:400 26px Arial,sans-serif;fill:#555}.h{font:700 32px Arial,sans-serif;fill:#111}.body{font:400 25px Arial,sans-serif;fill:#222}.small{font:400 21px Arial,sans-serif;fill:#666}.num{font:700 48px Arial,sans-serif;fill:#111}.red{fill:#c9362b}.green{fill:#15803d}.blue{fill:#2457a6}.white{fill:#fff}.card{fill:#fff;stroke:#dedbd3;stroke-width:2}.arrow{stroke:#777;stroke-width:5;fill:none;marker-end:url(#a)}
+  </style>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#777"/></marker></defs>
+  <text x="90" y="105" class="title">나이키 주가가 약한 이유</text>
+  <text x="90" y="150" class="sub">브랜드가 사라진 것이 아니라, 잘 팔리는 영역과 무너진 영역의 차이가 커졌습니다</text>
+  <rect x="90" y="205" width="1420" height="220" rx="24" class="card"/>
+  <text x="130" y="265" class="h">소비자의 선택 변화</text>
+  <text x="130" y="315" class="body">운동화 전체를 덜 사는 것이 아니라, 러닝·편안함·기능성 제품으로 이동</text>
+  <text x="130" y="365" class="body">→ 오래된 라이프스타일 제품은 할인해야 팔림 → 이익과 현금흐름이 약해짐</text>
+  <path d="M350 500 L1250 500" class="arrow"/>
+  <g transform="translate(90,560)">
+    <rect width="320" height="270" rx="20" class="card"/><text x="28" y="55" class="h">매출</text><text x="28" y="125" class="num">$464억</text><text x="28" y="175" class="small">FY2026, 거의 제자리</text><text x="28" y="225" class="body red">Q1 FY2027 -4%</text>
+    <rect x="370" width="320" height="270" rx="20" class="card"/><text x="398" y="55" class="h">이익</text><text x="398" y="125" class="num">-3%</text><text x="398" y="175" class="small">FY2026 순이익</text><text x="398" y="225" class="body red">EPS $2.10</text>
+    <rect x="740" width="320" height="270" rx="20" class="card"/><text x="768" y="55" class="h">현금흐름</text><text x="768" y="125" class="num">-22%</text><text x="768" y="175" class="small">FY2026 영업현금흐름</text><text x="768" y="225" class="body red">$28.7억</text>
+    <rect x="1110" width="320" height="270" rx="20" class="card"/><text x="1138" y="55" class="h">주가</text><text x="1138" y="125" class="num">$38.67</text><text x="1138" y="175" class="small">2026.10.30 종가</text><text x="1138" y="225" class="body red">회복 지연 반영</text>
+  </g>
+  <text x="90" y="930" class="h">어디에서 문제가 커졌나</text>
+  <g transform="translate(90,975)">
+    <rect width="680" height="285" rx="20" class="card"/><text x="30" y="55" class="h">제품</text><text x="30" y="105" class="body">Sportswear: 낮은 두 자릿수 감소</text><text x="30" y="150" class="body">Jordan: 중간 두 자릿수 감소</text><text x="30" y="195" class="body">Dunk 물량을 약 50% 축소</text><text x="30" y="240" class="small">러닝·축구·테니스·골프는 성장</text>
+    <rect x="730" width="680" height="285" rx="20" class="card"/><text x="760" y="55" class="h">중국</text><text x="760" y="105" class="body">Nike Greater China: Q1 -26%</text><text x="760" y="150" class="body">Direct -18% · Digital -28%</text><text x="760" y="195" class="body">adidas Greater China: +13%</text><text x="760" y="240" class="small">경기 둔화만으로는 설명 부족</text>
+  </g>
+  <rect x="90" y="1360" width="1420" height="300" rx="24" fill="#111"/>
+  <text x="130" y="1430" class="h white">앞으로 확인할 세 가지</text>
+  <text x="140" y="1500" class="body white">1. 재고가 매출보다 빠르게 줄어드는가</text>
+  <text x="140" y="1555" class="body white">2. 할인 없는 정가 판매와 Digital 트래픽이 회복되는가</text>
+  <text x="140" y="1610" class="body white">3. 중국 감소폭이 -26%에서 안정되는가</text>
+  <text x="90" y="1760" class="small">자료 기준: 2026년 11월 1일 · Nike FY2026 10-K, FY2027 Q1 10-Q/실적발표, adidas Q3 2026</text>
+  <text x="90" y="1800" class="small">주의: 기업별 회계기간과 범위가 달라 경쟁사 수치는 방향성 비교용입니다.</text>
+</svg>
