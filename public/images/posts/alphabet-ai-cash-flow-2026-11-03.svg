@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1440" viewBox="0 0 1200 1440" role="img" aria-labelledby="title desc">
+<title id="title">알파벳 2026년 3분기 성장과 현금흐름</title><desc id="desc">매출 127.577 billion 달러, 영업이익 40.576 billion 달러, 클라우드 성장률 103%. Q1에서 Q3로 설비투자가 늘며 분기 잉여현금흐름은 음수로 전환했으나 최근12개월은 양수.</desc>
+<style>text{font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;fill:#172b42}.small{font-size:19px;fill:#5d6f80}.label{font-size:22px;font-weight:600}.num{font-size:38px;font-weight:700}.white{fill:white}</style>
+<rect width="1200" height="1440" fill="#f4f7fb"/><rect x="0" y="0" width="1200" height="12" fill="#1463d6"/>
+<text x="60" y="75" font-size="18" fill="#1463d6" letter-spacing="3">ALPHABET · Q3 2026</text>
+<text x="60" y="128" font-size="42" font-weight="700">AI 성장은 강하다. 남는 현금은?</text>
+<text x="60" y="167" class="small">2026년 9월 종료 분기 · 금액 단위: USD billion (10억 달러)</text>
+
+<rect x="60" y="205" width="340" height="160" rx="20" fill="white"/><text x="85" y="244" class="label">전체 매출</text><text x="85" y="298" class="num">127.577</text><text x="85" y="335" class="small">전년 대비 +25%</text>
+<rect x="430" y="205" width="340" height="160" rx="20" fill="white"/><text x="455" y="244" class="label">영업이익</text><text x="455" y="298" class="num">40.576</text><text x="455" y="335" class="small">전년 대비 +30%</text>
+<rect x="800" y="205" width="340" height="160" rx="20" fill="white"/><text x="825" y="244" class="label">클라우드 성장</text><text x="825" y="298" class="num">+103%</text><text x="825" y="335" class="small">TPU 시스템 판매 포함</text>
+<rect x="60" y="395" width="1080" height="675" rx="22" fill="white"/><text x="90" y="440" font-size="27" font-weight="700">분기 현금흐름: 설비투자가 영업현금을 추월</text><rect x="90" y="464" width="18" height="18" rx="4" fill="#1463d6"/><text x="118" y="480" class="small">영업현금흐름</text><rect x="295" y="464" width="18" height="18" rx="4" fill="#f4a43a"/><text x="323" y="480" class="small">설비투자</text><text x="850" y="480" class="small">각 막대에 실제값 표시</text>
+<line x1="125" y1="780" x2="1105" y2="780" stroke="#e6ecf2"/><text x="90" y="786" class="small">0</text>
+<line x1="125" y1="700" x2="1105" y2="700" stroke="#e6ecf2"/><text x="90" y="706" class="small">20</text>
+<line x1="125" y1="620" x2="1105" y2="620" stroke="#e6ecf2"/><text x="90" y="626" class="small">40</text>
+<line x1="125" y1="540" x2="1105" y2="540" stroke="#e6ecf2"/><text x="90" y="546" class="small">60</text>
+<rect x="205" y="596.84" width="85" height="183.16" rx="6" fill="#1463d6"/><text x="247.5" y="583.84" text-anchor="middle" font-size="23" font-weight="700">45.790</text>
+<rect x="310" y="637.30" width="85" height="142.70" rx="6" fill="#f4a43a"/><text x="352.5" y="624.30" text-anchor="middle" font-size="23" font-weight="700">35.674</text>
+<text x="300" y="816" text-anchor="middle" class="label">Q1 2026</text><text x="300" y="855" text-anchor="middle" font-size="25" font-weight="700" fill="#13745a">FCF +10.116</text>
+<rect x="525" y="623.72" width="85" height="156.28" rx="6" fill="#1463d6"/><text x="567.5" y="610.72" text-anchor="middle" font-size="23" font-weight="700">39.069</text>
+<rect x="630" y="600.30" width="85" height="179.70" rx="6" fill="#f4a43a"/><text x="672.5" y="587.30" text-anchor="middle" font-size="23" font-weight="700">44.924</text>
+<text x="620" y="816" text-anchor="middle" class="label">Q2 2026</text><text x="620" y="855" text-anchor="middle" font-size="25" font-weight="700" fill="#c43b42">FCF -5.855</text>
+<rect x="845" y="610.84" width="85" height="169.16" rx="6" fill="#1463d6"/><text x="887.5" y="597.84" text-anchor="middle" font-size="23" font-weight="700">42.290</text>
+<rect x="950" y="574.58" width="85" height="205.42" rx="6" fill="#f4a43a"/><text x="992.5" y="561.58" text-anchor="middle" font-size="23" font-weight="700">51.355</text>
+<text x="940" y="816" text-anchor="middle" class="label">Q3 2026</text><text x="940" y="855" text-anchor="middle" font-size="25" font-weight="700" fill="#c43b42">FCF -9.065</text>
+<text x="90" y="900" class="small">잉여현금흐름 (FCF) · 별도 0 기준선</text><line x1="150" y1="965" x2="1105" y2="965" stroke="#7d91a7" stroke-width="2"/><text x="112" y="971" class="small">0</text>
+<rect x="258" y="926.56" width="84" height="38.44" rx="4" fill="#198568"/>
+<rect x="578" y="965.00" width="84" height="22.25" rx="4" fill="#c43b42"/>
+<rect x="898" y="965.00" width="84" height="34.45" rx="4" fill="#c43b42"/>
+<rect x="60" y="1095" width="1080" height="165" rx="22" fill="#123e72"/>
+<text x="90" y="1138" font-size="24" class="white">최근 12개월 FCF · 2025 Q4 ~ 2026 Q3</text>
+<text x="90" y="1202" font-size="48" font-weight="700" class="white">+19.747</text>
+<text x="415" y="1175" font-size="22" class="white">분기 적자와 최근 12개월 흑자를 구분</text>
+<text x="415" y="1212" font-size="20" class="white">영업현금 179.551 − 설비투자 159.804</text>
+<text x="60" y="1300" font-size="21" font-weight="700">FCF = 영업현금흐름 − 설비투자 · 회사 정의 비GAAP 지표</text>
+<text x="60" y="1336" class="small">클라우드 부문 이익에는 공통 AI 연구개발 등 전사 비용이 배분되지 않습니다.</text>
+<text x="60" y="1372" class="small">출처: Alphabet Q3 2026 SEC 실적발표 · 2026.10.28 발표</text>
+<text x="60" y="1402" font-size="17" fill="#718196">해피바이코리아 · 리서치나 기업분석 | 작성 2026.11.03 | 매매 권유가 아닌 기업 분석</text>
+</svg>
