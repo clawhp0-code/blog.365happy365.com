@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1880" viewBox="0 0 1600 1880">
+<rect width="1600" height="1880" fill="#eef3f8"/>
+<style>text{font-family:Arial,"Apple SD Gothic Neo","Noto Sans CJK KR",sans-serif}</style>
+<rect x="0" y="0" width="1600" height="240" rx="22" fill="#142d47"/>
+<text x="65" y="80" font-size="48" fill="white" font-weight="700" text-anchor="start">QUALCOMM  |  퀄컴 실적 한눈에</text>
+<text x="65" y="139" font-size="36" fill="#cce3f7" font-weight="700" text-anchor="start">전체 매출은 감소, 자동차는 성장</text>
+<text x="65" y="194" font-size="24" fill="#cce3f7" font-weight="400" text-anchor="start">FY2026 Q4·연간 확정 실적  /  회계연도 종료: 2026-09-27</text>
+<rect x="55" y="275" width="730" height="485" rx="22" fill="white"/>
+<text x="85" y="326" font-size="30" fill="#162d45" font-weight="700" text-anchor="start">01  분기 매출 (FY Q4)</text>
+<text x="85" y="367" font-size="27" fill="#c24e46" font-weight="700" text-anchor="start">전년 동기 대비 약 −8%</text>
+<text x="85" y="404" font-size="21" fill="#60758a" font-weight="400" text-anchor="start">단위: 십억 달러 (USD bn)</text>
+<rect x="202" y="493.47083333333336" width="136" height="192.52916666666664" rx="6" fill="#a8bcd0"/>
+<text x="270" y="476.47083333333336" font-size="34" fill="#245583" font-weight="700" text-anchor="middle">11.270</text>
+<text x="270" y="725" font-size="25" fill="#162d45" font-weight="400" text-anchor="middle">FY2025</text>
+<rect x="482" y="509.66583333333335" width="136" height="176.33416666666665" rx="6" fill="#3174cc"/>
+<text x="550" y="492.66583333333335" font-size="34" fill="#245583" font-weight="700" text-anchor="middle">10.322</text>
+<text x="550" y="725" font-size="25" fill="#162d45" font-weight="400" text-anchor="middle">FY2026</text>
+<rect x="815" y="275" width="730" height="485" rx="22" fill="white"/>
+<text x="845" y="326" font-size="30" fill="#162d45" font-weight="700" text-anchor="start">02  연간 매출 (FY)</text>
+<text x="845" y="367" font-size="27" fill="#c24e46" font-weight="700" text-anchor="start">전년 대비 약 −3%</text>
+<text x="845" y="404" font-size="21" fill="#60758a" font-weight="400" text-anchor="start">단위: 십억 달러 (USD bn)</text>
+<rect x="962" y="496.87041666666664" width="136" height="189.12958333333336" rx="6" fill="#a8bcd0"/>
+<text x="1030" y="479.87041666666664" font-size="34" fill="#245583" font-weight="700" text-anchor="middle">44.284</text>
+<text x="1030" y="725" font-size="25" fill="#162d45" font-weight="400" text-anchor="middle">FY2025</text>
+<rect x="1242" y="501.8416666666667" width="136" height="184.1583333333333" rx="6" fill="#3174cc"/>
+<text x="1310" y="484.8416666666667" font-size="34" fill="#245583" font-weight="700" text-anchor="middle">43.120</text>
+<text x="1310" y="725" font-size="25" fill="#162d45" font-weight="400" text-anchor="middle">FY2026</text>
+<rect x="55" y="790" width="1490" height="270" rx="22" fill="white"/>
+<text x="90" y="842" font-size="31" fill="#162d45" font-weight="700" text-anchor="start">03  자동차 성장은 전체 사업의 성장과 구분</text>
+<text x="305" y="929" font-size="44" fill="#058b7e" font-weight="700" text-anchor="middle">20억 달러 초과</text>
+<text x="305" y="982" font-size="22" fill="#50667c" font-weight="400" text-anchor="middle">FY2026 Q4 자동차 매출</text>
+<text x="800" y="929" font-size="44" fill="#058b7e" font-weight="700" text-anchor="middle">+89%</text>
+<text x="800" y="982" font-size="22" fill="#50667c" font-weight="400" text-anchor="middle">자동차 매출 전년 동기 대비</text>
+<text x="1280" y="929" font-size="44" fill="#058b7e" font-weight="700" text-anchor="middle">+36%</text>
+<text x="1280" y="982" font-size="22" fill="#50667c" font-weight="400" text-anchor="middle">자동차 + IoT 매출 성장</text>
+<text x="90" y="1031" font-size="23" fill="#50667c" font-weight="400" text-anchor="start">작은 사업의 높은 성장률만으로 전체 매출 감소를 상쇄했다고 볼 수 없습니다.</text>
+<rect x="55" y="1090" width="1490" height="305" rx="22" fill="white"/>
+<text x="90" y="1142" font-size="31" fill="#162d45" font-weight="700" text-anchor="start">04  이익의 계산 기준도 함께 확인</text>
+<text x="305" y="1227" font-size="46" fill="#8951ad" font-weight="700" text-anchor="middle">$12.70</text>
+<text x="305" y="1282" font-size="24" fill="#50667c" font-weight="400" text-anchor="middle">FY2026 GAAP EPS</text>
+<text x="800" y="1227" font-size="46" fill="#8951ad" font-weight="700" text-anchor="middle">$10.54</text>
+<text x="800" y="1282" font-size="24" fill="#50667c" font-weight="400" text-anchor="middle">FY2026 비GAAP EPS</text>
+<text x="1280" y="1227" font-size="46" fill="#8951ad" font-weight="700" text-anchor="middle">57억 달러</text>
+<text x="1280" y="1282" font-size="24" fill="#50667c" font-weight="400" text-anchor="middle">FY2026 법인세 이익 포함</text>
+<text x="90" y="1346" font-size="23" fill="#50667c" font-weight="400" text-anchor="start">EPS 단위는 달러/주. 두 EPS의 차이 전체를 세금 효과로 해석해서는 안 됩니다.</text>
+<rect x="55" y="1425" width="1490" height="230" rx="22" fill="#e0ebfa"/>
+<text x="90" y="1478" font-size="30" fill="#162d45" font-weight="700" text-anchor="start">05  FY2027 회사 전망  |  아직 확정 실적이 아닙니다</text>
+<text x="95" y="1548" font-size="27" fill="#162d45" font-weight="400" text-anchor="start">비휴대전화 매출 성장 예상</text>
+<text x="730" y="1548" font-size="39" fill="#245e9f" font-weight="700" text-anchor="start">60% 초과</text>
+<text x="95" y="1610" font-size="27" fill="#162d45" font-weight="400" text-anchor="start">데이터센터 연간 매출 목표</text>
+<text x="730" y="1610" font-size="39" fill="#245e9f" font-weight="700" text-anchor="start">50억 달러</text>
+<text x="65" y="1715" font-size="23" fill="#50667c" font-weight="400" text-anchor="start">읽는 기준: 분기와 연간을 분리하고, GAAP와 조정 이익을 같은 수치처럼 섞지 않습니다.</text>
+<text x="65" y="1760" font-size="22" fill="#50667c" font-weight="400" text-anchor="start">출처: Qualcomm FY2026 Q4 실적 발표·연차보고서 (2026-11-04 발표). 확인: 2026-11-05.</text>
+<text x="65" y="1801" font-size="21" fill="#50667c" font-weight="400" text-anchor="start">성장률은 회사 발표 반올림 수치. 자동차 매출은 정확한 금액 대신 공식 발표 하한을 표시했습니다.</text>
+<text x="65" y="1842" font-size="21" fill="#50667c" font-weight="400" text-anchor="start">자료: investor.qualcomm.com  /  전망은 수요·경쟁·제품 출시 일정에 따라 달라질 수 있습니다.</text>
+</svg>
