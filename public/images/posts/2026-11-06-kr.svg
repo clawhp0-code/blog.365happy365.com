@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1500" viewBox="0 0 1600 1500">
+<rect width="1600" height="1500" fill="#eef3f8"/>
+<style>text{font-family:Arial,"Apple SD Gothic Neo","Noto Sans CJK KR",sans-serif}</style>
+<rect width="1600" height="220" rx="22" fill="#173b5e"/>
+<text x="65" y="78" font-size="48" fill="#fff" font-weight="700">현대차 3분기 실적 읽기</text>
+<text x="65" y="137" font-size="35" fill="#cfe7f8" font-weight="700">판매·이익은 엇갈리고, 연간 목표는 낮아졌다</text>
+<text x="65" y="183" font-size="23" fill="#cfe7f8">2026년 7~9월 연결 잠정실적 · 단위: 만대, 조원, %</text>
+<rect x="55" y="260" width="730" height="515" rx="22" fill="#fff"/>
+<text x="90" y="315" font-size="31" fill="#173b5e" font-weight="700">01  3분기 핵심 수치</text>
+<text x="90" y="355" font-size="22" fill="#657b8e">전년 동기 대비 · 회사 발표 기준</text>
+<text x="135" y="455" font-size="28" fill="#50667c">도매판매</text>
+<text x="135" y="510" font-size="51" fill="#c24e46" font-weight="700">92.1만대</text>
+<text x="520" y="455" font-size="28" fill="#50667c">매출</text>
+<text x="520" y="510" font-size="51" fill="#c24e46" font-weight="700">45.11조원</text>
+<text x="135" y="625" font-size="28" fill="#50667c">영업이익</text>
+<text x="135" y="680" font-size="51" fill="#16866e" font-weight="700">2.677조원</text>
+<text x="520" y="625" font-size="28" fill="#50667c">영업이익률</text>
+<text x="520" y="680" font-size="51" fill="#16866e" font-weight="700">5.9%</text>
+<text x="90" y="735" font-size="22" fill="#657b8e">판매 −11.3% · 매출 −3.4% · 영업이익 +5.5%</text>
+<rect x="815" y="260" width="730" height="515" rx="22" fill="#fff"/>
+<text x="850" y="315" font-size="31" fill="#173b5e" font-weight="700">02  왜 이익은 늘었나</text>
+<rect x="900" y="385" width="560" height="86" rx="12" fill="#e5f3ef"/>
+<text x="930" y="440" font-size="31" fill="#176f5b" font-weight="700">환율·비용 최적화</text>
+<rect x="900" y="505" width="560" height="86" rx="12" fill="#e5f3ef"/>
+<text x="930" y="560" font-size="31" fill="#176f5b" font-weight="700">하이브리드 비중 개선</text>
+<rect x="900" y="625" width="560" height="86" rx="12" fill="#fff0e4"/>
+<text x="930" y="680" font-size="29" fill="#a35d28" font-weight="700">일회성 효과 여부는 추적 필요</text>
+<text x="850" y="740" font-size="21" fill="#657b8e">회사 설명을 요약한 것으로, 다음 분기에도 같은 효과가 난다는 보장은 없습니다.</text>
+<rect x="55" y="825" width="1490" height="370" rx="22" fill="#fff"/>
+<text x="90" y="880" font-size="31" fill="#173b5e" font-weight="700">03  연간 가이던스 변경</text>
+<text x="150" y="945" font-size="25" fill="#50667c">도매판매 목표</text>
+<text x="150" y="1010" font-size="46" fill="#657b8e" font-weight="700">416만대</text>
+<text x="385" y="1005" font-size="38" fill="#c24e46" font-weight="700">→</text>
+<text x="470" y="1010" font-size="46" fill="#c24e46" font-weight="700">400만대</text>
+<text x="820" y="945" font-size="25" fill="#50667c">영업이익률 목표</text>
+<text x="820" y="1010" font-size="46" fill="#657b8e" font-weight="700">6.3~7.3%</text>
+<text x="1135" y="1005" font-size="38" fill="#c24e46" font-weight="700">→</text>
+<text x="1220" y="1010" font-size="46" fill="#c24e46" font-weight="700">5.5~6.5%</text>
+<text x="90" y="1090" font-size="25" fill="#173b5e" font-weight="700">해석 포인트</text>
+<text x="90" y="1135" font-size="24" fill="#50667c">분기 실적은 확정 전 잠정치, 연간 수치는 회사 전망입니다. 생산·수요·원자재 조건이 달라지면 실제 결과도 달라질 수 있습니다.</text>
+<text x="90" y="1180" font-size="23" fill="#50667c">이날 정규장: KOSPI 5,059.69 (−6.02%) · KOSDAQ 644.27 (−5.03%)</text>
+<text x="90" y="1250" font-size="21" fill="#657b8e">출처: 현대차 공식 2026년 3분기 실적 발표 및 IR 공지(2026-10-29 발표). 자료 확인: 2026-11-06 KST.</text>
+<text x="90" y="1290" font-size="21" fill="#657b8e">주의: 오늘 코스피 급락과 현대차 실적의 인과관계를 이 그래프만으로 단정하지 않습니다.</text>
+</svg>
