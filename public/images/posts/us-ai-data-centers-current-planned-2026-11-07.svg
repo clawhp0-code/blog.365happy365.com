@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1900" viewBox="0 0 1600 1900">
+<rect width="1600" height="1900" fill="#eef3f8"/>
+<style>text{font-family:Arial,"Apple SD Gothic Neo","Noto Sans CJK KR",sans-serif}</style>
+<rect width="1600" height="230" rx="24" fill="#172d4d"/>
+<text x="70" y="82" font-size="48" fill="#fff" font-weight="700">미국 AI 데이터센터의 현재와 다음 단계</text>
+<text x="70" y="142" font-size="34" fill="#cfe7f8" font-weight="700">가동 중인 시설에서 GW급 캠퍼스 경쟁으로</text>
+<text x="70" y="192" font-size="22" fill="#cfe7f8">자료 확인 기준: 2026년 11월 7일 · 회사 공식 발표 기준 · GW는 프로젝트별 기준이 다를 수 있음</text>
+
+<rect x="55" y="275" width="1490" height="315" rx="22" fill="#fff"/>
+<text x="90" y="330" font-size="32" fill="#172d4d" font-weight="700">01  현재 가동·확대 중</text>
+<text x="90" y="372" font-size="22" fill="#657b8e">이미 운영되거나 실제 건설이 진행되는 프로젝트</text>
+<rect x="110" y="420" width="415" height="105" rx="14" fill="#e5f3ef"/>
+<text x="140" y="462" font-size="27" fill="#176f5b" font-weight="700">Microsoft Fairwater</text>
+<text x="140" y="500" font-size="22" fill="#176f5b">위스콘신 · 1단계 완전 가동</text>
+<rect x="590" y="420" width="415" height="105" rx="14" fill="#fff0e4"/>
+<text x="620" y="462" font-size="27" fill="#a35d28" font-weight="700">Meta Hyperion</text>
+<text x="620" y="500" font-size="22" fill="#a35d28">루이지애나 · 5GW 확장</text>
+<rect x="1070" y="420" width="385" height="105" rx="14" fill="#e8effa"/>
+<text x="1100" y="462" font-size="27" fill="#2d5f9a" font-weight="700">Meta El Paso</text>
+<text x="1100" y="500" font-size="22" fill="#2d5f9a">텍사스 · 1GW · 2028년</text>
+
+<rect x="55" y="630" width="1490" height="575" rx="22" fill="#fff"/>
+<text x="90" y="685" font-size="32" fill="#172d4d" font-weight="700">02  계획·인허가·건설 파이프라인</text>
+<text x="90" y="727" font-size="22" fill="#657b8e">발표 규모와 실제 가동 가능성은 서로 다릅니다</text>
+<line x1="155" y1="820" x2="1450" y2="820" stroke="#c7d2df" stroke-width="3"/>
+<circle cx="190" cy="820" r="18" fill="#176f5b"/><text x="150" y="790" font-size="22" fill="#176f5b" font-weight="700">가동</text>
+<circle cx="650" cy="820" r="18" fill="#a35d28"/><text x="598" y="790" font-size="22" fill="#a35d28" font-weight="700">건설</text>
+<circle cx="1030" cy="820" r="18" fill="#2d5f9a"/><text x="984" y="790" font-size="22" fill="#2d5f9a" font-weight="700">허가</text>
+<circle cx="1400" cy="820" r="18" fill="#7c5aa6"/><text x="1340" y="790" font-size="22" fill="#7c5aa6" font-weight="700">로드맵</text>
+<text x="110" y="900" font-size="27" fill="#172d4d" font-weight="700">Oracle Project Jupiter</text>
+<text x="110" y="938" font-size="23" fill="#50667c">뉴멕시코 · 연료전지 마이크로그리드 · 공공검토</text>
+<text x="110" y="1015" font-size="27" fill="#172d4d" font-weight="700">Google Wyoming</text>
+<text x="110" y="1053" font-size="23" fill="#50667c">와이오밍 · 170억 달러 · 702MW 연료전지+CCS</text>
+<text x="800" y="900" font-size="27" fill="#172d4d" font-weight="700">OpenAI Stargate</text>
+<text x="800" y="938" font-size="23" fill="#50667c">미국 전역 · 2029년까지 10GW 목표</text>
+<text x="800" y="1015" font-size="27" fill="#172d4d" font-weight="700">Microsoft Fairwater 2단계</text>
+<text x="800" y="1053" font-size="23" fill="#50667c">위스콘신 · 인접 시설 · 2028년 완공 목표</text>
+<text x="110" y="1140" font-size="21" fill="#657b8e">※ 702MW는 Google 발표상 전력 생산 설비이며 데이터센터 IT 용량과 동일하지 않습니다.</text>
+
+<rect x="55" y="1245" width="1490" height="430" rx="22" fill="#fff"/>
+<text x="90" y="1300" font-size="32" fill="#172d4d" font-weight="700">03  데이터센터를 움직이는 6가지 조건</text>
+<text x="130" y="1380" font-size="29" fill="#2d5f9a" font-weight="700">전력</text><text x="315" y="1380" font-size="25" fill="#50667c">변전소·송전망·발전원 확보</text>
+<text x="130" y="1450" font-size="29" fill="#2d5f9a" font-weight="700">냉각</text><text x="315" y="1450" font-size="25" fill="#50667c">직접액체냉각·칠러·물 사용</text>
+<text x="130" y="1520" font-size="29" fill="#2d5f9a" font-weight="700">자금</text><text x="315" y="1520" font-size="25" fill="#50667c">기업 투자·인프라펀드·프로젝트금융</text>
+<text x="850" y="1380" font-size="29" fill="#2d5f9a" font-weight="700">고객</text><text x="1035" y="1380" font-size="25" fill="#50667c">장기 임대·앵커 테넌트</text>
+<text x="850" y="1450" font-size="29" fill="#2d5f9a" font-weight="700">허가</text><text x="1035" y="1450" font-size="25" fill="#50667c">환경·주민·전력계통 심사</text>
+<text x="850" y="1520" font-size="29" fill="#2d5f9a" font-weight="700">GPU</text><text x="1035" y="1520" font-size="25" fill="#50667c">서버 설치와 실제 가동 시점</text>
+<text x="90" y="1625" font-size="23" fill="#a35d28" font-weight="700">투자 체크: 발표 → 허가 → 착공 → 전력 연결 → GPU 설치 → 가동</text>
+
+<text x="90" y="1750" font-size="21" fill="#657b8e">출처: Microsoft, OpenAI, Meta, Oracle, Google 공식 발표 및 SEC 2026년 9월 Microsoft 10-Q.</text>
+<text x="90" y="1790" font-size="21" fill="#657b8e">주의: 프로젝트별 GW는 컴퓨팅·IT·전력 기준이 섞일 수 있어 단순 합산하지 않았습니다.</text>
+</svg>
