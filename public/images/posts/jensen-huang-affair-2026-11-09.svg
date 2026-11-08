@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1700" viewBox="0 0 1200 1700" role="img" aria-labelledby="title desc">
+<title id="title">젠슨 황 사안: 확인된 사실과 조사 중인 쟁점</title>
+<desc id="desc">젠슨 황의 외도 인정, 언론이 보도한 정보공작 의혹, 엔비디아 이사회의 독립조사를 확인 사실·보도·조사 중으로 구분한 인포그래픽</desc>
+<style>text{font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;fill:#172b42}.small{font-size:20px;fill:#5d6f80}.body{font-size:24px;fill:#263b50}.head{font-size:30px;font-weight:700}.num{font-size:44px;font-weight:800}.white{fill:#fff}</style>
+<rect width="1200" height="1700" fill="#f4f7fb"/><rect width="1200" height="14" fill="#76b900"/>
+<text x="70" y="82" font-size="22" fill="#527f00" letter-spacing="2">FACT CHECK · 2026.11.09</text>
+<text x="70" y="145" font-size="48" font-weight="800">젠슨 황 불륜 의혹,</text><text x="70" y="205" font-size="48" font-weight="800">어디까지 확인됐나</text>
+<text x="70" y="250" class="small">본인 인정 · 언론 보도 · 이사회 조사 단계를 분리해 읽기</text>
+<rect x="70" y="300" width="1060" height="240" rx="24" fill="#fff" stroke="#dfe7ef"/>
+<rect x="70" y="300" width="18" height="240" rx="9" fill="#76b900"/><text x="115" y="355" class="head">확인된 사실</text><text x="115" y="425" class="num">“아내에게 불충실했다”</text><text x="115" y="478" class="body">젠슨 황이 11월 8일 엔비디아 사내 메시지에서 직접 인정·사과</text>
+<rect x="70" y="580" width="1060" height="300" rx="24" fill="#fff" stroke="#dfe7ef"/><rect x="70" y="580" width="18" height="300" rx="9" fill="#e49a2f"/><text x="115" y="635" class="head">보도된 주장</text><text x="115" y="700" class="body">상대방으로 보도된 사업 임원에 대해</text><text x="115" y="750" class="num">중국 정보기관 연계 의혹</text><text x="115" y="805" class="body">미국 정보당국 관련 문서를 인용한 보도 단계</text><text x="115" y="842" class="small">※ 법원 확정 사실·독립적으로 공개된 증거와는 구분해야 함</text>
+<rect x="70" y="920" width="1060" height="300" rx="24" fill="#fff" stroke="#dfe7ef"/><rect x="70" y="920" width="18" height="300" rx="9" fill="#5c6bc0"/><text x="115" y="975" class="head">조사 중인 쟁점</text><text x="115" y="1040" class="body">엔비디아 이사회가 독립 이사위원회와</text><text x="115" y="1090" class="body">외부 법률고문을 통해 확인할 내용</text><text x="115" y="1145" font-size="29" font-weight="700">정보 전달 여부 · 기밀 유출 여부</text><text x="115" y="1190" class="body">이해상충·내부통제·국가안보 리스크</text>
+<line x1="150" y1="1290" x2="1050" y2="1290" stroke="#bfcbd7" stroke-width="4"/><circle cx="190" cy="1290" r="18" fill="#76b900"/><circle cx="600" cy="1290" r="18" fill="#e49a2f"/><circle cx="1010" cy="1290" r="18" fill="#5c6bc0"/><text x="150" y="1350" class="head">본인 인정</text><text x="505" y="1350" class="head">보도·의혹</text><text x="920" y="1350" class="head">독립조사</text>
+<text x="70" y="1450" font-size="32" font-weight="800">한 줄 요약</text><text x="70" y="1510" class="body">외도는 본인이 인정했지만, 첩보 연계와 기밀 유출은</text><text x="70" y="1550" class="body">아직 조사·확인 중이다.</text>
+<text x="70" y="1630" class="small">출처: NVIDIA Newsroom(11/8), NVIDIA Board Statement(11/8), AP(11/8), NYT 보도 전재 Japan Times(11/7)</text>
+</svg>
