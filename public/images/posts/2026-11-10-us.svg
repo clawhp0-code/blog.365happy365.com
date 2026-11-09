@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1500" viewBox="0 0 1600 1500">
+  <rect width="1600" height="1500" fill="#f7f9fc"/>
+  <rect x="70" y="60" width="1460" height="190" rx="28" fill="#10233f"/>
+  <text x="120" y="135" fill="#ffffff" font-size="42" font-family="Arial, sans-serif" font-weight="700">CoreWeave | AI 클라우드 실적 체크포인트</text>
+  <text x="120" y="195" fill="#b9d7ff" font-size="26" font-family="Arial, sans-serif">2026년 11월 10일 KST 기준 · 2분기 확정치와 3분기 발표 예정치를 분리</text>
+
+  <rect x="90" y="300" width="700" height="310" rx="24" fill="#ffffff" stroke="#d8e1ee" stroke-width="3"/>
+  <text x="130" y="355" fill="#10233f" font-size="30" font-family="Arial, sans-serif" font-weight="700">2분기 확정 실적</text>
+  <text x="130" y="430" fill="#53708f" font-size="24" font-family="Arial, sans-serif">매출 (전년 동기 대비)</text>
+  <text x="130" y="485" fill="#1264a3" font-size="54" font-family="Arial, sans-serif" font-weight="700">$2.575B</text>
+  <text x="490" y="485" fill="#159a6b" font-size="32" font-family="Arial, sans-serif" font-weight="700">+112.5%</text>
+  <text x="130" y="545" fill="#53708f" font-size="24" font-family="Arial, sans-serif">GAAP 영업손실</text>
+  <text x="370" y="545" fill="#c44949" font-size="34" font-family="Arial, sans-serif" font-weight="700">-$49M</text>
+  <text x="130" y="585" fill="#7c8da3" font-size="20" font-family="Arial, sans-serif">2026년 4~6월, 회사 발표 기준</text>
+
+  <rect x="810" y="300" width="700" height="310" rx="24" fill="#ffffff" stroke="#d8e1ee" stroke-width="3"/>
+  <text x="850" y="355" fill="#10233f" font-size="30" font-family="Arial, sans-serif" font-weight="700">3분기 발표 예정</text>
+  <text x="850" y="430" fill="#53708f" font-size="24" font-family="Arial, sans-serif">한국시간</text>
+  <text x="850" y="485" fill="#1264a3" font-size="48" font-family="Arial, sans-serif" font-weight="700">11월 11일 07:00</text>
+  <text x="850" y="545" fill="#53708f" font-size="24" font-family="Arial, sans-serif">미 동부시간 11월 10일 17:00</text>
+  <text x="850" y="585" fill="#c44949" font-size="21" font-family="Arial, sans-serif">발표 전 수치는 확정 실적이 아님</text>
+
+  <rect x="90" y="670" width="700" height="300" rx="24" fill="#eaf4ff" stroke="#b9d7ff" stroke-width="3"/>
+  <text x="130" y="730" fill="#10233f" font-size="30" font-family="Arial, sans-serif" font-weight="700">계약·수요 지표</text>
+  <text x="130" y="805" fill="#53708f" font-size="24" font-family="Arial, sans-serif">신규 고객 약정</text>
+  <text x="390" y="805" fill="#1264a3" font-size="42" font-family="Arial, sans-serif" font-weight="700">&gt; $25B</text>
+  <text x="130" y="865" fill="#53708f" font-size="24" font-family="Arial, sans-serif">계약 전력</text>
+  <text x="360" y="865" fill="#1264a3" font-size="38" font-family="Arial, sans-serif" font-weight="700">3.7GW → 4.2GW</text>
+  <text x="130" y="925" fill="#53708f" font-size="22" font-family="Arial, sans-serif">단기 계약 연환산 가격: 약 $40M/MW</text>
+
+  <rect x="810" y="670" width="700" height="300" rx="24" fill="#fff1f1" stroke="#f0caca" stroke-width="3"/>
+  <text x="850" y="730" fill="#10233f" font-size="30" font-family="Arial, sans-serif" font-weight="700">자금조달 위험</text>
+  <text x="850" y="810" fill="#53708f" font-size="24" font-family="Arial, sans-serif">2033년 만기 전환사채</text>
+  <text x="850" y="875" fill="#c44949" font-size="48" font-family="Arial, sans-serif" font-weight="700">$4.2B</text>
+  <text x="850" y="925" fill="#53708f" font-size="22" font-family="Arial, sans-serif">매출 성장과 이자·설비투자 부담을 함께 확인</text>
+
+  <rect x="90" y="1030" width="1420" height="330" rx="24" fill="#10233f"/>
+  <text x="130" y="1095" fill="#ffffff" font-size="30" font-family="Arial, sans-serif" font-weight="700">실적 발표에서 확인할 순서</text>
+  <text x="150" y="1170" fill="#b9d7ff" font-size="26" font-family="Arial, sans-serif">1</text><text x="205" y="1170" fill="#ffffff" font-size="25" font-family="Arial, sans-serif">매출 증가가 영업손익 개선으로 이어졌는가?</text>
+  <text x="150" y="1230" fill="#b9d7ff" font-size="26" font-family="Arial, sans-serif">2</text><text x="205" y="1230" fill="#ffffff" font-size="25" font-family="Arial, sans-serif">계약 전력·백로그가 실제 가동 클러스터로 전환되는가?</text>
+  <text x="150" y="1290" fill="#b9d7ff" font-size="26" font-family="Arial, sans-serif">3</text><text x="205" y="1290" fill="#ffffff" font-size="25" font-family="Arial, sans-serif">부채와 설비투자 뒤에도 현금흐름이 남는가?</text>
+  <text x="130" y="1345" fill="#b9d7ff" font-size="19" font-family="Arial, sans-serif">출처: CoreWeave IR·SEC, AP. 단위: 미국 달러. 약정·계약전력은 매출·현금 유입과 동일하지 않음.</text>
+</svg>
