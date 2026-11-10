@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1900" viewBox="0 0 1600 1900">
+  <rect width="1600" height="1900" fill="#f7f8fb"/>
+  <rect x="70" y="70" width="1460" height="260" rx="32" fill="#14213d"/>
+  <text x="130" y="150" fill="#9fe8d1" font-family="Arial, sans-serif" font-size="30" font-weight="700">2026.11 환율 전망</text>
+  <text x="130" y="225" fill="#ffffff" font-family="Arial, sans-serif" font-size="58" font-weight="700">원/달러, 단기 변동성 뒤</text>
+  <text x="130" y="290" fill="#ffffff" font-family="Arial, sans-serif" font-size="58" font-weight="700">원화 안정이 가능할까</text>
+  <text x="130" y="395" fill="#14213d" font-family="Arial, sans-serif" font-size="32" font-weight="700">기준값</text>
+  <text x="130" y="470" fill="#e76f51" font-family="Arial, sans-serif" font-size="78" font-weight="700">1,361.89원</text>
+  <text x="130" y="520" fill="#5c677d" font-family="Arial, sans-serif" font-size="25">FRED DEXKOUS · 2026.11.06 최신 확인값</text>
+  <line x1="130" y1="590" x2="1470" y2="590" stroke="#cdd4df" stroke-width="3"/>
+  <text x="130" y="675" fill="#14213d" font-family="Arial, sans-serif" font-size="38" font-weight="700">환율을 움직이는 4개 축</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="130" y="730" width="610" height="230" rx="24" fill="#ffffff" stroke="#d6dce7" stroke-width="3"/>
+    <text x="175" y="800" fill="#e76f51" font-size="30" font-weight="700">① 미국 금리</text>
+    <text x="175" y="860" fill="#14213d" font-size="42" font-weight="700">3.75~4.00%</text>
+    <text x="175" y="915" fill="#5c677d" font-size="24">Fed 정책금리 목표범위</text>
+    <rect x="860" y="730" width="610" height="230" rx="24" fill="#ffffff" stroke="#d6dce7" stroke-width="3"/>
+    <text x="905" y="800" fill="#2a9d8f" font-size="30" font-weight="700">② 한국은행</text>
+    <text x="905" y="860" fill="#14213d" font-size="42" font-weight="700">3.00%</text>
+    <text x="905" y="915" fill="#5c677d" font-size="24">기준금리 · 10월 22일 동결</text>
+    <rect x="130" y="1010" width="610" height="230" rx="24" fill="#ffffff" stroke="#d6dce7" stroke-width="3"/>
+    <text x="175" y="1080" fill="#2a9d8f" font-size="30" font-weight="700">③ 수출·경상수지</text>
+    <text x="175" y="1140" fill="#14213d" font-size="40" font-weight="700">수급 개선</text>
+    <text x="175" y="1195" fill="#5c677d" font-size="24">반도체 수출·달러 유입</text>
+    <rect x="860" y="1010" width="610" height="230" rx="24" fill="#ffffff" stroke="#d6dce7" stroke-width="3"/>
+    <text x="905" y="1080" fill="#e76f51" font-size="30" font-weight="700">④ 위험회피</text>
+    <text x="905" y="1140" fill="#14213d" font-size="40" font-weight="700">변동성 확대</text>
+    <text x="905" y="1195" fill="#5c677d" font-size="24">중동·장기금리·자금 흐름</text>
+  </g>
+  <text x="130" y="1345" fill="#14213d" font-family="Arial, sans-serif" font-size="38" font-weight="700">조건부 시나리오 밴드</text>
+  <line x1="220" y1="1480" x2="1390" y2="1480" stroke="#14213d" stroke-width="8"/>
+  <circle cx="805" cy="1480" r="18" fill="#e76f51"/>
+  <text x="755" y="1430" fill="#e76f51" font-family="Arial, sans-serif" font-size="28" font-weight="700">1,361.89</text>
+  <text x="170" y="1550" fill="#2a9d8f" font-family="Arial, sans-serif" font-size="27" font-weight="700">1,320~1,350</text>
+  <text x="610" y="1550" fill="#14213d" font-family="Arial, sans-serif" font-size="27" font-weight="700">1,350~1,390</text>
+  <text x="1190" y="1550" fill="#e76f51" font-family="Arial, sans-serif" font-size="27" font-weight="700">1,400원 상회</text>
+  <text x="170" y="1600" fill="#5c677d" font-family="Arial, sans-serif" font-size="22">원화 안정</text>
+  <text x="650" y="1600" fill="#5c677d" font-family="Arial, sans-serif" font-size="22">기본</text>
+  <text x="1225" y="1600" fill="#5c677d" font-family="Arial, sans-serif" font-size="22">달러 강세</text>
+  <rect x="130" y="1690" width="1340" height="120" rx="20" fill="#e8edf5"/>
+  <text x="175" y="1745" fill="#14213d" font-family="Arial, sans-serif" font-size="25" font-weight="700">주의: 시나리오 구간은 공식 목표환율이 아닌 조건부 분석 범위입니다.</text>
+  <text x="175" y="1785" fill="#5c677d" font-family="Arial, sans-serif" font-size="21">출처: FRED, 한국은행, Federal Reserve · 작성 2026.11.10</text>
+</svg>
