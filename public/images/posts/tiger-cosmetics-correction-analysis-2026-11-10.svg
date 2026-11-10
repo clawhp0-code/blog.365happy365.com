@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1500" viewBox="0 0 1600 1500">
+  <rect width="1600" height="1500" fill="#f7f9fc"/>
+  <rect x="70" y="60" width="1460" height="190" rx="28" fill="#10233f"/>
+  <text x="120" y="135" fill="#fff" font-size="42" font-family="Arial,sans-serif" font-weight="700">TIGER 화장품 | 좋은 전망과 주가 조정이 공존하는 이유</text>
+  <text x="120" y="195" fill="#b9d7ff" font-size="25" font-family="Arial,sans-serif">228790 · 기준일: 가격 2026-11-09 / 수익률·비중 2026-11-06</text>
+  <rect x="90" y="300" width="700" height="300" rx="24" fill="#fff" stroke="#d8e1ee" stroke-width="3"/>
+  <text x="130" y="360" fill="#10233f" font-size="30" font-family="Arial,sans-serif" font-weight="700">가격과 성과</text>
+  <text x="130" y="440" fill="#53708f" font-size="24" font-family="Arial,sans-serif">11/9 종가</text><text x="330" y="440" fill="#1264a3" font-size="50" font-family="Arial,sans-serif" font-weight="700">3,325원</text>
+  <text x="130" y="505" fill="#53708f" font-size="24" font-family="Arial,sans-serif">1개월 NAV 수익률</text><text x="450" y="505" fill="#c44949" font-size="38" font-family="Arial,sans-serif" font-weight="700">-16.35%</text>
+  <text x="130" y="560" fill="#53708f" font-size="24" font-family="Arial,sans-serif">1개월 종가 수익률</text><text x="450" y="560" fill="#c44949" font-size="38" font-family="Arial,sans-serif" font-weight="700">-16.32%</text>
+  <rect x="810" y="300" width="700" height="300" rx="24" fill="#eaf4ff" stroke="#b9d7ff" stroke-width="3"/>
+  <text x="850" y="360" fill="#10233f" font-size="30" font-family="Arial,sans-serif" font-weight="700">산업 지표는 강하다</text>
+  <text x="850" y="445" fill="#53708f" font-size="24" font-family="Arial,sans-serif">2026년 10월 화장품 수출</text><text x="850" y="505" fill="#159a6b" font-size="48" font-family="Arial,sans-serif" font-weight="700">$1.44B</text>
+  <text x="1170" y="505" fill="#159a6b" font-size="35" font-family="Arial,sans-serif" font-weight="700">+57.5%</text>
+  <text x="850" y="560" fill="#53708f" font-size="22" font-family="Arial,sans-serif">수출 증가가 모든 편입기업 이익을 보장하진 않음</text>
+  <rect x="90" y="680" width="700" height="350" rx="24" fill="#fff7e8" stroke="#f0d9a6" stroke-width="3"/>
+  <text x="130" y="740" fill="#10233f" font-size="30" font-family="Arial,sans-serif" font-weight="700">ETF 집중도</text>
+  <text x="130" y="820" fill="#53708f" font-size="24" font-family="Arial,sans-serif">상위 10개 종목 비중</text><text x="510" y="820" fill="#c44949" font-size="48" font-family="Arial,sans-serif" font-weight="700">90.7%</text>
+  <text x="130" y="885" fill="#53708f" font-size="23" font-family="Arial,sans-serif">상위 5개: 아모레·LG생건·코스맥스</text>
+  <text x="130" y="935" fill="#53708f" font-size="23" font-family="Arial,sans-serif">달바글로벌·한국콜마</text>
+  <text x="130" y="990" fill="#7c8da3" font-size="20" font-family="Arial,sans-serif">분산은 되지만 업종 위험은 남음</text>
+  <rect x="810" y="680" width="700" height="350" rx="24" fill="#fff1f1" stroke="#f0caca" stroke-width="3"/>
+  <text x="850" y="740" fill="#10233f" font-size="30" font-family="Arial,sans-serif" font-weight="700">조정의 네 가지 압력</text>
+  <text x="870" y="815" fill="#c44949" font-size="25" font-family="Arial,sans-serif">① 기대 선반영·차익실현</text>
+  <text x="870" y="870" fill="#c44949" font-size="25" font-family="Arial,sans-serif">② 원화 강세·마진 우려</text>
+  <text x="870" y="925" fill="#c44949" font-size="25" font-family="Arial,sans-serif">③ 기업별 실적 차이</text>
+  <text x="870" y="980" fill="#c44949" font-size="25" font-family="Arial,sans-serif">④ 리밸런싱·섹터 순환매</text>
+  <rect x="90" y="1110" width="1420" height="220" rx="24" fill="#10233f"/>
+  <text x="130" y="1175" fill="#fff" font-size="30" font-family="Arial,sans-serif" font-weight="700">반등 확인 순서</text>
+  <text x="130" y="1235" fill="#b9d7ff" font-size="25" font-family="Arial,sans-serif">수출 → 매출 → 영업이익률 → 현금흐름 → ETF 가격/NAV</text>
+  <text x="130" y="1285" fill="#b9d7ff" font-size="20" font-family="Arial,sans-serif">출처: 산업통상부, FunETF, ETF 수급 분석 자료. 투자판단 참고용이며 저점·반등을 보장하지 않음.</text>
+</svg>
