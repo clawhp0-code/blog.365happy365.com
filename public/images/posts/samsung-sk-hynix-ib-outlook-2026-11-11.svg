@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1450" viewBox="0 0 1800 1450">
+  <rect width="1800" height="1450" fill="#f7f9fc"/>
+  <text x="90" y="105" font-size="58" font-weight="700" fill="#14213d">삼성전자·SK하이닉스 글로벌 IB 전망</text>
+  <text x="90" y="165" font-size="28" fill="#526174">2026년 11월 11일 기준 · 목표주가는 공개 보도 요약 기준</text>
+  <rect x="90" y="235" width="760" height="420" rx="28" fill="#eaf3ff" stroke="#9cc5f5" stroke-width="3"/>
+  <rect x="950" y="235" width="760" height="420" rx="28" fill="#fff1e9" stroke="#f1b48d" stroke-width="3"/>
+  <text x="135" y="315" font-size="42" font-weight="700" fill="#1769aa">골드만삭스</text>
+  <text x="135" y="365" font-size="30" fill="#27364d">Buy · 공급 부족 장기화</text>
+  <text x="135" y="445" font-size="34" font-weight="700" fill="#14213d">삼성전자 45만~49만원*</text>
+  <text x="135" y="500" font-size="34" font-weight="700" fill="#14213d">SK하이닉스 350만원</text>
+  <text x="135" y="570" font-size="27" fill="#526174">AI 인프라 투자 확대</text>
+  <text x="135" y="610" font-size="27" fill="#526174">HBM·서버 메모리 공급 지연</text>
+  <text x="995" y="315" font-size="42" font-weight="700" fill="#b6531f">모건스탠리</text>
+  <text x="995" y="365" font-size="30" fill="#5b3b2b">Overweight · 2028년 경계</text>
+  <text x="995" y="445" font-size="34" font-weight="700" fill="#14213d">삼성전자 30.9만원</text>
+  <text x="995" y="500" font-size="34" font-weight="700" fill="#14213d">SK하이닉스 160만원</text>
+  <text x="995" y="570" font-size="27" fill="#526174">2027년 말 이후 공급 증가</text>
+  <text x="995" y="610" font-size="27" fill="#526174">장기 마진·HBM 프리미엄 정상화</text>
+  <text x="90" y="755" font-size="38" font-weight="700" fill="#14213d">시간축이 다르다</text>
+  <line x1="180" y1="875" x2="1620" y2="875" stroke="#7b8794" stroke-width="8"/>
+  <circle cx="420" cy="875" r="24" fill="#1769aa"/><circle cx="1020" cy="875" r="24" fill="#1769aa"/><circle cx="1450" cy="875" r="24" fill="#b6531f"/>
+  <text x="320" y="940" font-size="30" font-weight="700" fill="#1769aa">2026</text>
+  <text x="940" y="940" font-size="30" font-weight="700" fill="#1769aa">2027</text>
+  <text x="1370" y="940" font-size="30" font-weight="700" fill="#b6531f">2028~29</text>
+  <text x="170" y="1010" font-size="28" fill="#27364d">HBM4 출하·서버 수요</text>
+  <text x="785" y="1010" font-size="28" fill="#27364d">공급 제약 지속 여부</text>
+  <text x="1280" y="1010" font-size="28" fill="#27364d">증설·마진 정상화</text>
+  <rect x="90" y="1100" width="1620" height="210" rx="24" fill="#14213d"/>
+  <text x="140" y="1175" font-size="32" font-weight="700" fill="#ffffff">핵심 체크포인트</text>
+  <text x="140" y="1235" font-size="27" fill="#dce8f5">HBM4 validation / shipments / server DRAM pricing / fab utilization</text>
+  <text x="140" y="1278" font-size="24" fill="#a9bed5">* 골드만삭스 삼성전자 목표가는 공개 자료에서 45만원과 49만원이 엇갈림</text>
+  <text x="90" y="1380" font-size="22" fill="#526174">출처: 삼성전자 IR, SK하이닉스 IR, 조선비즈, MoneyToday, TrendForce · 일반 정보</text>
+</svg>
