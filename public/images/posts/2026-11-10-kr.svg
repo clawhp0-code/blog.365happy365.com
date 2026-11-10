@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1400" viewBox="0 0 1600 1400">
+  <rect width="1600" height="1400" fill="#f7f9fc"/>
+  <rect x="70" y="60" width="1460" height="190" rx="28" fill="#10233f"/>
+  <text x="120" y="135" fill="#fff" font-size="42" font-family="Arial,sans-serif" font-weight="700">KT 3분기 실적 | 통신주를 읽는 세 가지 기준</text>
+  <text x="120" y="195" fill="#b9d7ff" font-size="25" font-family="Arial,sans-serif">2026년 11월 10일 KST · 미확인 종가·실적 수치는 표시하지 않음</text>
+  <rect x="90" y="300" width="700" height="310" rx="24" fill="#eaf4ff" stroke="#b9d7ff" stroke-width="3"/>
+  <text x="130" y="365" fill="#10233f" font-size="31" font-family="Arial,sans-serif" font-weight="700">① 통신 본업의 질</text>
+  <text x="130" y="445" fill="#53708f" font-size="25" font-family="Arial,sans-serif">연결 매출만 보지 말고</text>
+  <text x="130" y="495" fill="#1264a3" font-size="30" font-family="Arial,sans-serif" font-weight="700">무선 · 인터넷 · 미디어</text>
+  <text x="130" y="545" fill="#53708f" font-size="24" font-family="Arial,sans-serif">ARPU·가입자 구성·사업별 수익성을 함께 확인</text>
+  <rect x="810" y="300" width="700" height="310" rx="24" fill="#fff7e8" stroke="#f0d9a6" stroke-width="3"/>
+  <text x="850" y="365" fill="#10233f" font-size="31" font-family="Arial,sans-serif" font-weight="700">② AI·클라우드 투자</text>
+  <text x="850" y="445" fill="#53708f" font-size="25" font-family="Arial,sans-serif">구호보다 실제 지표</text>
+  <text x="850" y="495" fill="#c44949" font-size="30" font-family="Arial,sans-serif" font-weight="700">수주 · 가동률 · 매출 인식</text>
+  <text x="850" y="545" fill="#53708f" font-size="24" font-family="Arial,sans-serif">전력·설비 선투자와 금융비용도 함께 확인</text>
+  <rect x="90" y="680" width="700" height="310" rx="24" fill="#fff1f1" stroke="#f0caca" stroke-width="3"/>
+  <text x="130" y="745" fill="#10233f" font-size="31" font-family="Arial,sans-serif" font-weight="700">③ 배당과 현금흐름</text>
+  <text x="130" y="825" fill="#53708f" font-size="25" font-family="Arial,sans-serif">배당수익률만 보지 말고</text>
+  <text x="130" y="875" fill="#c44949" font-size="30" font-family="Arial,sans-serif" font-weight="700">영업현금흐름 · CAPEX · 차입금</text>
+  <text x="130" y="925" fill="#53708f" font-size="24" font-family="Arial,sans-serif">투자 확대 뒤에도 주주환원이 가능한지 점검</text>
+  <rect x="810" y="680" width="700" height="310" rx="24" fill="#fff" stroke="#d8e1ee" stroke-width="3"/>
+  <text x="850" y="745" fill="#10233f" font-size="31" font-family="Arial,sans-serif" font-weight="700">연결 vs 별도</text>
+  <text x="850" y="825" fill="#1264a3" font-size="30" font-family="Arial,sans-serif" font-weight="700">별도 = KT 본체</text>
+  <text x="850" y="875" fill="#1264a3" font-size="30" font-family="Arial,sans-serif" font-weight="700">연결 = 그룹 전체</text>
+  <text x="850" y="935" fill="#53708f" font-size="24" font-family="Arial,sans-serif">차이가 커지면 자회사·일회성 비용 주석 확인</text>
+  <rect x="90" y="1060" width="1420" height="220" rx="24" fill="#10233f"/>
+  <text x="130" y="1125" fill="#fff" font-size="31" font-family="Arial,sans-serif" font-weight="700">발표 후 확인 순서</text>
+  <text x="130" y="1185" fill="#b9d7ff" font-size="26" font-family="Arial,sans-serif">본업 반복현금흐름 → AI 매출 전환 → 투자 회수 → 배당 지속성</text>
+  <text x="130" y="1235" fill="#b9d7ff" font-size="20" font-family="Arial,sans-serif">출처: KT 공식 투자정보·실적자료. 미확인 수치는 추정하지 않음.</text>
+</svg>
