@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#f7f9fc"/>
+  <rect x="55" y="45" width="1490" height="910" rx="28" fill="#ffffff" stroke="#d7deea" stroke-width="3"/>
+  <text x="100" y="115" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="42" font-weight="700" fill="#10213b">한국은행 의사록이 보여준 금리의 두 얼굴</text>
+  <text x="100" y="160" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="23" fill="#5f6f86">2026년 10월 22일 금통위 회의 · 11월 10일 공개 · 11월 11일 16:30 기준</text>
+  <rect x="100" y="205" width="420" height="255" rx="20" fill="#eef4ff"/>
+  <text x="130" y="255" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="27" font-weight="700" fill="#204a87">의사록에서 읽을 축</text>
+  <text x="135" y="305" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="24" fill="#1d3557">성장 둔화 → 완화 기대</text>
+  <text x="135" y="350" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="24" fill="#1d3557">물가·가계대출·환율 → 제약</text>
+  <text x="135" y="405" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="20" fill="#5f6f86">특정 위원 발언을 다음 결정으로</text>
+  <text x="135" y="433" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="20" fill="#5f6f86">직결하지 않고 조건부로 해석</text>
+  <rect x="585" y="205" width="860" height="255" rx="20" fill="#fff7e8"/>
+  <text x="620" y="255" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="27" font-weight="700" fill="#925d00">금리 변화가 업종에 전달되는 경로</text>
+  <line x1="645" y1="345" x2="1390" y2="345" stroke="#c7d1df" stroke-width="4"/>
+  <circle cx="700" cy="345" r="34" fill="#3367d6"/><text x="690" y="355" font-family="Arial" font-size="24" fill="#fff">1</text>
+  <circle cx="940" cy="345" r="34" fill="#e0a12b"/><text x="930" y="355" font-family="Arial" font-size="24" fill="#fff">2</text>
+  <circle cx="1180" cy="345" r="34" fill="#4b9b69"/><text x="1170" y="355" font-family="Arial" font-size="24" fill="#fff">3</text>
+  <circle cx="1390" cy="345" r="34" fill="#b45b76"/><text x="1380" y="355" font-family="Arial" font-size="24" fill="#fff">4</text>
+  <text x="650" y="405" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="21" fill="#33445e">기대 변화</text>
+  <text x="878" y="405" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="21" fill="#33445e">할인율·조달비용</text>
+  <text x="1125" y="405" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="21" fill="#33445e">현금흐름·마진</text>
+  <text x="1340" y="405" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="21" fill="#33445e">주가 반응</text>
+  <rect x="100" y="520" width="1345" height="250" rx="20" fill="#f2f7f4"/>
+  <text x="135" y="570" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="27" font-weight="700" fill="#276044">업종별로 봐야 할 핵심 지표</text>
+  <rect x="135" y="605" width="360" height="115" rx="14" fill="#e4efff"/>
+  <text x="165" y="650" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="25" font-weight="700" fill="#204a87">성장주</text>
+  <text x="165" y="687" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="20" fill="#33445e">할인율 · 장기 이익 전망</text>
+  <rect x="590" y="605" width="360" height="115" rx="14" fill="#fff0d2"/>
+  <text x="620" y="650" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="25" font-weight="700" fill="#925d00">은행주</text>
+  <text x="620" y="687" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="20" fill="#33445e">예대금리차 · 대손비용</text>
+  <rect x="1045" y="605" width="360" height="115" rx="14" fill="#f6e5ed"/>
+  <text x="1075" y="650" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="25" font-weight="700" fill="#8f3f5a">수출주</text>
+  <text x="1075" y="687" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="20" fill="#33445e">환율 · 매출·비용 통화</text>
+  <rect x="100" y="820" width="1345" height="75" rx="16" fill="#10213b"/>
+  <text x="135" y="867" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="24" font-weight="700" fill="#ffffff">확인 순서: 금통위 표현 변화 → 국고채·환율 → 기업 공시의 실적 전망</text>
+  <text x="100" y="930" font-family="Arial, Apple SD Gothic Neo, sans-serif" font-size="18" fill="#6a7890">자료: 한국은행 금융통화위원회 의사록·금융시장동향. 교육용 요약이며 매매 권유가 아닙니다.</text>
+</svg>
