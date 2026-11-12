@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#0b1728"/>
+  <rect x="36" y="32" width="1128" height="696" rx="24" fill="#12243a" stroke="#2b4868" stroke-width="2"/>
+  <text x="72" y="90" fill="#f8fafc" font-family="Arial, sans-serif" font-size="32" font-weight="700">원·달러 환율 최근 3개월</text>
+  <text x="72" y="124" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="17">FRED DEXKOUS | 2026.08.13–2026.11.06 | 단위: 원/달러</text>
+  <rect x="72" y="160" width="1028" height="430" rx="16" fill="#0d1d31"/>
+  <line x1="130" y1="220" x2="1050" y2="220" stroke="#29445f"/>
+  <line x1="130" y1="300" x2="1050" y2="300" stroke="#29445f"/>
+  <line x1="130" y1="380" x2="1050" y2="380" stroke="#29445f"/>
+  <line x1="130" y1="460" x2="1050" y2="460" stroke="#29445f"/>
+  <line x1="130" y1="540" x2="1050" y2="540" stroke="#29445f"/>
+  <text x="82" y="226" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">1,420</text>
+  <text x="82" y="306" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">1,400</text>
+  <text x="82" y="386" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">1,380</text>
+  <text x="82" y="466" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">1,360</text>
+  <text x="82" y="546" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">1,340</text>
+  <polyline points="140,228 215,328 290,376 365,474 440,518 515,378 590,422 665,440 740,526 815,527 890,584 965,532 1040,495" fill="none" stroke="#47d7c4" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="140" cy="228" r="7" fill="#fbbf24"/>
+  <circle cx="1040" cy="495" r="7" fill="#fbbf24"/>
+  <circle cx="890" cy="584" r="7" fill="#fb7185"/>
+  <text x="130" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">08/13</text>
+  <text x="370" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">09/03</text>
+  <text x="610" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">09/24</text>
+  <text x="850" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">10/22</text>
+  <text x="1000" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">11/06</text>
+  <rect x="72" y="640" width="1028" height="58" rx="12" fill="#0b1728"/>
+  <text x="96" y="677" fill="#d8e5f0" font-family="Arial, sans-serif" font-size="17">시작 1,418.00원 → 최신 1,361.89원  |  3개월 변화 -3.96%  |  기간 저점 1,325.06원(10/23)</text>
+  <text x="72" y="714" fill="#7f9bb5" font-family="Arial, sans-serif" font-size="13">출처: Federal Reserve Bank of St. Louis, FRED DEXKOUS | 영업일 관측치·주간 샘플 표시</text>
+</svg>
