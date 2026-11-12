@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#111827"/>
+  <rect x="36" y="32" width="1128" height="696" rx="24" fill="#1f2937" stroke="#374151" stroke-width="2"/>
+  <text x="72" y="92" fill="#f9fafb" font-family="Arial, sans-serif" font-size="32" font-weight="700">NVIDIA 리더십·미중 리스크 투자 프레임</text>
+  <text x="72" y="126" fill="#9ca3af" font-family="Arial, sans-serif" font-size="17">자료 기준: 2026.11.12 | 확정 사실과 투자 시나리오를 구분</text>
+  <rect x="72" y="160" width="500" height="170" rx="16" fill="#0f766e"/>
+  <text x="100" y="202" fill="#ccfbf1" font-family="Arial, sans-serif" font-size="22" font-weight="700">확정된 리더십 변화</text>
+  <text x="100" y="242" fill="#f0fdfa" font-family="Arial, sans-serif" font-size="19">젠슨 황: CEO·이사 사임</text>
+  <text x="100" y="274" fill="#f0fdfa" font-family="Arial, sans-serif" font-size="19">Colette Kress: CFO 겸임 임시 CEO</text>
+  <text x="100" y="306" fill="#f0fdfa" font-family="Arial, sans-serif" font-size="19">Harvey C. Jones: 이사회 의장</text>
+  <rect x="600" y="160" width="500" height="170" rx="16" fill="#92400e"/>
+  <text x="628" y="202" fill="#fef3c7" font-family="Arial, sans-serif" font-size="22" font-weight="700">아직 확정되지 않은 것</text>
+  <text x="628" y="242" fill="#fffbeb" font-family="Arial, sans-serif" font-size="19">정식 CEO 후보·선임 시점</text>
+  <text x="628" y="274" fill="#fffbeb" font-family="Arial, sans-serif" font-size="19">독립 조사 결과·기밀 침해 여부</text>
+  <text x="628" y="306" fill="#fffbeb" font-family="Arial, sans-serif" font-size="19">의회 소환장·11/18 일정 확정</text>
+  <text x="72" y="382" fill="#f9fafb" font-family="Arial, sans-serif" font-size="24" font-weight="700">미·중 정상회의 영향 시나리오</text>
+  <line x1="92" y1="430" x2="1100" y2="430" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="180" cy="430" r="12" fill="#22c55e"/>
+  <text x="100" y="475" fill="#bbf7d0" font-family="Arial, sans-serif" font-size="20" font-weight="700">상승</text>
+  <text x="100" y="510" fill="#d1d5db" font-family="Arial, sans-serif" font-size="17">H200 허가·통관 진전 → 중국 매출 기대 개선</text>
+  <circle cx="600" cy="430" r="12" fill="#f59e0b"/>
+  <text x="520" y="475" fill="#fde68a" font-family="Arial, sans-serif" font-size="20" font-weight="700">중립</text>
+  <text x="520" y="510" fill="#d1d5db" font-family="Arial, sans-serif" font-size="17">긴장 완화 발언만 → 실적 영향 제한</text>
+  <circle cx="980" cy="430" r="12" fill="#ef4444"/>
+  <text x="900" y="475" fill="#fecaca" font-family="Arial, sans-serif" font-size="20" font-weight="700">하락</text>
+  <text x="900" y="510" fill="#d1d5db" font-family="Arial, sans-serif" font-size="17">우회 수출·보안 이슈 → 규제 강화</text>
+  <rect x="72" y="560" width="1028" height="116" rx="14" fill="#111827" stroke="#4b5563"/>
+  <text x="100" y="600" fill="#f9fafb" font-family="Arial, sans-serif" font-size="19" font-weight="700">투자자가 먼저 볼 일정</text>
+  <text x="100" y="635" fill="#d1d5db" font-family="Arial, sans-serif" font-size="17">11/17 FY2027 Q3 실적 · 11/18~19 APEC 선전 정상회의 · 의회 브리핑/소환장 여부</text>
+  <text x="72" y="706" fill="#9ca3af" font-family="Arial, sans-serif" font-size="14">출처: SEC Form 8-K, NVIDIA 이사회 성명, APEC, 미 하원 공식 서한, BIS | 교육용 자료</text>
+</svg>
