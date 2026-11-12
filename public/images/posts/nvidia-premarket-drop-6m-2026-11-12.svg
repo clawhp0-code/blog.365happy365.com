@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#f5f7fb"/>
+  <rect x="45" y="40" width="1510" height="920" rx="26" fill="#fff" stroke="#d8e0ed" stroke-width="3"/>
+  <text x="95" y="105" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="40" font-weight="700" fill="#111c32">엔비디아 최근 6개월 주가 흐름</text>
+  <text x="95" y="145" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22" fill="#63738a">조정 종가 기준 · USD · 2026-05-14 ~ 2026-11-11</text>
+  <rect x="100" y="190" width="1400" height="510" rx="18" fill="#fbfcff" stroke="#e4eaf3"/>
+  <line x1="160" y1="250" x2="1450" y2="250" stroke="#e4eaf3" stroke-width="2"/><line x1="160" y1="350" x2="1450" y2="350" stroke="#e4eaf3" stroke-width="2"/><line x1="160" y1="450" x2="1450" y2="450" stroke="#e4eaf3" stroke-width="2"/><line x1="160" y1="550" x2="1450" y2="550" stroke="#e4eaf3" stroke-width="2"/><line x1="160" y1="650" x2="1450" y2="650" stroke="#e4eaf3" stroke-width="2"/>
+  <text x="108" y="258" font-family="Arial" font-size="18" fill="#63738a">240</text><text x="108" y="358" font-family="Arial" font-size="18" fill="#63738a">220</text><text x="108" y="458" font-family="Arial" font-size="18" fill="#63738a">200</text><text x="108" y="558" font-family="Arial" font-size="18" fill="#63738a">180</text><text x="108" y="658" font-family="Arial" font-size="18" fill="#63738a">160</text>
+  <polyline points="175,322 280,395 385,374 490,451 595,448 700,354 805,367 910,307 1015,253 1120,430 1225,584 1330,516 1435,582" fill="none" stroke="#76b900" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#76b900"><circle cx="175" cy="322" r="8"/><circle cx="280" cy="395" r="8"/><circle cx="385" cy="374" r="8"/><circle cx="490" cy="451" r="8"/><circle cx="595" cy="448" r="8"/><circle cx="700" cy="354" r="8"/><circle cx="805" cy="367" r="8"/><circle cx="910" cy="307" r="8"/><circle cx="1015" cy="253" r="8"/><circle cx="1120" cy="430" r="8"/><circle cx="1225" cy="584" r="8"/><circle cx="1330" cy="516" r="8"/><circle cx="1435" cy="582" r="8"/></g>
+  <text x="150" y="730" font-family="Arial" font-size="18" fill="#63738a">5/14</text><text x="375" y="730" font-family="Arial" font-size="18" fill="#63738a">6/23</text><text x="580" y="730" font-family="Arial" font-size="18" fill="#63738a">7/31</text><text x="785" y="730" font-family="Arial" font-size="18" fill="#63738a">8/31</text><text x="980" y="730" font-family="Arial" font-size="18" fill="#63738a">10/6</text><text x="1190" y="730" font-family="Arial" font-size="18" fill="#63738a">11/5</text><text x="1390" y="730" font-family="Arial" font-size="18" fill="#63738a">11/11</text>
+  <rect x="170" y="275" width="160" height="56" rx="12" fill="#e7f5d0"/><text x="190" y="310" font-family="Arial" font-size="21" font-weight="700" fill="#3b6500">$225.83</text>
+  <rect x="940" y="205" width="160" height="56" rx="12" fill="#fff0d7"/><text x="960" y="240" font-family="Arial" font-size="21" font-weight="700" fill="#955900">고점 $239.24</text>
+  <rect x="1270" y="600" width="180" height="56" rx="12" fill="#fde5e5"/><text x="1290" y="635" font-family="Arial" font-size="21" font-weight="700" fill="#a52828">$173.73</text>
+  <rect x="100" y="770" width="1400" height="125" rx="18" fill="#eef3fb"/>
+  <text x="135" y="815" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="24" font-weight="700" fill="#203657">6개월 변화</text>
+  <text x="345" y="815" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="24" fill="#203657">225.83 → 173.73달러</text>
+  <text x="900" y="815" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="24" font-weight="700" fill="#b02d35">-23.1%</text>
+  <text x="135" y="855" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="20" fill="#63738a">최신 장전 스냅샷: 172.95달러(+2.40%로 표시) — 11/11 종가 173.73달러와 기준시각 불일치 가능</text>
+  <text x="100" y="930" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="17" fill="#718096">자료: FinanceCharts·Investing.com 공개 시세. 장전 호가는 변동하며 정규장 종가와 다를 수 있습니다.</text>
+</svg>
