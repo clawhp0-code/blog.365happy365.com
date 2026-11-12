@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#f6f8fb"/>
+  <rect x="50" y="40" width="1500" height="920" rx="28" fill="#fff" stroke="#d8e1ee" stroke-width="3"/>
+  <text x="95" y="112" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="40" font-weight="700" fill="#12233d">코스닥 정책 기대와 변동성 점검</text>
+  <text x="95" y="155" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22" fill="#62738b">2026년 11월 12일 16:30 KST · 정규장 종가 숫자는 공식 갱신 전이라 제외</text>
+  <rect x="100" y="205" width="1400" height="220" rx="20" fill="#eef4ff"/>
+  <text x="135" y="255" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="28" font-weight="700" fill="#24518f">정책 기대가 주가로 전달되는 경로</text>
+  <line x1="190" y1="345" x2="1410" y2="345" stroke="#c4d2e5" stroke-width="5"/>
+  <circle cx="250" cy="345" r="36" fill="#3169c6"/><text x="239" y="356" font-family="Arial" font-size="26" fill="#fff">1</text>
+  <circle cx="610" cy="345" r="36" fill="#5b8fcb"/><text x="599" y="356" font-family="Arial" font-size="26" fill="#fff">2</text>
+  <circle cx="970" cy="345" r="36" fill="#e1a13c"/><text x="959" y="356" font-family="Arial" font-size="26" fill="#fff">3</text>
+  <circle cx="1330" cy="345" r="36" fill="#a85b73"/><text x="1319" y="356" font-family="Arial" font-size="26" fill="#fff">4</text>
+  <text x="185" y="395" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" fill="#33445d">정책 발표</text>
+  <text x="530" y="395" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" fill="#33445d">자금·수급</text>
+  <text x="900" y="395" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" fill="#33445d">기업 실적</text>
+  <text x="1260" y="395" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" fill="#33445d">지속성 확인</text>
+  <rect x="100" y="475" width="1400" height="235" rx="20" fill="#fff8e9"/>
+  <text x="135" y="530" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="28" font-weight="700" fill="#8b5c08">한국은행이 제시한 변동성 위험</text>
+  <rect x="140" y="570" width="285" height="92" rx="14" fill="#ffe7d1"/><text x="170" y="625" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22" font-weight="700" fill="#8e4e12">글로벌 장기금리</text>
+  <rect x="465" y="570" width="285" height="92" rx="14" fill="#e5efff"/><text x="515" y="625" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22" font-weight="700" fill="#26558f">통화정책 기대</text>
+  <rect x="790" y="570" width="285" height="92" rx="14" fill="#f4e7f5"/><text x="845" y="625" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22" font-weight="700" fill="#7a3e80">AI 산업 우려</text>
+  <rect x="1115" y="570" width="285" height="92" rx="14" fill="#e5f5e9"/><text x="1168" y="625" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22" font-weight="700" fill="#277046">가계부채·주택</text>
+  <rect x="100" y="760" width="1400" height="135" rx="20" fill="#12233d"/>
+  <text x="135" y="810" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="25" font-weight="700" fill="#fff">확인 순서</text>
+  <text x="320" y="810" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="24" fill="#fff">정규장 종가 → 상승 폭·거래대금 → 매출·현금흐름</text>
+  <text x="135" y="855" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="20" fill="#cbd6e6">정책 기대만으로 매수 결론을 내리지 않고, 다음 공시에서 지속성을 확인합니다.</text>
+  <text x="100" y="930" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="17" fill="#718096">자료: 한국은행 금융시장동향·금통위 의사록·한국거래소 거래시간 안내. 교육용 요약입니다.</text>
+</svg>
