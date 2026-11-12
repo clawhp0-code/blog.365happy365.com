@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#0b1728"/>
+  <rect x="36" y="32" width="1128" height="696" rx="24" fill="#12243a" stroke="#2b4868" stroke-width="2"/>
+  <text x="72" y="90" fill="#f8fafc" font-family="Arial, sans-serif" font-size="32" font-weight="700">원·엔 환율 최근 3개월</text>
+  <text x="72" y="124" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="17">FRED 교차계산 | 2026.08.13–2026.11.06 | 100엔당 원화</text>
+  <rect x="72" y="160" width="1028" height="430" rx="16" fill="#0d1d31"/>
+  <line x1="130" y1="220" x2="1050" y2="220" stroke="#29445f"/>
+  <line x1="130" y1="300" x2="1050" y2="300" stroke="#29445f"/>
+  <line x1="130" y1="380" x2="1050" y2="380" stroke="#29445f"/>
+  <line x1="130" y1="460" x2="1050" y2="460" stroke="#29445f"/>
+  <line x1="130" y1="540" x2="1050" y2="540" stroke="#29445f"/>
+  <text x="82" y="226" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">900</text>
+  <text x="82" y="306" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">885</text>
+  <text x="82" y="386" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">870</text>
+  <text x="82" y="466" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">855</text>
+  <text x="82" y="546" fill="#9fb3c8" font-family="Arial, sans-serif" font-size="15">840</text>
+  <polyline points="140,260 215,328 290,380 365,347 440,355 515,286 590,400 665,455 740,497 815,522 890,550 965,505 1040,430" fill="none" stroke="#f3c969" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="140" cy="260" r="7" fill="#fbbf24"/>
+  <circle cx="1040" cy="430" r="7" fill="#fbbf24"/>
+  <circle cx="890" cy="550" r="7" fill="#fb7185"/>
+  <text x="130" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">08/13</text>
+  <text x="370" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">09/03</text>
+  <text x="610" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">09/25</text>
+  <text x="850" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">10/19</text>
+  <text x="1000" y="620" fill="#a8bdd2" font-family="Arial, sans-serif" font-size="15">11/06</text>
+  <rect x="72" y="640" width="1028" height="58" rx="12" fill="#0b1728"/>
+  <text x="96" y="677" fill="#d8e5f0" font-family="Arial, sans-serif" font-size="17">시작 889.87원 → 최신 860.70원  |  3개월 변화 -3.28%  |  기간 저점 839.19원(10/21)</text>
+  <text x="72" y="714" fill="#7f9bb5" font-family="Arial, sans-serif" font-size="13">출처: FRED DEXKOUS·DEXJPUS | 100엔당 원화 = 원/달러 ÷ 엔/달러 × 100</text>
+</svg>
