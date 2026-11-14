@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">뉴스케일파워 성장과 위험</title>
+  <desc id="desc">2026년 11월 14일 기준 NuScale Power의 검증된 기술·재무·계약 단계</desc>
+  <rect width="1200" height="630" fill="#f7fafc"/>
+  <rect x="0" y="0" width="1200" height="12" fill="#0f766e"/>
+  <text x="72" y="76" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">뉴스케일파워: 승인에서 매출까지</text>
+  <text x="72" y="112" font-family="Arial, sans-serif" font-size="18" fill="#475569">NYSE: SMR · 기준일 2026-11-14 · 최신 확정 재무: 2026년 3분기</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="72" y="158" width="322" height="178" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <text x="98" y="198" font-size="19" font-weight="700" fill="#115e59">기술·규제</text>
+    <text x="98" y="248" font-size="42" font-weight="700" fill="#0f172a">77 MWe</text>
+    <text x="98" y="279" font-size="18" fill="#334155">모듈당 US460</text>
+    <text x="98" y="310" font-size="18" fill="#334155">6모듈 = 462 MWe</text>
+    <text x="98" y="333" font-size="14" fill="#475569">NRC SDA: 2025-05-29</text>
+
+    <rect x="439" y="158" width="322" height="178" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="465" y="198" font-size="19" font-weight="700" fill="#92400e">상업화 단계</text>
+    <text x="465" y="248" font-size="42" font-weight="700" fill="#0f172a">6 GW</text>
+    <text x="465" y="279" font-size="18" fill="#334155">ENTRA1–TVA 최대 구상</text>
+    <text x="465" y="310" font-size="18" fill="#334155">72 NPM 관련 1단계</text>
+    <text x="465" y="333" font-size="14" fill="#92400e">비구속 문서 · PPA/OEM 미확인</text>
+
+    <rect x="806" y="158" width="322" height="178" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="832" y="198" font-size="19" font-weight="700" fill="#991b1b">최신 재무</text>
+    <text x="832" y="241" font-size="33" font-weight="700" fill="#0f172a">$0.281M</text>
+    <text x="832" y="270" font-size="16" fill="#334155">Q3 2026 매출</text>
+    <text x="832" y="305" font-size="27" font-weight="700" fill="#0f172a">$1.9B</text>
+    <text x="832" y="330" font-size="16" fill="#334155">2026-09-30 현금·투자</text>
+
+    <line x1="394" y1="247" x2="439" y2="247" stroke="#64748b" stroke-width="3"/>
+    <polygon points="439,247 427,240 427,254" fill="#64748b"/>
+    <line x1="761" y1="247" x2="806" y2="247" stroke="#64748b" stroke-width="3"/>
+    <polygon points="806,247 794,240 794,254" fill="#64748b"/>
+  </g>
+  <rect x="72" y="382" width="1056" height="118" rx="18" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="100" y="420" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">핵심 판별 순서</text>
+  <text x="100" y="458" font-family="Arial, sans-serif" font-size="18" fill="#334155">구속력 있는 PPA/offtake → 금융종결·FID → OEM·구매계약 → COLA·건설허가 → EPC·현장공사 → 반복 매출·상업운전</text>
+  <text x="100" y="485" font-family="Arial, sans-serif" font-size="15" fill="#64748b">SDA(설계 승인), 협력계약, 제작계약은 각각 건설·매출·상업운전과 다릅니다.</text>
+  <text x="72" y="548" font-family="Arial, sans-serif" font-size="13" fill="#475569">출처: NRC US460 승인·검토 페이지 · SEC NuScale Q3 2026 10-Q/8-K · NuScale Q3 2026 자료</text>
+  <text x="72" y="575" font-family="Arial, sans-serif" font-size="13" fill="#475569">단위·기간: MWe(모듈 출력), GW(최대 프로그램), USD·Q3 2026/2026-09-30. 수주·투자 조언 아님.</text>
+</svg>
