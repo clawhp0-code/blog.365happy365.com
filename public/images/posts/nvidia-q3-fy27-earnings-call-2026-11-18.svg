@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+<rect width="1600" height="1200" fill="#f5f7fb"/>
+<rect x="70" y="60" width="1460" height="190" rx="28" fill="#101f3d"/>
+<text x="120" y="135" font-family="sans-serif" font-size="50" font-weight="700" fill="#fff">엔비디아 FY2027 Q3 어닝콜</text>
+<text x="120" y="195" font-family="sans-serif" font-size="27" fill="#c8d6ea">강한 실적 · Rubin 램프 · 젠슨 황 없는 첫 시험</text>
+<text x="110" y="335" font-family="sans-serif" font-size="34" font-weight="700" fill="#101f3d">실적 핵심</text>
+<rect x="150" y="400" width="390" height="230" rx="22" fill="#4d83c3"/>
+<rect x="605" y="400" width="390" height="230" rx="22" fill="#6b9f73"/>
+<rect x="1060" y="400" width="390" height="230" rx="22" fill="#d99553"/>
+<text x="215" y="475" font-family="sans-serif" font-size="30" fill="#fff">Q3 매출</text>
+<text x="205" y="560" font-family="sans-serif" font-size="56" font-weight="700" fill="#fff">$115.8B</text>
+<text x="215" y="610" font-family="sans-serif" font-size="27" fill="#fff">YoY +103%</text>
+<text x="675" y="475" font-family="sans-serif" font-size="30" fill="#fff">데이터센터</text>
+<text x="665" y="560" font-family="sans-serif" font-size="56" font-weight="700" fill="#fff">$107.6B</text>
+<text x="675" y="610" font-family="sans-serif" font-size="27" fill="#fff">YoY +110%</text>
+<text x="1125" y="475" font-family="sans-serif" font-size="30" fill="#fff">Q4 매출 전망</text>
+<text x="1100" y="560" font-family="sans-serif" font-size="50" font-weight="700" fill="#fff">$130B ±3%</text>
+<text x="1125" y="610" font-family="sans-serif" font-size="27" fill="#fff">중국 컴퓨트 0 가정</text>
+<text x="110" y="735" font-family="sans-serif" font-size="34" font-weight="700" fill="#101f3d">콜에서 새로 확인된 점</text>
+<rect x="150" y="800" width="590" height="180" rx="20" fill="#e9eef7"/>
+<rect x="860" y="800" width="590" height="180" rx="20" fill="#f5e8e6"/>
+<text x="195" y="870" font-family="sans-serif" font-size="30" font-weight="700" fill="#203457">Rubin NVL72</text>
+<text x="195" y="925" font-family="sans-serif" font-size="27" fill="#44556c">생산·출하 시작, 주요 클라우드 가동</text>
+<text x="905" y="870" font-family="sans-serif" font-size="30" font-weight="700" fill="#7d2d3b">CEO 전환</text>
+<text x="905" y="925" font-family="sans-serif" font-size="27" fill="#6b4350">이사회: 젠슨 황 복귀 추진 안 함</text>
+<text x="140" y="1080" font-family="sans-serif" font-size="24" fill="#718096">자료 기준: 2026-11-18 09:30 KST · 공식 NVIDIA·SEC 자료 및 AP·Axios 보도</text>
+</svg>
