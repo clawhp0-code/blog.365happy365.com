@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">스탠리 드러켄밀러의 투자 사고법</title>
+  <desc id="desc">경력의 주요 이정표와 공개 발언에서 확인되는 투자 원칙을 정리한 인포그래픽</desc>
+  <rect width="1200" height="630" fill="#0b1220"/>
+  <rect x="0" y="0" width="1200" height="12" fill="#4fd1c5"/>
+  <text x="70" y="76" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="38" font-weight="700">스탠리 드러켄밀러</text>
+  <text x="70" y="116" fill="#a7f3d0" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="24">거시 흐름을 읽고, 가설이 바뀌면 포지션도 바꾼 투자자</text>
+
+  <line x1="90" y1="190" x2="1110" y2="190" stroke="#334155" stroke-width="4"/>
+  <circle cx="150" cy="190" r="12" fill="#4fd1c5"/>
+  <circle cx="410" cy="190" r="12" fill="#4fd1c5"/>
+  <circle cx="690" cy="190" r="12" fill="#4fd1c5"/>
+  <circle cx="970" cy="190" r="12" fill="#4fd1c5"/>
+  <text x="110" y="235" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="25" font-weight="700">1975</text>
+  <text x="80" y="268" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">Bowdoin 졸업</text>
+  <text x="350" y="235" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="25" font-weight="700">1981</text>
+  <text x="310" y="268" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">Duquesne 설립</text>
+  <text x="630" y="235" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="25" font-weight="700">1988–2000</text>
+  <text x="603" y="268" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">Soros·Quantum 운용</text>
+  <text x="915" y="235" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="25" font-weight="700">1992</text>
+  <text x="865" y="268" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">파운드 ERM 이탈</text>
+
+  <rect x="70" y="325" width="500" height="205" rx="16" fill="#111c31" stroke="#243b53"/>
+  <text x="105" y="370" fill="#4fd1c5" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="25" font-weight="700">핵심 원칙</text>
+  <text x="105" y="412" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="21">• 18개월 뒤의 환경을 상상한다</text>
+  <text x="105" y="450" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="21">• 정책·유동성·가격 반응을 함께 본다</text>
+  <text x="105" y="488" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="21">• 맞을 때의 이익과 틀릴 때의 손실을 비교한다</text>
+
+  <rect x="630" y="325" width="500" height="205" rx="16" fill="#111c31" stroke="#243b53"/>
+  <text x="665" y="370" fill="#f6ad55" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="25" font-weight="700">개인 투자자의 번역</text>
+  <text x="665" y="412" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="21">• 가설과 반박 증거를 먼저 적기</text>
+  <text x="665" y="450" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="21">• 이유가 훼손되면 규모를 줄이기</text>
+  <text x="665" y="488" fill="#f7fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="21">• 집중·레버리지를 그대로 복제하지 않기</text>
+
+  <text x="70" y="575" fill="#94a3b8" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15">출처: UC Berkeley 보관 약력 · Bank of England · Lost Tree Club 2015 · Morgan Stanley Hard Lessons · NBIM 인터뷰</text>
+  <text x="70" y="601" fill="#64748b" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="13">성과 수치는 보도·본인 회고와 독립 검증을 구분해야 하며, 본 이미지는 투자 추천이 아닙니다.</text>
+</svg>
