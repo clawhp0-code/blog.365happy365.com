@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+<rect width="1200" height="900" fill="#f8fafc"/>
+<text x="70" y="70" font-family="sans-serif" font-size="34" font-weight="700" fill="#0f172a">원/달러 환율 최근 1개월</text>
+<text x="70" y="108" font-family="sans-serif" font-size="18" fill="#475569">ECOS 매매기준율 · 2026.10.21–11.17 · 단위: 원/달러</text>
+<line x1="110" y1="690" x2="1130" y2="690" stroke="#94a3b8"/><line x1="110" y1="210" x2="110" y2="690" stroke="#94a3b8"/>
+<g font-family="sans-serif" font-size="16" fill="#64748b"><text x="55" y="696">1315</text><text x="55" y="600">1325</text><text x="55" y="504">1335</text><text x="55" y="408">1345</text><text x="55" y="312">1355</text><text x="55" y="216">1365</text></g>
+<g stroke="#e2e8f0"><line x1="110" y1="594" x2="1130" y2="594"/><line x1="110" y1="498" x2="1130" y2="498"/><line x1="110" y1="402" x2="1130" y2="402"/><line x1="110" y1="306" x2="1130" y2="306"/></g>
+<polyline fill="none" stroke="#2563eb" stroke-width="5" points="110,565 164,589 218,598 272,601 326,617 380,601 434,486 488,496 542,478 596,442 650,440 704,445 758,431 812,280 866,301 920,421 974,483 1028,522 1082,508 1130,498"/>
+<g fill="#2563eb"><circle cx="326" cy="617" r="7"/><circle cx="812" cy="280" r="7"/><circle cx="1130" cy="498" r="7"/></g>
+<g font-family="sans-serif" font-size="17" fill="#0f172a"><text x="270" y="650">저점 1,322.6 (10/27)</text><text x="760" y="250">고점 1,357.9 (11/9)</text><text x="990" y="470">최근 1,335.0</text></g>
+<g font-family="sans-serif" font-size="16" fill="#64748b"><text x="110" y="730">10/21</text><text x="300" y="730">10/27</text><text x="500" y="730">11/3</text><text x="700" y="730">11/10</text><text x="1040" y="730">11/17</text></g>
+<rect x="110" y="780" width="1020" height="70" rx="12" fill="#e0f2fe"/><text x="140" y="812" font-family="sans-serif" font-size="18" font-weight="700" fill="#075985">11월 기관 전망 집계</text><text x="360" y="812" font-family="sans-serif" font-size="18" fill="#0c4a6e">하단 평균 1,308.75 · 상단 평균 1,360.0</text><text x="140" y="838" font-family="sans-serif" font-size="14" fill="#0c4a6e">조건부 참고 범위이며 목표환율이 아닙니다. 출처: K-SURE 2026년 11월 환율 동향</text>
+<text x="70" y="875" font-family="sans-serif" font-size="13" fill="#64748b">자료: ECOS 매매기준율(TradeBigData 공개 시계열 대조) · 작성일 2026-11-18</text>
+</svg>
