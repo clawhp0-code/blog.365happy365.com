@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">앤트로픽 IPO 투자 체크포인트</title>
+  <desc id="desc">2026년 11월 19일 기준 Anthropic ANT의 공모 일정, 재무, 비용과 투자 위험 요약</desc>
+  <rect width="1200" height="1500" fill="#f5f1e8"/>
+  <rect x="60" y="55" width="1080" height="210" rx="28" fill="#171717"/>
+  <text x="110" y="125" fill="#d6ff64" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="28" font-weight="700">ANTHROPIC · NASDAQ ANT</text>
+  <text x="110" y="185" fill="#ffffff" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="48" font-weight="700">11월 19일 거래 예정</text>
+  <text x="110" y="230" fill="#d6d6d6" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="24">최종 공모가·첫 체결은 아직 확인 전 · 기준 2026-11-19 KST</text>
+
+  <text x="70" y="335" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="34" font-weight="700">공모 일정</text>
+  <line x1="160" y1="405" x2="1040" y2="405" stroke="#9f927e" stroke-width="8"/>
+  <circle cx="240" cy="405" r="22" fill="#ef6a4c"/><circle cx="600" cy="405" r="22" fill="#ef6a4c"/><circle cx="960" cy="405" r="22" fill="#171717"/>
+  <text x="160" y="460" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" font-weight="700">11/17</text>
+  <text x="125" y="494" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="21">S-1/A·8-A</text>
+  <text x="515" y="460" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" font-weight="700">11/18 미국</text>
+  <text x="510" y="494" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="21">가격 결정 예정</text>
+  <text x="875" y="460" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="23" font-weight="700">11/19 미국</text>
+  <text x="865" y="494" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="21">Nasdaq 거래 예정</text>
+
+  <rect x="60" y="555" width="1080" height="340" rx="26" fill="#ffffff"/>
+  <text x="100" y="615" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="32" font-weight="700">신고서에서 확인된 숫자</text>
+  <text x="110" y="700" fill="#ef6a4c" font-family="Arial,sans-serif" font-size="52" font-weight="700">$70–78</text>
+  <text x="110" y="742" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22">예상 범위 · 확정가 아님</text>
+  <text x="455" y="700" fill="#ef6a4c" font-family="Arial,sans-serif" font-size="52" font-weight="700">825M</text>
+  <text x="455" y="742" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22">Class A 공모 주식 수</text>
+  <text x="800" y="700" fill="#ef6a4c" font-family="Arial,sans-serif" font-size="52" font-weight="700">$33.24B</text>
+  <text x="800" y="742" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="22">2026년 1~9월 매출</text>
+  <line x1="100" y1="790" x2="1100" y2="790" stroke="#e5ded2" stroke-width="2"/>
+  <text x="110" y="840" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="25" font-weight="700">영업손실 $1.26B</text>
+  <text x="455" y="840" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="25" font-weight="700">영업현금흐름 +$6.57B</text>
+  <text x="820" y="840" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="25" font-weight="700">사용량 매출 79%</text>
+
+  <text x="70" y="970" fill="#171717" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="34" font-weight="700">첫 거래 전에 확인할 4가지</text>
+  <g font-family="Arial,Apple SD Gothic Neo,sans-serif">
+    <rect x="60" y="1010" width="520" height="150" rx="22" fill="#dce7d5"/><text x="95" y="1060" font-size="26" font-weight="700" fill="#171717">01 최종 공모가</text><text x="95" y="1105" font-size="21" fill="#3d4939">SEC 424(b)(4)와 회사 발표 확인</text>
+    <rect x="620" y="1010" width="520" height="150" rx="22" fill="#f0d9cd"/><text x="655" y="1060" font-size="26" font-weight="700" fill="#171717">02 완전희석 가치</text><text x="655" y="1105" font-size="21" fill="#4d3c34">옵션·RSU·Class N까지 포함</text>
+    <rect x="60" y="1190" width="520" height="150" rx="22" fill="#dce7d5"/><text x="95" y="1240" font-size="26" font-weight="700" fill="#171717">03 컴퓨트 경제성</text><text x="95" y="1285" font-size="21" fill="#3d4939">비용률·구매약정·영업현금흐름</text>
+    <rect x="620" y="1190" width="520" height="150" rx="22" fill="#f0d9cd"/><text x="655" y="1240" font-size="26" font-weight="700" fill="#171717">04 주주권리·사기</text><text x="655" y="1285" font-size="21" fill="#4d3c34">특수 의결권·가짜 pre-IPO 구분</text>
+  </g>
+  <text x="70" y="1410" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="20">출처: Anthropic 로드쇼, SEC S-1/A No.3·Form 8-A, Nasdaq Trader</text>
+  <text x="70" y="1445" fill="#4a443c" font-family="Arial,Apple SD Gothic Neo,sans-serif" font-size="20">단위: USD · M=백만, B=십억 · 투자 권유가 아닌 정보 제공용</text>
+</svg>
