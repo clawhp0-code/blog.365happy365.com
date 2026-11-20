@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Anthropic IPO에도 나스닥 급락</title>
+  <desc id="desc">2026년 11월 19일 나스닥, AMD, 마이크론의 시장 반전과 핵심 수치를 요약한 인포그래픽</desc>
+  <rect width="1200" height="630" fill="#0b1220"/><rect width="1200" height="12" fill="#f59e0b"/>
+  <text x="70" y="78" fill="#f8fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="38" font-weight="700">Anthropic IPO에도 나스닥 급락</text>
+  <text x="70" y="120" fill="#fcd34d" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="23">AI 랠리가 ‘수요’에서 ‘이익의 지속성’ 검증으로 넘어간 하루</text>
+  <rect x="70" y="170" width="330" height="190" rx="16" fill="#111c31" stroke="#26364f"/>
+  <text x="105" y="215" fill="#94a3b8" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">나스닥 종합</text>
+  <text x="105" y="280" fill="#f87171" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="54" font-weight="700">−2.25%</text>
+  <text x="105" y="325" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="18">11월 19일 · 6거래일 연속 하락</text>
+  <rect x="435" y="170" width="330" height="190" rx="16" fill="#111c31" stroke="#26364f"/>
+  <text x="470" y="215" fill="#94a3b8" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">AMD</text>
+  <text x="470" y="280" fill="#f87171" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="54" font-weight="700">−7.72%</text>
+  <text x="470" y="325" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="18">Hunterbrook 중국 공급망 의혹</text>
+  <rect x="800" y="170" width="330" height="190" rx="16" fill="#111c31" stroke="#26364f"/>
+  <text x="835" y="215" fill="#94a3b8" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="19">Micron</text>
+  <text x="835" y="280" fill="#f87171" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="54" font-weight="700">−2.10%</text>
+  <text x="835" y="325" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="18">AI 메모리 수혜에도 장중 반전</text>
+  <line x1="105" y1="432" x2="1095" y2="432" stroke="#334155" stroke-width="4"/>
+  <circle cx="180" cy="432" r="10" fill="#4ade80"/><circle cx="585" cy="432" r="10" fill="#f59e0b"/><circle cx="980" cy="432" r="10" fill="#f87171"/>
+  <text x="115" y="480" fill="#f8fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="22" font-weight="700">장 초반</text>
+  <text x="115" y="512" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="18">NVIDIA 실적·Anthropic 공모가</text>
+  <text x="520" y="480" fill="#f8fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="22" font-weight="700">10:27 ET</text>
+  <text x="520" y="512" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="18">AMD 보고서 공개</text>
+  <text x="910" y="480" fill="#f8fafc" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="22" font-weight="700">장 마감</text>
+  <text x="910" y="512" fill="#cbd5e1" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="18">AI 밸류에이션 재검증</text>
+  <text x="70" y="590" fill="#94a3b8" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15">출처: AP·Reuters·Hunterbrook·Micron IR·KIS 해외주식 1분봉 · 2026-11-19 미국장</text>
+</svg>
