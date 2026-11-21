@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="1008" viewBox="0 0 840 1008" role="img" aria-labelledby="title desc">
+  <title id="title">나스닥 급락 50일, 4·9거래일 뒤의 흐름</title>
+  <desc id="desc">1971년부터 2026년 11월 20일까지 나스닥이 하루 5% 이상 하락한 50일을 각각 집계했다. 후속 종가가 확인된 49건의 수익률 중앙값은 4일 +3.67%, 9일 +1.23%로, 각각 30건과 29건이 상승했다. 첫 급락 13건의 중앙값은 +3.47%, −1.47%, 두 번째 급락 7건은 +5.09%, +0.16%였다. 같은 순서로 평균은 전체 +1.43%와 +1.35%, 첫 급락 +0.81%와 −0.76%, 두 번째 급락 +1.03%와 −3.59%였다. 11월 27일은 반등에 조금 더 무게를 두고, 12월 4일은 방향 판단을 유보했다. 두 번째 급락의 9거래일 평균은 두 차례 큰 하락의 영향을 받았다.</desc>
+  <rect width="840" height="855" rx="22" fill="#f2f6f6"/>
+  <g font-family="Apple SD Gothic Neo, Noto Sans CJK KR, Malgun Gothic, sans-serif" fill="#172d3c">
+    <text x="38" y="47" fill="#49626e" font-size="20">나스닥 종합 · 1971년 2월~2026년 11월 20일</text>
+    <text x="36" y="100" font-size="49" font-weight="800">급락 50건, 반등은 얼마나 갔나</text>
+    <text x="38" y="140" font-size="23" fill="#49626e">하루 5% 이상 하락 · 후속 종가 확인 49건</text>
+
+    <rect x="36" y="166" width="768" height="365" rx="15" fill="#fff" stroke="#d8e3e4"/>
+    <text x="57" y="205" font-size="24" font-weight="700">급락일 종가 대비 수익률</text>
+    <rect x="335" y="193" width="15" height="10" rx="2" fill="#235076"/>
+    <text x="356" y="205" font-size="16" fill="#49626e">중앙값</text>
+    <circle cx="423" cy="198" r="5" fill="#a14a13"/>
+    <text x="434" y="205" font-size="16" fill="#a14a13">평균값</text>
+    <g text-anchor="end" font-size="18" fill="#49626e">
+      <text x="633" y="205">중앙값</text>
+      <text x="783" y="205" fill="#a14a13">평균값</text>
+    </g>
+    <text x="685" y="205" text-anchor="middle" font-size="18" fill="#49626e">상승 건수</text>
+    <path d="M56 363 H783" stroke="#dce6e8"/>
+    <path d="M390 242 V346 M390 397 V506" stroke="#9eb0b8" stroke-width="2"/>
+    <g font-size="21" font-weight="700" fill="#3b5362">
+      <text x="57" y="240">4거래일 뒤</text>
+      <text x="57" y="400">9거래일 뒤</text>
+    </g>
+    <g font-size="22">
+      <text x="57" y="270">전체 급락 49건</text>
+      <text x="57" y="307">첫 급락 13건</text>
+      <text x="57" y="344">두 번째 급락 7건</text>
+      <text x="57" y="430">전체 급락 49건</text>
+      <text x="57" y="467">첫 급락 13건</text>
+      <text x="57" y="504">두 번째 급락 7건</text>
+    </g>
+    <g fill="#235076">
+      <rect x="390" y="253" width="113.77" height="19" rx="3"/>
+      <rect x="390" y="413" width="38.13" height="19" rx="3"/>
+    </g>
+    <g fill="#197267">
+      <rect x="390" y="290" width="107.57" height="19" rx="3"/>
+      <rect x="344.43" y="450" width="45.57" height="19" rx="3"/>
+    </g>
+    <g fill="#6c50a0">
+      <rect x="390" y="327" width="157.79" height="19" rx="3"/>
+      <rect x="390" y="487" width="4.96" height="19" rx="3"/>
+    </g>
+    <g text-anchor="end" font-size="22" font-weight="750">
+      <text x="633" y="270" fill="#235076">+3.67%</text>
+      <text x="633" y="307" fill="#197267">+3.47%</text>
+      <text x="633" y="344" fill="#6c50a0">+5.09%</text>
+      <text x="633" y="430" fill="#235076">+1.23%</text>
+      <text x="633" y="467" fill="#197267">−1.47%</text>
+      <text x="633" y="504" fill="#6c50a0">+0.16%</text>
+    </g>
+    <g fill="#a14a13" stroke="#fff" stroke-width="2">
+      <circle cx="434.33" cy="262.5" r="6.2"/>
+      <circle cx="415.11" cy="299.5" r="6.2"/>
+      <circle cx="421.93" cy="336.5" r="6.2"/>
+      <circle cx="431.85" cy="422.5" r="6.2"/>
+      <circle cx="366.44" cy="459.5" r="6.2"/>
+      <circle cx="278.71" cy="496.5" r="6.2"/>
+    </g>
+    <g text-anchor="end" font-size="20" font-weight="700" fill="#a14a13">
+      <text x="783" y="270">+1.43%</text>
+      <text x="783" y="307">+0.81%</text>
+      <text x="783" y="344">+1.03%</text>
+      <text x="783" y="430">+1.35%</text>
+      <text x="783" y="467">−0.76%</text>
+      <text x="783" y="504">−3.59%</text>
+    </g>
+    <g text-anchor="middle" font-size="20" font-weight="700" fill="#3b5362">
+      <text x="685" y="270">30/49</text>
+      <text x="685" y="307">7/13</text>
+      <text x="685" y="344">4/7</text>
+      <text x="685" y="430">29/49</text>
+      <text x="685" y="467">6/13</text>
+      <text x="685" y="504">4/7</text>
+      <text x="390" y="237" font-size="17">0%</text>
+    </g>
+
+    <rect x="36" y="549" width="768" height="235" rx="15" fill="#172d3c"/>
+    <text x="57" y="586" font-size="24" font-weight="750" fill="#fff">11월 20일 급락 뒤 4·9거래일 전망</text>
+    <text x="57" y="615" font-size="20" fill="#c3d8e3">기준 종가 22,617.73 · 날짜는 미국 현지 기준</text>
+    <path d="M56 631 H783 M418 647 V766" stroke="#456575"/>
+    <g fill="#fff">
+      <text x="57" y="667" font-size="21" fill="#a4d9cd">11월 27일 · 4거래일 뒤</text>
+      <text x="57" y="700" font-size="28" font-weight="750">반등에 조금 더 무게</text>
+      <text x="57" y="734" font-size="19">전체 30/49 상승 · 중앙값 +3.67%</text>
+      <text x="57" y="760" font-size="18" fill="#c3d8e3">11월 25일 PCE 물가 발표</text>
+      <text x="439" y="667" font-size="21" fill="#a4d9cd">12월 4일 · 9거래일 뒤</text>
+      <text x="439" y="700" font-size="28" font-weight="750">방향 판단 유보</text>
+      <text x="439" y="734" font-size="19">두 번째 4/7 상승 · 중앙값 +0.16%</text>
+      <text x="439" y="760" font-size="18" fill="#c3d8e3">당일 미국 고용보고서 발표</text>
+    </g>
+
+    <rect x="36" y="800" width="768" height="104" rx="15" fill="#fff3e7"/>
+    <text x="57" y="839" font-size="23" font-weight="750" fill="#8a3e10">큰 하락 사례가 평균에 미친 영향</text>
+    <text x="57" y="875" font-size="21" fill="#744427">두 번째 급락 9일 평균 −3.59% · 큰 낙폭 두 건 −21.37%, −11.15%</text>
+    <g fill="#49626e" font-size="18">
+      <text x="38" y="942">11월 20일 후속 종가 미관측 · 반복 급락의 관측 기간 일부 중복</text>
+      <text x="38" y="968">첫째·둘째 급락 비교는 252거래일 추적이 가능한 기존 표본</text>
+      <text x="38" y="994">자료 FRED · AP · NYSE · 미국 경제분석국 · 미국 노동통계국</text>
+    </g>
+  </g>
+</svg>
