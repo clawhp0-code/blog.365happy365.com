@@ -1,6 +1,5 @@
+import { siteUrl } from "@/lib/site-url";
 import { MetadataRoute } from "next";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {

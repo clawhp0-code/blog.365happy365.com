@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import { Noto_Sans_KR, Lora, Fira_Code } from "next/font/google";
 import "./globals.css";
@@ -19,8 +20,6 @@ const firaCode = Fira_Code({
   variable: "--font-fira-code",
   display: "swap",
 });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

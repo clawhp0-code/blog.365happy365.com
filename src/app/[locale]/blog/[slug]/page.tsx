@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site-url";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { useMDXComponent } from "next-contentlayer2/hooks";
@@ -36,8 +37,6 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const { locale, slug } = await params;
   const post = getPostBySlug(decodeURIComponent(slug), locale as Locale);
   if (!post) return {};
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
 
   return {
     title: post.title,
@@ -82,8 +81,6 @@ function PostContent({ slug, locale }: { slug: string; locale: Locale }) {
   const dict = getDictionary(locale);
   const MDXContent = useMDXComponent(post.body.code);
   const headings = extractHeadings(post.body.raw);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",

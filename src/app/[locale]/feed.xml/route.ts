@@ -1,9 +1,8 @@
+import { siteUrl } from "@/lib/site-url";
 import { Feed } from "feed";
 import { getAllPosts } from "@/lib/posts";
 import type { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
 
 export async function GET(
   _request: Request,

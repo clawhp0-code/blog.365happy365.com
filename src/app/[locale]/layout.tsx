@@ -1,11 +1,10 @@
+import { siteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { locales, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.365happy365.com";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
